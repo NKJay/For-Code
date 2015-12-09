@@ -26,22 +26,28 @@ class ViewController: UIViewController {
     func loadData(){
         let afmanager = AFHTTPRequestOperationManager()
         let getDataUrl = URL + getDate(true)
-        afmanager.GET(getDataUrl, parameters: nil, success: { (AFHTTPRequestOperation, resp:AnyObject) -> Void in
-            let results = resp.objectForKey("results")! as! NSArray
-            let currentNewsDataSource = NSMutableArray()
+        let op=afmanager.GET(getDataUrl, parameters: nil, success: { (AFHTTPRequestOperation, resp:AnyObject) -> Void in
+            print(resp)
+            let results = resp.objectForKey("results")! as! NSDictionary
+//            print(results)
             for each in results{
-                let item = NewsItem()
-                item.author = each.objectForKey("who")! as! NSString
-                item.title = each.objectForKey("desc")! as! NSString
-                item.url = each.objectForKey("url")! as! NSString
-                item.time = each.objectForKey("publishedAt") as! NSString
-                item.type = each.objectForKey("type") as! NSString
-                print(item.title)
-                currentNewsDataSource.addObject(item)
+                print(each)
             }
+//            let currentNewsDataSource = NSMutableArray()
+//            for each in results{
+//                let item = NewsItem()
+//                item.author = each.objectForKey("who")! as! NSString
+//                item.title = each.objectForKey("desc")! as! NSString
+//                item.url = each.objectForKey("url")! as! NSString
+//                item.time = each.objectForKey("publishedAt") as! NSString
+//                item.type = each.objectForKey("type") as! NSString
+//                print(item.title)
+//                currentNewsDataSource.addObject(item)
+//            }
             }) { (AFHTTPRequestOperation, error:NSError) -> Void in
                 print(error)
         }
+//        op?.responseSerializer = AFHTTPResponseSerializer()
     }
     
 //    判断今天是否有数据并获取日期
@@ -51,13 +57,11 @@ class ViewController: UIViewController {
         dataformator.dateFormat = "yyyy/MM/dd"
         if ifdata{
             let day = dataformator.stringFromDate(date)
-            print(day)
             return day
         }
         else{
             let yesterday = date.dateByAddingTimeInterval(-60 * 60 * 24) as NSDate
             let day = dataformator.stringFromDate(yesterday)
-            print(day)
             return day
         }
     }
