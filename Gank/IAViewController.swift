@@ -9,12 +9,25 @@
 import UIKit
 
 class IAViewController: UIViewController,UITableViewDataSource,UITableViewDelegate {
-    let URL = "http://gank.avosapps.com/api/data/iOS/10/1"
-    var dataSource = []
+    var URL = String()
+    var dataSource = NSMutableArray()
+    var ifandroid = Bool()
+    var i = 1
     @IBOutlet weak var newsTableView: UITableView!
     override func viewDidLoad() {
         super.viewDidLoad()
-        loadData()
+        if ifandroid{
+            URL = "http://gank.avosapps.com/api/data/android/10/1"
+        }else{
+         URL = "http://gank.avosapps.com/api/data/iOS/10/1"
+        }
+        loadData(URL)
+        newsTableView.mj_header = MJRefreshNormalHeader(refreshingBlock: { () -> Void in
+            self.loadData(self.URL)
+        })
+        newsTableView.mj_footer = MJRefreshAutoNormalFooter(refreshingBlock: { () -> Void in
+            self.loadMoreData()
+        })
         // Do any additional setup after loading the view.
     }
 
@@ -33,22 +46,26 @@ class IAViewController: UIViewController,UITableViewDataSource,UITableViewDelega
 //            
 //        print("asd")
     }
-    func loadData(){
+    
+    
+    
+//    首次加载数据
+    func loadData(URL:String){
         let afmanager = AFHTTPRequestOperationManager()
         afmanager.GET(URL, parameters: nil, success: { (AFHTTPRequestOperation, resp:AnyObject) -> Void in
             let results = resp.objectForKey("results")! as! NSArray
-            let currentNewsDataSource = NSMutableArray()
             for each in results{
                 let item = NewsItem()
                 item.author = each.objectForKey("who")! as! NSString
                 item.title = each.objectForKey("desc")! as! NSString
                 item.url = each.objectForKey("url")! as! NSString
                 item.time = each.objectForKey("publishedAt") as! NSString
-                currentNewsDataSource.addObject(item)
+                self.dataSource.addObject(item)
             }
             dispatch_async(dispatch_get_main_queue(), { () -> Void in
-                self.dataSource = currentNewsDataSource
                 self.newsTableView.reloadData()
+                self.newsTableView.mj_header.endRefreshing()
+                self.newsTableView.mj_footer.endRefreshing()
                 
             })
             }) { (AFHTTPRequestOperation, error:NSError) -> Void in
@@ -56,10 +73,19 @@ class IAViewController: UIViewController,UITableViewDataSource,UITableViewDelega
         }
     }
     
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int{
-        return dataSource.count
+    func loadMoreData(){
+        URL = "http://gank.avosapps.com/api/data/iOS/10/"+String(i++)
+        loadData(URL)
     }
     
+    
+    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int{
+        print(dataSource.count)
+        return dataSource.count
+
+    }
+    
+//    加载每个cell的数据
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell{
         let cell = tableView.dequeueReusableCellWithIdentifier("cell")! as UITableViewCell
         let title = cell.viewWithTag(1) as! UILabel
@@ -72,6 +98,7 @@ class IAViewController: UIViewController,UITableViewDataSource,UITableViewDelega
         return cell
     }
     
+//    每个Cell的点击事件
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath){
         let myStoryboard = UIStoryboard.init(name: "Main", bundle: nil)
         let webView = myStoryboard.instantiateViewControllerWithIdentifier("webView") as! WebViewController
