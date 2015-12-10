@@ -7,11 +7,13 @@
 //
 
 import UIKit
+import CoreData
 
 class IAViewController: UIViewController,UITableViewDataSource,UITableViewDelegate {
     var URL = String()
     var dataSource = NSMutableArray()
     var ifandroid = Bool()
+    var context = (UIApplication.sharedApplication().delegate as! AppDelegate).managedObjectContext
     var i = 1
     @IBOutlet weak var newsTableView: UITableView!
     override func viewDidLoad() {
@@ -56,10 +58,16 @@ class IAViewController: UIViewController,UITableViewDataSource,UITableViewDelega
             let results = resp.objectForKey("results")! as! NSArray
             for each in results{
                 let item = NewsItem()
+                let row = NSEntityDescription.insertNewObjectForEntityForName("IOSNews", inManagedObjectContext: self.context)
                 item.author = each.objectForKey("who")! as! NSString
+                row.setValue(item.author, forKey: "author")
                 item.title = each.objectForKey("desc")! as! NSString
+                row.setValue(item.title, forKey: "title")
                 item.url = each.objectForKey("url")! as! NSString
+                row.setValue(item.url, forKey: "url")
                 item.time = each.objectForKey("publishedAt") as! NSString
+                row.setValue(item.time, forKey: "time")
+                try! self.context.save()
                 self.dataSource.addObject(item)
             }
             dispatch_async(dispatch_get_main_queue(), { () -> Void in

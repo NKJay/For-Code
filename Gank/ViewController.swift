@@ -26,7 +26,7 @@ class ViewController: UIViewController {
     func loadData(){
         let afmanager = AFHTTPRequestOperationManager()
         let getDataUrl = URL + getDate(true)
-        let op=afmanager.GET(getDataUrl, parameters: nil, success: { (AFHTTPRequestOperation, resp:AnyObject) -> Void in
+        afmanager.GET(getDataUrl, parameters: nil, success: { (AFHTTPRequestOperation, resp:AnyObject) -> Void in
             print(resp)
             let results = resp.objectForKey("results")! as! NSDictionary
 //            print(results)
@@ -47,7 +47,6 @@ class ViewController: UIViewController {
             }) { (AFHTTPRequestOperation, error:NSError) -> Void in
                 print(error)
         }
-//        op?.responseSerializer = AFHTTPResponseSerializer()
     }
     
 //    判断今天是否有数据并获取日期
