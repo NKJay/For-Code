@@ -32,6 +32,9 @@ class IAViewController: UIViewController,UITableViewDataSource,UITableViewDelega
             self.loadMoreData()
         })
         
+        let f = NSFetchRequest(entityName: "IOSNews")
+        self.localData = try! self.context.executeFetchRequest(f)
+        
     }
     
     override func didReceiveMemoryWarning() {
@@ -58,6 +61,11 @@ class IAViewController: UIViewController,UITableViewDataSource,UITableViewDelega
         let afmanager = AFHTTPRequestOperationManager()
         afmanager.GET(loadUrl, parameters: nil, success: { (AFHTTPRequestOperation, resp:AnyObject) -> Void in
             let results = resp.objectForKey("results")! as! NSArray
+            if self.localData.count > 2{
+                for i in 0...9{
+                    self.context.deleteObject(self.localData[i] as! NSManagedObject)
+                }
+            }
             for each in results{
                 let item = NewsItem()
                 let row = NSEntityDescription.insertNewObjectForEntityForName("IOSNews", inManagedObjectContext: self.context)
@@ -82,8 +90,6 @@ class IAViewController: UIViewController,UITableViewDataSource,UITableViewDelega
                 
             })
             }) { (AFHTTPRequestOperation, error:NSError) -> Void in
-                let f = NSFetchRequest(entityName: "IOSNews")
-                self.localData = try! self.context.executeFetchRequest(f)
                 for i in 0...9{
                     let item = NewsItem()
                     item.author = self.localData[i].valueForKey("author")! as! String
@@ -134,6 +140,7 @@ class IAViewController: UIViewController,UITableViewDataSource,UITableViewDelega
     }
     
     
+    //    返回Cell数量
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int{
         return dataSource.count
         
@@ -164,15 +171,5 @@ class IAViewController: UIViewController,UITableViewDataSource,UITableViewDelega
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
     }
     
-    
-    /*
-    // MARK: - Navigation
-    
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-    // Get the new view controller using segue.destinationViewController.
-    // Pass the selected object to the new view controller.
-    }
-    */
     
 }

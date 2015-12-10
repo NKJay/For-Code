@@ -8,7 +8,7 @@
         <!--View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="IAViewController" customModule="Gank" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ios" id="BYZ-38-t0r" customClass="IAViewController" customModule="Gank" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
@@ -17,13 +17,13 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="127" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="d0K-se-PLS">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="127" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="d0K-se-PLS">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                 <animations/>
-                                <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="cell" rowHeight="127" id="WaJ-XR-q9e">
-                                        <rect key="frame" x="0.0" y="113.5" width="320" height="127"/>
+                                        <rect key="frame" x="0.0" y="92" width="320" height="127"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="WaJ-XR-q9e" id="XfJ-L8-LBi">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="126.5"/>
@@ -71,7 +71,7 @@
         <!--View Controller-->
         <scene sceneID="yN9-3x-R4s">
             <objects>
-                <viewController id="siF-OV-khZ" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="view" id="siF-OV-khZ" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="2Vn-ar-ZcG"/>
                         <viewControllerLayoutGuide type="bottom" id="WMh-9m-qYG"/>
@@ -116,7 +116,7 @@
         <!--Navigation Controller-->
         <scene sceneID="NMj-Gf-rth">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="JEW-xw-qDH" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="IOSNavigation" automaticallyAdjustsScrollViewInsets="NO" id="JEW-xw-qDH" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="dRN-jt-MWx">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
