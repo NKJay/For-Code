@@ -1,11 +1,19 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="9057" systemVersion="15B42" minimumToolsVersion="Automatic">
-    <entity name="AndroidNews" syncable="YES"/>
+    <entity name="AndroidNews" syncable="YES">
+        <attribute name="author" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="time" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
     <entity name="DayNews" syncable="YES"/>
-    <entity name="IOSNews" syncable="YES"/>
+    <entity name="IOSNews" syncable="YES">
+        <attribute name="author" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="time" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
     <elements>
-        <element name="AndroidNews" positionX="-63" positionY="-18" width="128" height="45"/>
-        <element name="IOSNews" positionX="-54" positionY="-9" width="128" height="45"/>
+        <element name="AndroidNews" positionX="-63" positionY="-18" width="128" height="90"/>
         <element name="DayNews" positionX="-36" positionY="9" width="128" height="45"/>
+        <element name="IOSNews" positionX="-54" positionY="-9" width="128" height="90"/>
     </elements>
 </model>
