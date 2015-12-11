@@ -35,12 +35,23 @@ class WebViewController: UIViewController {
     override func viewWillAppear(animated: Bool) {
         myWebView.addObserver(self, forKeyPath: "estimatedProgress", options: .New, context: nil)
         myWebView.loadRequest(NSURLRequest(URL: NSURL(string: url)!))
+        UIView.animateWithDuration(0.3) { () -> Void in
+            let frame = self.tabBarController?.tabBar.frame
+            self.tabBarController?.tabBar.frame = CGRect(x: frame!.origin.x, y: frame!.origin.y + 50, width: frame!.width, height: frame!.height)
+        }
     }
+    
+    
     //    view将要消失时执行
     override func viewWillDisappear(animated: Bool) {
         myWebView.removeObserver(self, forKeyPath: "estimatedProgress")
         progressBar.setProgress(0.0, animated: false)
         NSURLCache.sharedURLCache().removeAllCachedResponses()
+        UIView.animateWithDuration(0.3) { () -> Void in
+            let frame = self.tabBarController?.tabBar.frame
+            self.tabBarController?.tabBar.frame = CGRect(x: frame!.origin.x, y: frame!.origin.y - 50, width: frame!.width, height: frame!.height)
+        }
+        print("asd")
     }
     
     
@@ -56,6 +67,7 @@ class WebViewController: UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    
     
     
     /*

@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		14BED2571C18262F00D1CA52 /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14BED2561C18262F00D1CA52 /* WebViewController.swift */; };
+		14F7049F1C1B16E60021D464 /* AndroidViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14F7049E1C1B16E60021D464 /* AndroidViewController.swift */; };
 		483C1988A0BF087A31A72155 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5F194161E8CF98DFBA360C6F /* libPods.a */; };
 		930779AD1C095F1A00AD773A /* NewsItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 930779AC1C095F1A00AD773A /* NewsItem.swift */; };
 		936B4EE91C08B04900DDECA5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 936B4EE81C08B04900DDECA5 /* AppDelegate.swift */; };
@@ -18,7 +19,7 @@
 		936B4EF61C08B04900DDECA5 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 936B4EF41C08B04900DDECA5 /* LaunchScreen.storyboard */; };
 		936B4F011C08B04900DDECA5 /* GankTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 936B4F001C08B04900DDECA5 /* GankTests.swift */; };
 		936B4F0C1C08B04900DDECA5 /* GankUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 936B4F0B1C08B04900DDECA5 /* GankUITests.swift */; };
-		9389A13E1C095440007B2A9D /* IAViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9389A13C1C095440007B2A9D /* IAViewController.swift */; };
+		9389A13E1C095440007B2A9D /* IOSViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9389A13C1C095440007B2A9D /* IOSViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -40,6 +41,7 @@
 
 /* Begin PBXFileReference section */
 		14BED2561C18262F00D1CA52 /* WebViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
+		14F7049E1C1B16E60021D464 /* AndroidViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AndroidViewController.swift; sourceTree = "<group>"; };
 		2CCE6B94E647948905706A96 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		5F194161E8CF98DFBA360C6F /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		6702E809F240C92FD2BC0844 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
@@ -59,7 +61,7 @@
 		936B4F071C08B04900DDECA5 /* GankUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GankUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		936B4F0B1C08B04900DDECA5 /* GankUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GankUITests.swift; sourceTree = "<group>"; };
 		936B4F0D1C08B04900DDECA5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		9389A13C1C095440007B2A9D /* IAViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IAViewController.swift; sourceTree = "<group>"; };
+		9389A13C1C095440007B2A9D /* IOSViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IOSViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -101,7 +103,8 @@
 			children = (
 				936B4EEA1C08B04900DDECA5 /* ViewController.swift */,
 				14BED2561C18262F00D1CA52 /* WebViewController.swift */,
-				9389A13C1C095440007B2A9D /* IAViewController.swift */,
+				9389A13C1C095440007B2A9D /* IOSViewController.swift */,
+				14F7049E1C1B16E60021D464 /* AndroidViewController.swift */,
 			);
 			name = ViewController;
 			sourceTree = "<group>";
@@ -369,12 +372,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9389A13E1C095440007B2A9D /* IAViewController.swift in Sources */,
+				9389A13E1C095440007B2A9D /* IOSViewController.swift in Sources */,
 				14BED2571C18262F00D1CA52 /* WebViewController.swift in Sources */,
 				936B4EF11C08B04900DDECA5 /* Gank.xcdatamodeld in Sources */,
 				936B4EEB1C08B04900DDECA5 /* ViewController.swift in Sources */,
 				930779AD1C095F1A00AD773A /* NewsItem.swift in Sources */,
 				936B4EE91C08B04900DDECA5 /* AppDelegate.swift in Sources */,
+				14F7049F1C1B16E60021D464 /* AndroidViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

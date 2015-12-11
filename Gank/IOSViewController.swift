@@ -9,54 +9,51 @@
 import UIKit
 import CoreData
 
-class IAViewController: UIViewController,UITableViewDataSource,UITableViewDelegate {
-    var URL = String()
+class IOSViewController: UIViewController,UITableViewDataSource,UITableViewDelegate {
+    var URL = "http://gank.avosapps.com/api/data/iOS/10/"
     var dataSource = NSMutableArray()
-    var ifandroid = Bool()
     var localData = NSArray()
     var context = (UIApplication.sharedApplication().delegate as! AppDelegate).managedObjectContext
     var i = 2
     @IBOutlet weak var newsTableView: UITableView!
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        if ifandroid{
-            URL = "http://gank.avosapps.com/api/data/android/10/"
-        }else{
-            URL = "http://gank.avosapps.com/api/data/iOS/10/"
-        }
         loadData(URL)
         newsTableView.mj_header = MJRefreshNormalHeader(refreshingBlock: { () -> Void in
             self.loadData(self.URL)
         })
-        newsTableView.mj_footer = MJRefreshAutoNormalFooter(refreshingBlock: { () -> Void in
-            self.loadMoreData()
-        })
+//        newsTableView.mj_footer = MJRefreshAutoNormalFooter(refreshingBlock: { () -> Void in
+//            self.loadMoreData()
+//        })
         
         let f = NSFetchRequest(entityName: "IOSNews")
         self.localData = try! self.context.executeFetchRequest(f)
-        
+
     }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
+//
+//    override func viewWillAppear(animated: Bool) {
+//                let changHeight = newsTableView.frame.height-30
+//                let width = newsTableView.frame.width
+//                UIView.beginAnimations(nil, context: nil)
+//                UIView.setAnimationDuration(2.0)
+//                newsTableView.frame = CGRect(x: 200, y: 100, width: 100, height: 300)
+//                UIView.commitAnimations()
+//        
+//                print("asd")
+//    }
     
-    override func viewWillAppear(animated: Bool) {
-        //        let changHeight = newsTableView.frame.height-30
-        //        let width = newsTableView.frame.width
-        //        UIView.beginAnimations(nil, context: nil)
-        //        UIView.setAnimationDuration(2.0)
-        //        newsTableView.frame = CGRect(x: 200, y: 100, width: 100, height: 300)
-        //        UIView.commitAnimations()
-        //
-        //        print("asd")
+    func viewDidAppear(){
+
     }
-    
-    
     
     //    首次加载数据
     func loadData(URL:String){
+        print(URL)
         let loadUrl = URL + "1"
         let afmanager = AFHTTPRequestOperationManager()
         afmanager.GET(loadUrl, parameters: nil, success: { (AFHTTPRequestOperation, resp:AnyObject) -> Void in
@@ -86,7 +83,7 @@ class IAViewController: UIViewController,UITableViewDataSource,UITableViewDelega
             dispatch_async(dispatch_get_main_queue(), { () -> Void in
                 self.newsTableView.reloadData()
                 self.newsTableView.mj_header.endRefreshing()
-                self.newsTableView.mj_footer.endRefreshing()
+//                self.newsTableView.mj_footer.endRefreshing()
                 
             })
             }) { (AFHTTPRequestOperation, error:NSError) -> Void in
@@ -99,7 +96,6 @@ class IAViewController: UIViewController,UITableViewDataSource,UITableViewDelega
                 }
                 dispatch_async(dispatch_get_main_queue(), { () -> Void in
                     self.newsTableView.reloadData()
-                    self.newsTableView.mj_header.endRefreshing()
                 })
         }
     }
@@ -130,7 +126,7 @@ class IAViewController: UIViewController,UITableViewDataSource,UITableViewDelega
             dispatch_async(dispatch_get_main_queue(), { () -> Void in
                 self.newsTableView.reloadData()
                 self.newsTableView.mj_header.endRefreshing()
-                self.newsTableView.mj_footer.endRefreshing()
+//                self.newsTableView.mj_footer.endRefreshing()
                 
             })
             }) { (AFHTTPRequestOperation, error:NSError) -> Void in
@@ -169,6 +165,12 @@ class IAViewController: UIViewController,UITableViewDataSource,UITableViewDelega
         self.navigationController?.pushViewController(webView, animated: true)
         
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
+    }
+    
+    func scrollViewDidScroll(scrollView: UIScrollView){
+        if(scrollView.contentSize.height - scrollView.contentOffset.y - scrollView.frame.height < scrollView.frame.height/3){
+            loadMoreData()
+        }
     }
     
     
