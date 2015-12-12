@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ViewController: UITableViewController {
+class ViewController: UIViewController,UITableViewDataSource {
     @IBOutlet var newsTableView: UITableView!
     var URL =  "http://gank.avosapps.com/api/day/"
     var category = NSArray()
@@ -19,6 +19,7 @@ class ViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         loadData()
+        newsTableView.dataSource = self
         // Do any additional setup after loading the view, typically from a nib
     }
 
@@ -32,7 +33,7 @@ class ViewController: UITableViewController {
         let afmanager = AFHTTPRequestOperationManager()
         let getDataUrl = URL + getDate()
         afmanager.GET(getDataUrl, parameters: nil, success: { (AFHTTPRequestOperation, resp:AnyObject) -> Void in
-            print(resp)
+//            print(resp)
             self.data = resp.objectForKey("results")! as! NSDictionary
             self.category = resp.objectForKey("category")! as! NSArray
             let fuli = self.data.objectForKey("福利") as! NSArray
@@ -56,12 +57,29 @@ class ViewController: UITableViewController {
         }
     }
     
-    override func numberOfSectionsInTableView(tableView: UITableView) -> Int{
+    func numberOfSectionsInTableView(tableView: UITableView) -> Int{
         return category.count
     }
     
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int{
+    func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView?
+    {
+        let lbl = UILabel(frame:CGRectMake(0,0,320,30))
+        lbl.backgroundColor = UIColor.lightGrayColor()
+        lbl.text = self.category[section-1] as? String
+        lbl.textColor = UIColor.whiteColor()
+        lbl.textAlignment = NSTextAlignment.Center
+        lbl.font = UIFont.systemFontOfSize(14)
+        return lbl
+    }
+    
+    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int{
         return 1
+    }
+    
+    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell{
+        let cell = newsTableView.dequeueReusableCellWithIdentifier("cell")! as UITableViewCell
+        print(indexPath.row)
+        return cell
     }
     
 //    判断今天是否有数据并获取日期
@@ -87,7 +105,7 @@ class ViewController: UITableViewController {
         
     }
     
-    override func scrollViewDidScroll(scrollView: UIScrollView)
+    func scrollViewDidScroll(scrollView: UIScrollView)
     {
         updateOffsets()
     }
