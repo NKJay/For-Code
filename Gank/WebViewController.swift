@@ -55,7 +55,6 @@ class WebViewController: UIViewController {
             let frame = self.tabBarController?.tabBar.frame
             self.tabBarController?.tabBar.frame = CGRect(x: frame!.origin.x, y: frame!.origin.y - 50, width: frame!.width, height: frame!.height)
         }
-        print("asd")
     }
     
     

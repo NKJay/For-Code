@@ -29,9 +29,6 @@ class IAViewController:UIView,UITableViewDataSource,UITableViewDelegate {
         newsTableView.mj_header = MJRefreshNormalHeader(refreshingBlock: { () -> Void in
             self.loadData()
         })
-        //        newsTableView.mj_footer = MJRefreshAutoNormalFooter(refreshingBlock: { () -> Void in
-        //            self.loadMoreData()
-        //        })
         
         let f = NSFetchRequest(entityName: entityName)
         myTableView.delegate = self
@@ -46,12 +43,6 @@ class IAViewController:UIView,UITableViewDataSource,UITableViewDelegate {
         let afmanager = AFHTTPRequestOperationManager()
         afmanager.GET(loadUrl, parameters: nil, success: { (AFHTTPRequestOperation, resp:AnyObject) -> Void in
             let results = resp.objectForKey("results")! as! NSArray
-            if self.localData.count > 2{
-                for i in 0...9{
-                    self.context.deleteObject(self.localData[i] as! NSManagedObject)
-                    try! self.context.save()
-                }
-            }
             for each in results{
                 let item = NewsItem()
                 let row = NSEntityDescription.insertNewObjectForEntityForName(self.entityName, inManagedObjectContext: self.context)
@@ -76,15 +67,22 @@ class IAViewController:UIView,UITableViewDataSource,UITableViewDelegate {
                 
             })
             }) { (AFHTTPRequestOperation, error:NSError) -> Void in
-                for i in 0...9{
-                    let item = NewsItem()
-                    item.author = self.localData[i].valueForKey("author")! as! String
-                    item.time = self.localData[i].valueForKey("time")! as! String
-                    item.title = self.localData[i].valueForKey("title")! as! String
-                    self.dataSource.addObject(item)
-                }
                 dispatch_async(dispatch_get_main_queue(), { () -> Void in
-                    self.newsTableView.reloadData()
+                    for each in self.localData{
+                        print(each.valueForKey("time"))}
+                    if self.localData.count > 2{
+                    for i in 0...9{
+                        let item = NewsItem()
+                        item.author = self.localData[i].valueForKey("author")! as! String
+                        item.time = self.localData[i].valueForKey("time")! as! String
+                        item.title = self.localData[i].valueForKey("title")! as! String
+                        self.dataSource.addObject(item)
+                    }
+                        self.newsTableView.reloadData()
+                    }
+                    else{
+                        print("asd")
+                    }
                 })
         }
     }
@@ -119,7 +117,7 @@ class IAViewController:UIView,UITableViewDataSource,UITableViewDelegate {
                 
             })
             }) { (AFHTTPRequestOperation, error:NSError) -> Void in
-                self.newsTableView.mj_footer.endRefreshing()
+//                self.newsTableView.mj_footer.endRefreshing()
         }
         
     }
@@ -157,6 +155,7 @@ class IAViewController:UIView,UITableViewDataSource,UITableViewDelegate {
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
     }
     
+//    下滑自动加载数据
     func scrollViewDidScroll(scrollView: UIScrollView){
         if(scrollView.contentSize.height - scrollView.contentOffset.y - scrollView.frame.height < scrollView.frame.height/3){
             loadMoreData()
