@@ -24,6 +24,10 @@ class WebViewController: UIViewController {
         myWebView = WKWebView(frame: frame)
         self.view.addSubview(myWebView)
         
+        let openUrl = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Action, target: self, action: "openUrl")
+        openUrl.title = "打开"
+        self.navigationItem.rightBarButtonItem = openUrl
+        
         progressBar.frame = CGRect(origin: CGPoint(x: 0, y: 64), size: CGSize(width: WINDOW_WIDTH, height: 5))
         progressBar.progress = 0
         progressBar.backgroundColor = UIColor.lightGrayColor()
@@ -66,6 +70,11 @@ class WebViewController: UIViewController {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    func openUrl(){
+        UIApplication.sharedApplication().openURL(NSURL(string: url)!)
+        print("asd")
     }
     
     

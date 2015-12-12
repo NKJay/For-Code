@@ -19,9 +19,9 @@ class IOSViewController: UIViewController,UITableViewDataSource,UITableViewDeleg
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        loadData(URL)
+        loadData()
         newsTableView.mj_header = MJRefreshNormalHeader(refreshingBlock: { () -> Void in
-            self.loadData(self.URL)
+            self.loadData()
         })
 //        newsTableView.mj_footer = MJRefreshAutoNormalFooter(refreshingBlock: { () -> Void in
 //            self.loadMoreData()
@@ -52,8 +52,7 @@ class IOSViewController: UIViewController,UITableViewDataSource,UITableViewDeleg
     }
     
     //    首次加载数据
-    func loadData(URL:String){
-        print(URL)
+    func loadData(){
         let loadUrl = URL + "1"
         let afmanager = AFHTTPRequestOperationManager()
         afmanager.GET(loadUrl, parameters: nil, success: { (AFHTTPRequestOperation, resp:AnyObject) -> Void in
