@@ -19,7 +19,7 @@ class IAViewController:UIView,UITableViewDataSource,UITableViewDelegate {
     var newsTableView = UITableView()
     var entityName = String()
     
-//    初始化View
+    //    初始化View
     func initMyView(myURL:String,myTableView:UITableView,myEntityName:String,navigationController:UINavigationController) {
         navigation = navigationController
         URL = myURL
@@ -34,7 +34,6 @@ class IAViewController:UIView,UITableViewDataSource,UITableViewDelegate {
         myTableView.delegate = self
         myTableView.dataSource = self
         self.localData = try! self.context.executeFetchRequest(f)
-        
     }
     
     //    首次加载数据
@@ -45,20 +44,14 @@ class IAViewController:UIView,UITableViewDataSource,UITableViewDelegate {
             let results = resp.objectForKey("results")! as! NSArray
             for each in results{
                 let item = NewsItem()
-                let row = NSEntityDescription.insertNewObjectForEntityForName(self.entityName, inManagedObjectContext: self.context)
                 item.author = each.objectForKey("who")! as! String
                 item.title = each.objectForKey("desc")! as! String
                 item.url = each.objectForKey("url")! as! String
                 item.time = each.objectForKey("publishedAt") as! String
-                
-                if self.dataSource.count < 10{
-                    row.setValue(item.title, forKey: "title")
-                    row.setValue(item.time, forKey: "time")
-                    row.setValue(item.author, forKey: "author")
-                }
-                
-                try! self.context.save()
                 self.dataSource.addObject(item)
+                self.cacheData(item.title as String,time: item.time as String,author:
+                    item.author as String)
+                
             }
             dispatch_async(dispatch_get_main_queue(), { () -> Void in
                 self.newsTableView.reloadData()
@@ -69,24 +62,17 @@ class IAViewController:UIView,UITableViewDataSource,UITableViewDelegate {
             }) { (AFHTTPRequestOperation, error:NSError) -> Void in
                 dispatch_async(dispatch_get_main_queue(), { () -> Void in
                     for each in self.localData{
-                        print(each.valueForKey("time"))}
-                    if self.localData.count > 2{
-                    for i in 0...9{
-                        let item = NewsItem()
-                        item.author = self.localData[i].valueForKey("author")! as! String
-                        item.time = self.localData[i].valueForKey("time")! as! String
-                        item.title = self.localData[i].valueForKey("title")! as! String
-                        self.dataSource.addObject(item)
-                    }
+                            let item = NewsItem()
+                            item.author = each.valueForKey("author")! as! String
+                            item.time = each.valueForKey("time")! as! String
+                            item.title = each.valueForKey("title")! as! String
+                            self.dataSource.addObject(item)
                         self.newsTableView.reloadData()
                     }
-                    else{
-                        print("asd")
-                    }
                 })
+                }
         }
-    }
-    
+
     //    加载更多数据
     func loadMoreData(){
         let loadUrl = URL + String(i++)
@@ -95,19 +81,11 @@ class IAViewController:UIView,UITableViewDataSource,UITableViewDelegate {
             let results = resp.objectForKey("results")! as! NSArray
             for each in results{
                 let item = NewsItem()
-                let row = NSEntityDescription.insertNewObjectForEntityForName(self.entityName, inManagedObjectContext: self.context)
                 item.author = each.objectForKey("who")! as! String
                 item.title = each.objectForKey("desc")! as! String
                 item.url = each.objectForKey("url")! as! String
                 item.time = each.objectForKey("publishedAt") as! String
                 
-                if self.dataSource.count < 10{
-                    row.setValue(item.title, forKey: "title")
-                    row.setValue(item.time, forKey: "time")
-                    row.setValue(item.author, forKey: "author")
-                }
-                
-                try! self.context.save()
                 self.dataSource.addObject(item)
             }
             dispatch_async(dispatch_get_main_queue(), { () -> Void in
@@ -117,7 +95,7 @@ class IAViewController:UIView,UITableViewDataSource,UITableViewDelegate {
                 
             })
             }) { (AFHTTPRequestOperation, error:NSError) -> Void in
-//                self.newsTableView.mj_footer.endRefreshing()
+                //                self.newsTableView.mj_footer.endRefreshing()
         }
         
     }
@@ -139,7 +117,6 @@ class IAViewController:UIView,UITableViewDataSource,UITableViewDelegate {
         
         title.text = item.title as String
         author.text = item.author as String
-        print(indexPath.row)
         return cell
     }
     
@@ -155,13 +132,23 @@ class IAViewController:UIView,UITableViewDataSource,UITableViewDelegate {
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
     }
     
-//    下滑自动加载数据
+    //    下滑自动加载数据
     func scrollViewDidScroll(scrollView: UIScrollView){
         if(scrollView.contentSize.height - scrollView.contentOffset.y - scrollView.frame.height < scrollView.frame.height/3){
             loadMoreData()
         }
     }
     
-    
+    //    缓存数据
+    func cacheData(title:String,time:String,author:String){
+        for each in localData{
+            context.deleteObject(each as! NSManagedObject)
+        }
+        let row = NSEntityDescription.insertNewObjectForEntityForName(self.entityName, inManagedObjectContext: self.context)
+            row.setValue(title, forKey: "title")
+            row.setValue(time, forKey: "time")
+            row.setValue(author, forKey: "author")
+        try! context.save()
+    }
 }
 
