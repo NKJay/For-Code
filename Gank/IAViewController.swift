@@ -29,7 +29,7 @@ class IAViewController:UIView,UITableViewDataSource,UITableViewDelegate {
         newsTableView.mj_header = MJRefreshNormalHeader(refreshingBlock: { () -> Void in
             self.loadData()
         })
-        
+        newsTableView.mj_header.beginRefreshing()
         let f = NSFetchRequest(entityName: entityName)
         myTableView.delegate = self
         myTableView.dataSource = self
@@ -62,17 +62,17 @@ class IAViewController:UIView,UITableViewDataSource,UITableViewDelegate {
             }) { (AFHTTPRequestOperation, error:NSError) -> Void in
                 dispatch_async(dispatch_get_main_queue(), { () -> Void in
                     for each in self.localData{
-                            let item = NewsItem()
-                            item.author = each.valueForKey("author")! as! String
-                            item.time = each.valueForKey("time")! as! String
-                            item.title = each.valueForKey("title")! as! String
-                            self.dataSource.addObject(item)
+                        let item = NewsItem()
+                        item.author = each.valueForKey("author")! as! String
+                        item.time = each.valueForKey("time")! as! String
+                        item.title = each.valueForKey("title")! as! String
+                        self.dataSource.addObject(item)
                         self.newsTableView.reloadData()
                     }
                 })
-                }
         }
-
+    }
+    
     //    加载更多数据
     func loadMoreData(){
         let loadUrl = URL + String(i++)
@@ -100,7 +100,27 @@ class IAViewController:UIView,UITableViewDataSource,UITableViewDelegate {
         
     }
     
+    //    下滑自动加载数据
+    func scrollViewDidScroll(scrollView: UIScrollView){
+        if(scrollView.contentSize.height - scrollView.contentOffset.y - scrollView.frame.height < scrollView.frame.height/3){
+            loadMoreData()
+        }
+    }
     
+    //    缓存数据
+    func cacheData(title:String,time:String,author:String){
+        for each in localData{
+            context.deleteObject(each as! NSManagedObject)
+        }
+        let row = NSEntityDescription.insertNewObjectForEntityForName(self.entityName, inManagedObjectContext: self.context)
+        row.setValue(title, forKey: "title")
+        row.setValue(time, forKey: "time")
+        row.setValue(author, forKey: "author")
+        try! context.save()
+    }
+    
+    
+    //    Tableview的datasource和delegate
     //    返回Cell数量
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int{
         return dataSource.count
@@ -130,25 +150,6 @@ class IAViewController:UIView,UITableViewDataSource,UITableViewDelegate {
         navigation.pushViewController(webView, animated: true)
         
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
-    }
-    
-    //    下滑自动加载数据
-    func scrollViewDidScroll(scrollView: UIScrollView){
-        if(scrollView.contentSize.height - scrollView.contentOffset.y - scrollView.frame.height < scrollView.frame.height/3){
-            loadMoreData()
-        }
-    }
-    
-    //    缓存数据
-    func cacheData(title:String,time:String,author:String){
-        for each in localData{
-            context.deleteObject(each as! NSManagedObject)
-        }
-        let row = NSEntityDescription.insertNewObjectForEntityForName(self.entityName, inManagedObjectContext: self.context)
-            row.setValue(title, forKey: "title")
-            row.setValue(time, forKey: "time")
-            row.setValue(author, forKey: "author")
-        try! context.save()
     }
 }
 

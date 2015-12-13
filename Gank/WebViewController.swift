@@ -73,7 +73,6 @@ class WebViewController: UIViewController {
     
     func openUrl(){
         UIApplication.sharedApplication().openURL(NSURL(string: url)!)
-        print("asd")
     }
     
     

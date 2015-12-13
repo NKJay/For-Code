@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		14BBDA9C1C1D986E0084FD35 /* TabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14BBDA9B1C1D986E0084FD35 /* TabViewController.swift */; };
 		14BED2571C18262F00D1CA52 /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14BED2561C18262F00D1CA52 /* WebViewController.swift */; };
 		14ECBADE1C1BF41200461BC5 /* IAViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14ECBADD1C1BF41200461BC5 /* IAViewController.swift */; };
 		14F7049F1C1B16E60021D464 /* AndroidViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14F7049E1C1B16E60021D464 /* AndroidViewController.swift */; };
@@ -41,6 +42,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		14BBDA9B1C1D986E0084FD35 /* TabViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabViewController.swift; sourceTree = "<group>"; };
 		14BED2561C18262F00D1CA52 /* WebViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
 		14ECBADD1C1BF41200461BC5 /* IAViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IAViewController.swift; sourceTree = "<group>"; };
 		14F7049E1C1B16E60021D464 /* AndroidViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AndroidViewController.swift; sourceTree = "<group>"; };
@@ -107,6 +109,7 @@
 				14BED2561C18262F00D1CA52 /* WebViewController.swift */,
 				9389A13C1C095440007B2A9D /* IOSViewController.swift */,
 				14F7049E1C1B16E60021D464 /* AndroidViewController.swift */,
+				14BBDA9B1C1D986E0084FD35 /* TabViewController.swift */,
 				14ECBADD1C1BF41200461BC5 /* IAViewController.swift */,
 			);
 			name = ViewController;
@@ -381,6 +384,7 @@
 				936B4EF11C08B04900DDECA5 /* Gank.xcdatamodeld in Sources */,
 				936B4EEB1C08B04900DDECA5 /* ViewController.swift in Sources */,
 				930779AD1C095F1A00AD773A /* NewsItem.swift in Sources */,
+				14BBDA9C1C1D986E0084FD35 /* TabViewController.swift in Sources */,
 				936B4EE91C08B04900DDECA5 /* AppDelegate.swift in Sources */,
 				14F7049F1C1B16E60021D464 /* AndroidViewController.swift in Sources */,
 			);

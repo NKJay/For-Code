@@ -27,6 +27,7 @@ class ViewController: UITableViewController {
     var data = NSDictionary()
     override func viewDidLoad() {
         super.viewDidLoad()
+        showLaunch()
         loadData()
         newsTableView.dataSource = self
         newsTableView.delegate = self
@@ -76,7 +77,7 @@ class ViewController: UITableViewController {
     }
     
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int{
-        return 5
+        return 6
     }
     
     override func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView?
@@ -88,6 +89,7 @@ class ViewController: UITableViewController {
         case 2: lbl.text = "Android";break
         case 3: lbl.text = "休息视频";break
         case 4: lbl.text = "拓展资源";break
+        case 5: lbl.text = "其它资源";break
         default: break
         }
         lbl.textColor = UIColor.whiteColor()
@@ -113,6 +115,7 @@ class ViewController: UITableViewController {
         case 2: return androidData.count;
         case 3: return video.count;
         case 4: return expend.count;
+        case 5: return 2
         default: break
         }
 
@@ -178,6 +181,41 @@ class ViewController: UITableViewController {
             self.topImage.frame = CGRect(origin: CGPoint(x: 0,y: -100),size: CGSize(width: 320,height: 300));
         }
     }
+    
+    func showLaunch(){
+        let img = UIImageView(frame:CGRectMake(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT))
+        let lbl = UILabel(frame:CGRectMake(WINDOW_WIDTH/2-50,WINDOW_HEIGHT/2-50,WINDOW_WIDTH,20))
+        lbl.text = "干 货 集 中 营"
+        lbl.font = UIFont(name: "System", size: 100)
+        lbl.textAlignment = NSTextAlignment.Left
+        img.image = UIImage(named: "LaunchImg")
+        lbl.textColor = UIColor.whiteColor()
+        let window = UIApplication.sharedApplication().keyWindow
+        window!.addSubview(img)
+        window!.addSubview(lbl)
+        
+        UIView.animateWithDuration(3,animations:{
+            let rect = CGRectMake(-50,-50/9*16,WINDOW_WIDTH+100,WINDOW_HEIGHT+100/9*16)
+            img.frame = rect
+            },completion:{
+                (Bool completion) in
+                
+                if completion {
+                    UIView.animateWithDuration(1,animations:{
+                        img.alpha = 0
+                        lbl.alpha = 0
+                        },completion:{
+                            (Bool completion) in
+                            
+                            if completion {
+                                img.removeFromSuperview()
+                                lbl.removeFromSuperview()
+                            }
+                    })
+                }
+        })
+    }
+
     
 }
 
