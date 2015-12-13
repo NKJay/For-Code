@@ -42,10 +42,8 @@ class ViewController: UITableViewController {
         let afmanager = AFHTTPRequestOperationManager()
         let getDataUrl = URL + getDate()
         afmanager.GET(getDataUrl, parameters: nil, success: { (AFHTTPRequestOperation, resp:AnyObject) -> Void in
-            //            print(resp)
             self.data = resp.objectForKey("results")! as! NSDictionary
             self.category = resp.objectForKey("category")! as! NSArray
-            let fuli = self.data.objectForKey("福利") as! NSArray
             //            print(fuli)
             //            for each in results{
             //                print(each)
@@ -64,6 +62,7 @@ class ViewController: UITableViewController {
             dispatch_async(dispatch_get_main_queue(), { () -> Void in
                 self.category = resp.objectForKey("category")! as! NSArray
                 self.welfare = self.data.objectForKey("福利") as! NSArray
+                print(self.welfare)
                 self.IOSData = self.data.objectForKey("iOS") as! NSArray
                 self.androidData = self.data.objectForKey("Android") as! NSArray
                 self.video = self.data.objectForKey("休息视频") as! NSArray
@@ -77,19 +76,23 @@ class ViewController: UITableViewController {
     }
     
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int{
-        return category.count
+        return 5
     }
     
     override func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView?
     {
-        var title:String
         let lbl = UILabel(frame:CGRectMake(0,0,320,30))
         lbl.backgroundColor = UIColor.lightGrayColor()
-        lbl.text = self.category[section] as? String
+        switch section{
+        case 1: lbl.text = "IOS";break
+        case 2: lbl.text = "Android";break
+        case 3: lbl.text = "休息视频";break
+        case 4: lbl.text = "拓展资源";break
+        default: break
+        }
         lbl.textColor = UIColor.whiteColor()
         lbl.textAlignment = NSTextAlignment.Center
         lbl.font = UIFont.systemFontOfSize(14)
-        print(section)
         return lbl
     }
     
@@ -105,14 +108,14 @@ class ViewController: UITableViewController {
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int{
         switch section{
-        case 0: return welfare.count; break
-        case 1: return androidData.count; break
-        case 2: return video.count; break
-        case 3: return IOSData.count; break
-        case 4: return recommend.count; break
-        case 5: return expend.count; break
+        case 0: return welfare.count;
+        case 1: return IOSData.count;
+        case 2: return androidData.count;
+        case 3: return video.count;
+        case 4: return expend.count;
         default: break
         }
+
         return 1
     }
     
@@ -121,12 +124,13 @@ class ViewController: UITableViewController {
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell{
-        let cell = newsTableView.dequeueReusableCellWithIdentifier("cell")! as UITableViewCell
+//        let cell = newsTableView.dequeueReusableCellWithIdentifier("cell")! as UITableViewCell
+        var cell = UITableViewCell()
         if indexPath.section == 0{
-            let imgURL = welfare.valueForKey("url")
-            topImage.sd_setImageWithURL(NSURL(string: imgURL as! String), completed: { (img:UIImage!, error:NSError!, cache:SDImageCacheType, nsurl:NSURL!) -> Void in
+            let imgURL = welfare.valueForKeyPath("url") as! NSArray
+            topImage.sd_setImageWithURL(NSURL(string: imgURL[0] as! String), completed: { (img:UIImage!, error:NSError!, cache:SDImageCacheType, nsurl:NSURL!) -> Void in
                 self.topImage.frame = CGRect(origin: CGPoint(x: 0, y: 0), size: CGSize(width: WINDOW_WIDTH, height: img.size.width/WINDOW_WIDTH*img.size.height))
-                
+                cell.addSubview(self.topImage)
             })
         }
         return cell
