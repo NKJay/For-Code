@@ -7,67 +7,6 @@
     </dependencies>
     <scenes>
         <!--今日资讯-->
-        <scene sceneID="9sj-ai-BO6">
-            <objects>
-                <tableViewController id="XrC-Sc-ko5" customClass="ViewController" customModule="Gank" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" tag="10" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="289" sectionHeaderHeight="28" sectionFooterHeight="28" id="mkT-yf-QfH">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="cell" rowHeight="289" id="s6p-7i-CiI">
-                                <rect key="frame" x="0.0" y="28" width="320" height="289"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="s6p-7i-CiI" id="bNi-Qs-Ce0">
-                                    <rect key="frame" x="0.0" y="0.0" width="320" height="288.5"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                    <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" tag="1" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Title 1" textAlignment="center" lineBreakMode="characterWrap" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ycn-yy-TRb">
-                                            <rect key="frame" x="24" y="0.0" width="276" height="58"/>
-                                            <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
-                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" tag="2" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="author 2" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lKy-gr-Tfv">
-                                            <rect key="frame" x="176" y="55" width="136" height="21"/>
-                                            <constraints>
-                                                <constraint firstAttribute="width" constant="136" id="cLN-Mb-eAL"/>
-                                            </constraints>
-                                            <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                            <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="LaunchImg" translatesAutoresizingMaskIntoConstraints="NO" id="7zb-BK-Qan">
-                                            <rect key="frame" x="30" y="66" width="260" height="206"/>
-                                        </imageView>
-                                    </subviews>
-                                    <constraints>
-                                        <constraint firstItem="Ycn-yy-TRb" firstAttribute="centerX" secondItem="bNi-Qs-Ce0" secondAttribute="centerX" constant="2" id="Byh-rg-BJD"/>
-                                        <constraint firstItem="Ycn-yy-TRb" firstAttribute="top" secondItem="bNi-Qs-Ce0" secondAttribute="topMargin" constant="-8" id="V4z-UA-1yK"/>
-                                        <constraint firstItem="lKy-gr-Tfv" firstAttribute="top" secondItem="bNi-Qs-Ce0" secondAttribute="topMargin" constant="48" id="XGL-Qb-XRE"/>
-                                        <constraint firstAttribute="bottomMargin" secondItem="Ycn-yy-TRb" secondAttribute="bottom" constant="18.5" id="jqG-bx-6jL"/>
-                                        <constraint firstAttribute="trailingMargin" secondItem="lKy-gr-Tfv" secondAttribute="trailing" constant="3" id="lcI-Uc-49f"/>
-                                        <constraint firstAttribute="bottomMargin" secondItem="lKy-gr-Tfv" secondAttribute="bottom" constant="-0.5" id="nG4-cx-Tpy"/>
-                                        <constraint firstItem="Ycn-yy-TRb" firstAttribute="leading" secondItem="bNi-Qs-Ce0" secondAttribute="leadingMargin" constant="16" id="sAH-0K-LEQ"/>
-                                    </constraints>
-                                </tableViewCellContentView>
-                            </tableViewCell>
-                        </prototypes>
-                        <connections>
-                            <outlet property="dataSource" destination="XrC-Sc-ko5" id="fSo-bD-s4a"/>
-                            <outlet property="delegate" destination="XrC-Sc-ko5" id="Dj9-dz-cmM"/>
-                        </connections>
-                    </tableView>
-                    <navigationItem key="navigationItem" title="今日资讯" id="ecQ-Rd-jzk"/>
-                    <connections>
-                        <outlet property="newsTableView" destination="mkT-yf-QfH" id="euY-Ns-aUD"/>
-                    </connections>
-                </tableViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="rTF-AQ-B2R" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1274" y="-554"/>
-        </scene>
-        <!--今日资讯-->
         <scene sceneID="R8m-At-nKm">
             <objects>
                 <viewController id="qPY-zp-RsE" customClass="TodayViewController" customModule="Gank" customModuleProvider="target" sceneMemberID="viewController">
@@ -166,14 +105,56 @@
                             <constraint firstItem="hM6-lj-BYe" firstAttribute="top" secondItem="Qh2-Rx-I1j" secondAttribute="top" id="qIh-iA-KcQ"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="今日资讯" id="q1D-aI-2l8"/>
+                    <navigationItem key="navigationItem" title="今日资讯" id="q1D-aI-2l8">
+                        <barButtonItem key="rightBarButtonItem" style="plain" id="XuB-uq-obq">
+                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="whx-co-cuJ">
+                                <rect key="frame" x="233" y="7" width="71" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="历史">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                            </button>
+                            <connections>
+                                <action selector="historyButton:" destination="qPY-zp-RsE" id="rTh-oM-tJg"/>
+                                <segue destination="Icj-BN-pk2" kind="push" id="ySs-42-Uek"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
+                        <outlet property="historyButton" destination="XuB-uq-obq" id="hzr-hI-IYn"/>
                         <outlet property="newsTableView" destination="hM6-lj-BYe" id="OeP-rB-ljt"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="nXw-1c-3nD" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1724" y="-582"/>
+            <point key="canvasLocation" x="1274" y="-494"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="SJJ-Jd-y2s">
+            <objects>
+                <viewController storyboardIdentifier="DatePicker" id="Icj-BN-pk2" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="1l8-aF-A68"/>
+                        <viewControllerLayoutGuide type="bottom" id="Ben-Em-RTB"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="7cC-TK-Q8y">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <datePicker contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="mj1-23-2L7">
+                                <rect key="frame" x="0.0" y="150" width="320" height="216"/>
+                                <date key="date" timeIntervalSinceReferenceDate="471782208.67903203">
+                                    <!--2015-12-14 10:36:48 +0000-->
+                                </date>
+                            </datePicker>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="RWq-8I-j35"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Kdn-Kf-vfU" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1742" y="-494"/>
         </scene>
         <!--IOS-->
         <scene sceneID="tne-QT-ifu">
@@ -195,7 +176,7 @@
                                         <rect key="frame" x="0.0" y="92" width="320" height="85"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="WaJ-XR-q9e" id="XfJ-L8-LBi">
-                                            <rect key="frame" x="0.0" y="0.0" width="320" height="85"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="84.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" tag="1" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title 1" textAlignment="center" lineBreakMode="characterWrap" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="da4-nb-dgv">
@@ -317,7 +298,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="X7C-9Q-qbJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1819" y="981"/>
+            <point key="canvasLocation" x="1274" y="941"/>
         </scene>
         <!--Web View Controller-->
         <scene sceneID="iUQ-1x-jLu">
@@ -341,7 +322,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="lOI-UC-faw" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1790" y="266"/>
+            <point key="canvasLocation" x="1742" y="255"/>
         </scene>
         <!--IOS-->
         <scene sceneID="NMj-Gf-rth">
@@ -403,7 +384,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="veY-xA-wuV" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1287" y="981"/>
+            <point key="canvasLocation" x="853" y="941"/>
         </scene>
         <!--每日-->
         <scene sceneID="mwE-mQ-OW7">
@@ -424,10 +405,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hEU-e4-uON" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="847" y="-546"/>
+            <point key="canvasLocation" x="853" y="-494"/>
         </scene>
     </scenes>
-    <resources>
-        <image name="LaunchImg" width="640" height="1136"/>
-    </resources>
 </document>

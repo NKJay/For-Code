@@ -18,9 +18,11 @@ class IAViewController:UIView,UITableViewDataSource,UITableViewDelegate {
     var i = 2
     var newsTableView = UITableView()
     var entityName = String()
+    var myView = UIView()
     
     //    初始化View
-    func initMyView(myURL:String,myTableView:UITableView,myEntityName:String,navigationController:UINavigationController) {
+    func initMyView(myURL:String,myTableView:UITableView,myEntityName:String,navigationController:UINavigationController,selfView:UIView) {
+        myView = selfView
         navigation = navigationController
         URL = myURL
         newsTableView = myTableView
@@ -122,7 +124,9 @@ class IAViewController:UIView,UITableViewDataSource,UITableViewDelegate {
                 
             })
             }) { (AFHTTPRequestOperation, error:NSError) -> Void in
-                                self.newsTableView.mj_footer.endRefreshing()
+            self.newsTableView.mj_footer.endRefreshing()
+            MozTopAlertView.showWithType(MozAlertTypeError, text: "请检查网络", parentView: self.myView)
+                
         }
         
     }

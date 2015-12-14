@@ -16,7 +16,7 @@ class AndroidViewController: UIViewController{
     override func viewDidLoad() {
         super.viewDidLoad()
         let AndroidView = IAViewController()
-        AndroidView.initMyView(URL, myTableView: newsTableView, myEntityName: "AndroidNews", navigationController: self.navigationController!)
+        AndroidView.initMyView(URL, myTableView: newsTableView, myEntityName: "AndroidNews", navigationController: self.navigationController!,selfView: self.view)
         
     }
     

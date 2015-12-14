@@ -23,6 +23,7 @@ class TodayViewController: UIViewController,UITableViewDataSource,UITableViewDel
     var topImage = UIImageView()
     var data = NSDictionary()
     var i = Double()
+    @IBOutlet weak var historyButton: UIBarButtonItem!
     override func viewDidLoad() {
         super.viewDidLoad()
         showLaunch()
@@ -232,7 +233,8 @@ class TodayViewController: UIViewController,UITableViewDataSource,UITableViewDel
         default: break
         }
         
-        return 1
+        return 0
+        
     }
     
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
@@ -261,35 +263,39 @@ class TodayViewController: UIViewController,UITableViewDataSource,UITableViewDel
         default:break
         }
         print(indexPath.section)
+        print(indexPath.row)
         newsTableView.deselectRowAtIndexPath(indexPath, animated: true)
     }
     
 //    输出cell数据
-    func putCellData(cell:UITableViewCell,indexPath:NSIndexPath,dataSource:NSArray){
-        let item = dataSource[indexPath.row] as! NewsItem
+    func putCellData(indexPath:Int,dataSource:NSArray)->UITableViewCell{
+        let cell = newsTableView.dequeueReusableCellWithIdentifier("cell")! as UITableViewCell
+        let item = dataSource[indexPath] as! NewsItem
         let title = cell.viewWithTag(1) as! UILabel
         let author = cell.viewWithTag(2) as! UILabel
         title.text = item.title as String
         author.text = item.author as String
+        return cell
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell{
-        let cell = newsTableView.dequeueReusableCellWithIdentifier("cell")! as UITableViewCell
+        let cell = UITableViewCell()
         switch indexPath.section{
         case 0:
+        let cell = newsTableView.dequeueReusableCellWithIdentifier("ImageCell")! as UITableViewCell
         let imgURL = welfare.valueForKeyPath("url") as! NSArray
         topImage.contentMode = UIViewContentMode.ScaleAspectFill
          self.topImage.frame = CGRect(origin: CGPoint(x:0 , y: 0), size: CGSize(width: WINDOW_WIDTH, height: WINDOW_HEIGHT))
         topImage.sd_setImageWithURL(NSURL(string: imgURL[0] as! String), completed: { (img:UIImage!, error:NSError!, cache:SDImageCacheType, nsurl:NSURL!) -> Void in
             cell.addSubview(self.topImage)
         })
-            break
+        return cell
         case 1:
-            putCellData(cell, indexPath: indexPath, dataSource: IOSData);break
+            let cell = putCellData(indexPath.row, dataSource: IOSData);return cell
         case 2:
-            putCellData(cell, indexPath: indexPath, dataSource: androidData);break
+            let cell = putCellData(indexPath.row, dataSource: androidData);return cell
         case 3:
-            putCellData(cell, indexPath: indexPath, dataSource: videoData);break
+           let cell = putCellData(indexPath.row, dataSource: videoData);return cell
         default:break
         }
         return cell

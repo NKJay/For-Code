@@ -9,6 +9,11 @@
 /* Begin PBXBuildFile section */
 		14BBDA9C1C1D986E0084FD35 /* TabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14BBDA9B1C1D986E0084FD35 /* TabViewController.swift */; };
 		14BED2571C18262F00D1CA52 /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14BED2561C18262F00D1CA52 /* WebViewController.swift */; };
+		14E573701C1EC3FD0088ED89 /* FAImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 14E573681C1EC3FD0088ED89 /* FAImageView.m */; };
+		14E573711C1EC3FD0088ED89 /* FontAwesome.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 14E573691C1EC3FD0088ED89 /* FontAwesome.ttf */; };
+		14E573721C1EC3FD0088ED89 /* NSString+FontAwesome.m in Sources */ = {isa = PBXBuildFile; fileRef = 14E5736B1C1EC3FD0088ED89 /* NSString+FontAwesome.m */; };
+		14E573731C1EC3FD0088ED89 /* UIFont+FontAwesome.m in Sources */ = {isa = PBXBuildFile; fileRef = 14E5736D1C1EC3FD0088ED89 /* UIFont+FontAwesome.m */; };
+		14E573741C1EC3FD0088ED89 /* MozTopAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 14E5736F1C1EC3FD0088ED89 /* MozTopAlertView.m */; };
 		14ECBADE1C1BF41200461BC5 /* IAViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14ECBADD1C1BF41200461BC5 /* IAViewController.swift */; };
 		14F7049F1C1B16E60021D464 /* AndroidViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14F7049E1C1B16E60021D464 /* AndroidViewController.swift */; };
 		483C1988A0BF087A31A72155 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5F194161E8CF98DFBA360C6F /* libPods.a */; };
@@ -44,6 +49,15 @@
 /* Begin PBXFileReference section */
 		14BBDA9B1C1D986E0084FD35 /* TabViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabViewController.swift; sourceTree = "<group>"; };
 		14BED2561C18262F00D1CA52 /* WebViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
+		14E573671C1EC3FD0088ED89 /* FAImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FAImageView.h; sourceTree = "<group>"; };
+		14E573681C1EC3FD0088ED89 /* FAImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FAImageView.m; sourceTree = "<group>"; };
+		14E573691C1EC3FD0088ED89 /* FontAwesome.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = FontAwesome.ttf; sourceTree = "<group>"; };
+		14E5736A1C1EC3FD0088ED89 /* NSString+FontAwesome.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+FontAwesome.h"; sourceTree = "<group>"; };
+		14E5736B1C1EC3FD0088ED89 /* NSString+FontAwesome.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+FontAwesome.m"; sourceTree = "<group>"; };
+		14E5736C1C1EC3FD0088ED89 /* UIFont+FontAwesome.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIFont+FontAwesome.h"; sourceTree = "<group>"; };
+		14E5736D1C1EC3FD0088ED89 /* UIFont+FontAwesome.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIFont+FontAwesome.m"; sourceTree = "<group>"; };
+		14E5736E1C1EC3FD0088ED89 /* MozTopAlertView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MozTopAlertView.h; sourceTree = "<group>"; };
+		14E5736F1C1EC3FD0088ED89 /* MozTopAlertView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MozTopAlertView.m; sourceTree = "<group>"; };
 		14ECBADD1C1BF41200461BC5 /* IAViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IAViewController.swift; sourceTree = "<group>"; };
 		14F7049E1C1B16E60021D464 /* AndroidViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AndroidViewController.swift; sourceTree = "<group>"; };
 		2CCE6B94E647948905706A96 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
@@ -128,6 +142,30 @@
 			name = Base;
 			sourceTree = "<group>";
 		};
+		14E573651C1EC3FD0088ED89 /* TopAlertView */ = {
+			isa = PBXGroup;
+			children = (
+				14E573661C1EC3FD0088ED89 /* fontawesome */,
+				14E5736E1C1EC3FD0088ED89 /* MozTopAlertView.h */,
+				14E5736F1C1EC3FD0088ED89 /* MozTopAlertView.m */,
+			);
+			path = TopAlertView;
+			sourceTree = SOURCE_ROOT;
+		};
+		14E573661C1EC3FD0088ED89 /* fontawesome */ = {
+			isa = PBXGroup;
+			children = (
+				14E573671C1EC3FD0088ED89 /* FAImageView.h */,
+				14E573681C1EC3FD0088ED89 /* FAImageView.m */,
+				14E573691C1EC3FD0088ED89 /* FontAwesome.ttf */,
+				14E5736A1C1EC3FD0088ED89 /* NSString+FontAwesome.h */,
+				14E5736B1C1EC3FD0088ED89 /* NSString+FontAwesome.m */,
+				14E5736C1C1EC3FD0088ED89 /* UIFont+FontAwesome.h */,
+				14E5736D1C1EC3FD0088ED89 /* UIFont+FontAwesome.m */,
+			);
+			path = fontawesome;
+			sourceTree = "<group>";
+		};
 		936B4EDC1C08B04900DDECA5 = {
 			isa = PBXGroup;
 			children = (
@@ -157,6 +195,7 @@
 				1455528F1C190FAE00857BF4 /* ViewController */,
 				1455528E1C190F9E00857BF4 /* Model */,
 				936B4EEC1C08B04900DDECA5 /* Main.storyboard */,
+				14E573651C1EC3FD0088ED89 /* TopAlertView */,
 			);
 			path = Gank;
 			sourceTree = "<group>";
@@ -306,6 +345,7 @@
 				936B4EF61C08B04900DDECA5 /* LaunchScreen.storyboard in Resources */,
 				936B4EF31C08B04900DDECA5 /* Assets.xcassets in Resources */,
 				936B4EEE1C08B04900DDECA5 /* Main.storyboard in Resources */,
+				14E573711C1EC3FD0088ED89 /* FontAwesome.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -382,11 +422,15 @@
 				14BED2571C18262F00D1CA52 /* WebViewController.swift in Sources */,
 				14ECBADE1C1BF41200461BC5 /* IAViewController.swift in Sources */,
 				936B4EF11C08B04900DDECA5 /* Gank.xcdatamodeld in Sources */,
+				14E573741C1EC3FD0088ED89 /* MozTopAlertView.m in Sources */,
+				14E573721C1EC3FD0088ED89 /* NSString+FontAwesome.m in Sources */,
 				936B4EEB1C08B04900DDECA5 /* TodayViewController.swift in Sources */,
 				930779AD1C095F1A00AD773A /* NewsItem.swift in Sources */,
 				14BBDA9C1C1D986E0084FD35 /* TabViewController.swift in Sources */,
+				14E573701C1EC3FD0088ED89 /* FAImageView.m in Sources */,
 				936B4EE91C08B04900DDECA5 /* AppDelegate.swift in Sources */,
 				14F7049F1C1B16E60021D464 /* AndroidViewController.swift in Sources */,
+				14E573731C1EC3FD0088ED89 /* UIFont+FontAwesome.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
