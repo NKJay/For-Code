@@ -9,6 +9,8 @@
 import UIKit
 import CoreData
 
+let WINDOW_WIDTH = UIScreen.mainScreen().bounds.width
+let WINDOW_HEIGHT = UIScreen.mainScreen().bounds.height
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 

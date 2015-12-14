@@ -14,7 +14,7 @@
 		483C1988A0BF087A31A72155 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5F194161E8CF98DFBA360C6F /* libPods.a */; };
 		930779AD1C095F1A00AD773A /* NewsItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 930779AC1C095F1A00AD773A /* NewsItem.swift */; };
 		936B4EE91C08B04900DDECA5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 936B4EE81C08B04900DDECA5 /* AppDelegate.swift */; };
-		936B4EEB1C08B04900DDECA5 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 936B4EEA1C08B04900DDECA5 /* ViewController.swift */; };
+		936B4EEB1C08B04900DDECA5 /* TodayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 936B4EEA1C08B04900DDECA5 /* TodayViewController.swift */; };
 		936B4EEE1C08B04900DDECA5 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 936B4EEC1C08B04900DDECA5 /* Main.storyboard */; };
 		936B4EF11C08B04900DDECA5 /* Gank.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 936B4EEF1C08B04900DDECA5 /* Gank.xcdatamodeld */; };
 		936B4EF31C08B04900DDECA5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 936B4EF21C08B04900DDECA5 /* Assets.xcassets */; };
@@ -53,7 +53,7 @@
 		930779AC1C095F1A00AD773A /* NewsItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewsItem.swift; sourceTree = "<group>"; };
 		936B4EE51C08B04900DDECA5 /* Gank.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Gank.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		936B4EE81C08B04900DDECA5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		936B4EEA1C08B04900DDECA5 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		936B4EEA1C08B04900DDECA5 /* TodayViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayViewController.swift; sourceTree = "<group>"; };
 		936B4EED1C08B04900DDECA5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		936B4EF01C08B04900DDECA5 /* Gank.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Gank.xcdatamodel; sourceTree = "<group>"; };
 		936B4EF21C08B04900DDECA5 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -105,7 +105,7 @@
 		1455528F1C190FAE00857BF4 /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
-				936B4EEA1C08B04900DDECA5 /* ViewController.swift */,
+				936B4EEA1C08B04900DDECA5 /* TodayViewController.swift */,
 				14BED2561C18262F00D1CA52 /* WebViewController.swift */,
 				9389A13C1C095440007B2A9D /* IOSViewController.swift */,
 				14F7049E1C1B16E60021D464 /* AndroidViewController.swift */,
@@ -382,7 +382,7 @@
 				14BED2571C18262F00D1CA52 /* WebViewController.swift in Sources */,
 				14ECBADE1C1BF41200461BC5 /* IAViewController.swift in Sources */,
 				936B4EF11C08B04900DDECA5 /* Gank.xcdatamodeld in Sources */,
-				936B4EEB1C08B04900DDECA5 /* ViewController.swift in Sources */,
+				936B4EEB1C08B04900DDECA5 /* TodayViewController.swift in Sources */,
 				930779AD1C095F1A00AD773A /* NewsItem.swift in Sources */,
 				14BBDA9C1C1D986E0084FD35 /* TabViewController.swift in Sources */,
 				936B4EE91C08B04900DDECA5 /* AppDelegate.swift in Sources */,

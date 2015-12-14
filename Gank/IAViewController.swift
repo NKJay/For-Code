@@ -29,6 +29,9 @@ class IAViewController:UIView,UITableViewDataSource,UITableViewDelegate {
         newsTableView.mj_header = MJRefreshNormalHeader(refreshingBlock: { () -> Void in
             self.loadData()
         })
+        newsTableView.mj_footer = MJRefreshAutoNormalFooter(refreshingBlock: { () -> Void in
+            self.loadMoreData()
+        })
         newsTableView.mj_header.beginRefreshing()
         let f = NSFetchRequest(entityName: entityName)
         myTableView.delegate = self
@@ -36,6 +39,18 @@ class IAViewController:UIView,UITableViewDataSource,UITableViewDelegate {
         self.localData = try! self.context.executeFetchRequest(f)
     }
     
+    
+    //    缓存数据
+    func cacheData(title:String,time:String,author:String){
+        for each in localData{
+            context.deleteObject(each as! NSManagedObject)
+        }
+        let row = NSEntityDescription.insertNewObjectForEntityForName(self.entityName, inManagedObjectContext: self.context)
+        row.setValue(title, forKey: "title")
+        row.setValue(time, forKey: "time")
+        row.setValue(author, forKey: "author")
+        try! context.save()
+    }
     //    首次加载数据
     func loadData(){
         let loadUrl = URL + "1"
@@ -98,25 +113,6 @@ class IAViewController:UIView,UITableViewDataSource,UITableViewDelegate {
                 //                self.newsTableView.mj_footer.endRefreshing()
         }
         
-    }
-    
-    //    下滑自动加载数据
-    func scrollViewDidScroll(scrollView: UIScrollView){
-        if(scrollView.contentSize.height - scrollView.contentOffset.y - scrollView.frame.height < scrollView.frame.height/3){
-            loadMoreData()
-        }
-    }
-    
-    //    缓存数据
-    func cacheData(title:String,time:String,author:String){
-        for each in localData{
-            context.deleteObject(each as! NSManagedObject)
-        }
-        let row = NSEntityDescription.insertNewObjectForEntityForName(self.entityName, inManagedObjectContext: self.context)
-        row.setValue(title, forKey: "title")
-        row.setValue(time, forKey: "time")
-        row.setValue(author, forKey: "author")
-        try! context.save()
     }
     
     

@@ -9,8 +9,6 @@
 import UIKit
 import WebKit
 
-let WINDOW_WIDTH = UIScreen.mainScreen().bounds.width
-let WINDOW_HEIGHT = UIScreen.mainScreen().bounds.height
 class WebViewController: UIViewController {
     var url = String()
     var myWebView = WKWebView()
