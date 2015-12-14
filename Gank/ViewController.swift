@@ -16,8 +16,8 @@ class ViewController: UITableViewController {
     var URL =  "http://gank.avosapps.com/api/day/"
     var category = NSArray()
     var welfare = NSArray()
-    var androidData = NSArray()
-    var IOSData = NSArray()
+    var androidData = NSMutableArray()
+    var IOSData = NSMutableArray()
     var recommend = NSArray()
     var video = NSArray()
     var expend = NSArray()
@@ -25,10 +25,11 @@ class ViewController: UITableViewController {
     let kImageHeight:Float = 400
     let kInWindowHeight:Float = 200
     var data = NSDictionary()
+    var i = Double()
     override func viewDidLoad() {
         super.viewDidLoad()
         showLaunch()
-        loadData()
+        loadData(getDate(false))
         newsTableView.dataSource = self
         newsTableView.delegate = self
     }
@@ -39,38 +40,44 @@ class ViewController: UITableViewController {
     }
     
     //    获取数据
-    func loadData(){
+    func loadData(Date:String){
         let afmanager = AFHTTPRequestOperationManager()
-        let getDataUrl = URL + getDate()
+        let getDataUrl = URL + Date
         afmanager.GET(getDataUrl, parameters: nil, success: { (AFHTTPRequestOperation, resp:AnyObject) -> Void in
             self.data = resp.objectForKey("results")! as! NSDictionary
             self.category = resp.objectForKey("category")! as! NSArray
-            //            print(fuli)
-            //            for each in results{
-            //                print(each)
-            //            }
-            //            let currentNewsDataSource = NSMutableArray()
-            //            for each in results{
-            //                let item = NewsItem()
-            //                item.author = each.objectForKey("who")! as! NSString
-            //                item.title = each.objectForKey("desc")! as! NSString
-            //                item.url = each.objectForKey("url")! as! NSString
-            //                item.time = each.objectForKey("publishedAt") as! NSString
-            //                item.type = each.objectForKey("type") as! NSString
-            //                print(item.title)
-            //                currentNewsDataSource.addObject(item)
-            //            }
+            if self.data.count == 0{
+                self.loadData(self.getDate(true))
+            }else{
+            let currentIOS = self.data.objectForKey("iOS") as! NSArray
+            
+                for each in currentIOS{
+                let item = NewsItem()
+                item.author = each.valueForKey("who")! as! String
+                item.title = each.valueForKey("desc")! as! String
+                item.url = each.valueForKey("url")! as! String
+                    print(item.title)
+                    self.IOSData.addObject(item)
+                }
+                let currentAndroid = self.data.objectForKey("Android") as! NSArray
+                
+                for each in currentAndroid{
+                    let item = NewsItem()
+                    item.author = each.valueForKey("who")! as! String
+                    item.title = each.valueForKey("desc")! as! String
+                    item.url = each.valueForKey("url")! as! String
+                    print(item.title)
+                    self.androidData.addObject(item)
+                }
             dispatch_async(dispatch_get_main_queue(), { () -> Void in
-                self.category = resp.objectForKey("category")! as! NSArray
                 self.welfare = self.data.objectForKey("福利") as! NSArray
-                print(self.welfare)
-                self.IOSData = self.data.objectForKey("iOS") as! NSArray
-                self.androidData = self.data.objectForKey("Android") as! NSArray
-                self.video = self.data.objectForKey("休息视频") as! NSArray
-                self.recommend = self.data.objectForKey("瞎推荐") as! NSArray
-                self.expend = self.data.objectForKey("拓展资源") as! NSArray
+//                self.androidData = self.data.objectForKey("Android") as! NSArray
+//                self.video = self.data.objectForKey("休息视频") as! NSArray
+//                self.recommend = self.data.objectForKey("瞎推荐") as! NSArray
+//                self.expend = self.data.objectForKey("拓展资源") as! NSArray
                 self.newsTableView.reloadData()
             })
+            }
             }) { (AFHTTPRequestOperation, error:NSError) -> Void in
                 print(error)
         }
@@ -118,7 +125,7 @@ class ViewController: UITableViewController {
         case 5: return 2
         default: break
         }
-
+        
         return 1
     }
     
@@ -127,37 +134,50 @@ class ViewController: UITableViewController {
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell{
-//        let cell = newsTableView.dequeueReusableCellWithIdentifier("cell")! as UITableViewCell
+        //        let cell = newsTableView.dequeueReusableCellWithIdentifier("cell")! as UITableViewCell
         var cell = UITableViewCell()
-        if indexPath.section == 0{
-            let imgURL = welfare.valueForKeyPath("url") as! NSArray
-            topImage.sd_setImageWithURL(NSURL(string: imgURL[0] as! String), completed: { (img:UIImage!, error:NSError!, cache:SDImageCacheType, nsurl:NSURL!) -> Void in
-                self.topImage.frame = CGRect(origin: CGPoint(x: 0, y: 0), size: CGSize(width: WINDOW_WIDTH, height: img.size.width/WINDOW_WIDTH*img.size.height))
-                cell.addSubview(self.topImage)
-            })
+        switch indexPath.section{
+        case 0:  let imgURL = welfare.valueForKeyPath("url") as! NSArray
+        topImage.sd_setImageWithURL(NSURL(string: imgURL[0] as! String), completed: { (img:UIImage!, error:NSError!, cache:SDImageCacheType, nsurl:NSURL!) -> Void in
+            self.topImage.frame = CGRect(origin: CGPoint(x: 0, y: 0), size: CGSize(width: WINDOW_WIDTH, height: img.size.width/WINDOW_WIDTH*img.size.height))
+            cell.addSubview(self.topImage)
+        })
+            break
+        case 1:cell = newsTableView.dequeueReusableCellWithIdentifier("cell")! as UITableViewCell
+        let item = IOSData[indexPath.row] as! NewsItem
+        let title = cell.viewWithTag(1) as! UILabel
+        let author = cell.viewWithTag(2) as! UILabel
+        title.text = item.title as String
+        author.text = item.author as String
+            break
+        case 2:cell = newsTableView.dequeueReusableCellWithIdentifier("cell")! as UITableViewCell
+        let item = androidData[indexPath.row] as! NewsItem
+        let title = cell.viewWithTag(1) as! UILabel
+        let author = cell.viewWithTag(2) as! UILabel
+        title.text = item.title as String
+        author.text = item.author as String
+            break
+        default:break
         }
         return cell
     }
     
     //    判断今天是否有数据并获取日期
-    func getDate()->String{
+    func getDate(changDate:Bool)->String{
         let date = NSDate()
         let dataformator = NSDateFormatter()
         dataformator.dateFormat = "EEE"
         var day = dataformator.stringFromDate(date)
-        if day == "Sat"{
+        if changDate{
             dataformator.dateFormat = "yyyy/MM/dd"
-            let yesterday = date.dateByAddingTimeInterval(-60 * 60 * 24) as NSDate
+            let yesterday = date.dateByAddingTimeInterval(-60 * 60 * 24 * i) as NSDate
             day = dataformator.stringFromDate(yesterday)
-        }
-        else if day == "Sun"{
-            dataformator.dateFormat = "yyyy/MM/dd"
-            let yesterday = date.dateByAddingTimeInterval(-60 * 60 * 48) as NSDate
-            day = dataformator.stringFromDate(yesterday)
+            i++
         }else{
             dataformator.dateFormat = "yyyy/MM/dd"
             day = dataformator.stringFromDate(date)
         }
+        print(day)
         return day
         
     }
@@ -215,7 +235,7 @@ class ViewController: UITableViewController {
                 }
         })
     }
-
+    
     
 }
 
