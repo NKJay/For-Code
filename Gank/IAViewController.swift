@@ -35,40 +35,51 @@ class IAViewController:UIView,UITableViewDataSource,UITableViewDelegate {
         newsTableView.mj_header.beginRefreshing()
         let f = NSFetchRequest(entityName: entityName)
         myTableView.delegate = self
+        self.clearCache()
         myTableView.dataSource = self
         self.localData = try! self.context.executeFetchRequest(f)
+        print(localData.count)
     }
     
     
     //    缓存数据
     func cacheData(title:String,time:String,author:String){
-        for each in localData{
-            context.deleteObject(each as! NSManagedObject)
-        }
         let row = NSEntityDescription.insertNewObjectForEntityForName(self.entityName, inManagedObjectContext: self.context)
         row.setValue(title, forKey: "title")
         row.setValue(time, forKey: "time")
         row.setValue(author, forKey: "author")
         try! context.save()
+        let f = NSFetchRequest(entityName: entityName)
+        self.localData = try! self.context.executeFetchRequest(f)
     }
-    //    首次加载数据
+    
+    func clearCache(){
+        for each in localData{
+            context.deleteObject(each as! NSManagedObject)
+            try! context.save()
+        }
+    }
+    //    加载数据
     func loadData(){
         let loadUrl = URL + "1"
         let afmanager = AFHTTPRequestOperationManager()
         afmanager.GET(loadUrl, parameters: nil, success: { (AFHTTPRequestOperation, resp:AnyObject) -> Void in
             let results = resp.objectForKey("results")! as! NSArray
+            self.clearCache()
+            let currentData = NSMutableArray()
             for each in results{
                 let item = NewsItem()
                 item.author = each.objectForKey("who")! as! String
                 item.title = each.objectForKey("desc")! as! String
                 item.url = each.objectForKey("url")! as! String
                 item.time = each.objectForKey("publishedAt") as! String
-                self.dataSource.addObject(item)
+                currentData.addObject(item)
                 self.cacheData(item.title as String,time: item.time as String,author:
                     item.author as String)
                 
             }
             dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                self.dataSource = currentData
                 self.newsTableView.reloadData()
                 self.newsTableView.mj_header.endRefreshing()
                 //                self.newsTableView.mj_footer.endRefreshing()
@@ -83,6 +94,7 @@ class IAViewController:UIView,UITableViewDataSource,UITableViewDelegate {
                         item.title = each.valueForKey("title")! as! String
                         self.dataSource.addObject(item)
                         self.newsTableView.reloadData()
+                        self.newsTableView.mj_header.endRefreshing()
                     }
                 })
         }
@@ -106,11 +118,11 @@ class IAViewController:UIView,UITableViewDataSource,UITableViewDelegate {
             dispatch_async(dispatch_get_main_queue(), { () -> Void in
                 self.newsTableView.reloadData()
                 self.newsTableView.mj_header.endRefreshing()
-                //                self.newsTableView.mj_footer.endRefreshing()
+                                self.newsTableView.mj_footer.endRefreshing()
                 
             })
             }) { (AFHTTPRequestOperation, error:NSError) -> Void in
-                //                self.newsTableView.mj_footer.endRefreshing()
+                                self.newsTableView.mj_footer.endRefreshing()
         }
         
     }

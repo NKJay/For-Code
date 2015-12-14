@@ -22,7 +22,14 @@ class TabViewController: UITabBarController,UITabBarControllerDelegate {
     }
     
     func tabBarController(tabBarController: UITabBarController, didSelectViewController viewController: UIViewController){
-        print(viewController.tabBarItem.title)
+        let window = UIApplication.sharedApplication().keyWindow
+        let whiteView = UIView(frame: CGRect(x: 0, y: 0, width: WINDOW_WIDTH, height: WINDOW_HEIGHT))
+        window?.addSubview(whiteView)
+        UIView.animateWithDuration(1) { () -> Void in
+            whiteView.alpha = 0
+        }
+        whiteView.removeFromSuperview()
+        print("123")
     }
     
     

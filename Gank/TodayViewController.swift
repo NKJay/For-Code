@@ -15,10 +15,10 @@ class TodayViewController: UIViewController,UITableViewDataSource,UITableViewDel
     var category = NSArray()
     var welfare = NSArray()
     var context = (UIApplication.sharedApplication().delegate as! AppDelegate).managedObjectContext
-    var androidData = NSMutableArray()
-    var IOSData = NSMutableArray()
+    var androidData = NSArray()
+    var IOSData = NSArray()
     var recommend = NSArray()
-    var videoData = NSMutableArray()
+    var videoData = NSArray()
     var expend = NSArray()
     var topImage = UIImageView()
     var data = NSDictionary()
@@ -49,11 +49,15 @@ class TodayViewController: UIViewController,UITableViewDataSource,UITableViewDel
             if self.data.count == 0{
                 self.loadData(self.getDate(true))
             }else{
-                self.getSingleData(self.IOSData, key: "iOS")
-                self.getSingleData(self.androidData, key: "Android")
-                self.getSingleData(self.videoData, key: "休息视频")
+                let currentIOS = self.getSingleData(self.IOSData, key: "iOS") as NSMutableArray
+                let currentAndroid = self.getSingleData(self.androidData, key: "Android")
+                let currentVideo = self.getSingleData(self.videoData, key: "休息视频")
                 dispatch_async(dispatch_get_main_queue(), { () -> Void in
                     self.welfare = self.data.objectForKey("福利") as! NSArray
+                    self.IOSData = currentIOS
+                    self.androidData = currentAndroid
+                    self.videoData = currentVideo
+                    
                     //                self.androidData = self.data.objectForKey("Android") as! NSArray
                     //                self.video = self.data.objectForKey("休息视频") as! NSArray
                     //                self.recommend = self.data.objectForKey("瞎推荐") as! NSArray
@@ -68,28 +72,32 @@ class TodayViewController: UIViewController,UITableViewDataSource,UITableViewDel
     }
     
 //    获取单个类型数据
-    func getSingleData(data:NSMutableArray,key:String){
-        let currentData = self.data.objectForKey(key) as! NSArray
-        
-        for each in currentData{
+    func getSingleData(data:NSArray,key:String)->NSMutableArray{
+        let resault = self.data.objectForKey(key) as! NSArray
+        let currentData = NSMutableArray()
+        for each in resault{
             let item = NewsItem()
             item.author = each.valueForKey("who")! as! String
             item.title = each.valueForKey("desc")! as! String
             item.url = each.valueForKey("url")! as! String
-            data.addObject(item)
+            currentData.addObject(item)
         }
+        return currentData
     }
     
     //    缓存数据
     func cacheData(title:String,time:String,author:String,entityName:String,localData:NSArray){
-        for each in localData{
-            context.deleteObject(each as! NSManagedObject)
-        }
         let row = NSEntityDescription.insertNewObjectForEntityForName(entityName, inManagedObjectContext: self.context)
         row.setValue(title, forKey: "title")
         row.setValue(time, forKey: "time")
         row.setValue(author, forKey: "author")
         try! context.save()
+    }
+    
+    func clearCache(localData:NSArray){
+        for each in localData{
+            context.deleteObject(each as! NSManagedObject)
+        }
     }
     
     
@@ -168,6 +176,18 @@ class TodayViewController: UIViewController,UITableViewDataSource,UITableViewDel
         })
     }
     
+//    func imageTap(){
+//        let newimage = UIImageView(image: topImage.image)
+//        newimage.frame = CGRect(x: 0, y: 64, width: WINDOW_WIDTH, height: WINDOW_WIDTH)
+//        newimage.contentMode = UIViewContentMode.ScaleAspectFill
+//        newimage.alpha = 0
+//        newimage.userInteractionEnabled = true
+//        newimage.addGestureRecognizer(UITapGestureRecognizer(target: self, action: "tapHide"))
+//        self.view.addSubview(newimage)
+//        UIView.animateWithDuration(1) { () -> Void in
+//            newimage.alpha = 1
+//        }
+//    }
     
     //    tableView的datasource和delegate
     func numberOfSectionsInTableView(tableView: UITableView) -> Int{
@@ -176,8 +196,8 @@ class TodayViewController: UIViewController,UITableViewDataSource,UITableViewDel
     
     func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView?
     {
-        let lbl = UILabel(frame:CGRectMake(0,0,320,30))
-        lbl.backgroundColor = UIColor.lightGrayColor()
+        let lbl = UILabel(frame:CGRectMake(0,0,320,25))
+        lbl.backgroundColor = UIColor(red: 245/255.0, green: 102/255.0, blue: 70/255.0, alpha: 0.7)
         switch section{
         case 1: lbl.text = "IOS";break
         case 2: lbl.text = "Android";break
@@ -197,7 +217,7 @@ class TodayViewController: UIViewController,UITableViewDataSource,UITableViewDel
         if section == 0 {
             return 0
         }
-        return 30
+        return 25
     }
     
     
@@ -240,11 +260,12 @@ class TodayViewController: UIViewController,UITableViewDataSource,UITableViewDel
             break
         default:break
         }
+        print(indexPath.section)
         newsTableView.deselectRowAtIndexPath(indexPath, animated: true)
     }
     
 //    输出cell数据
-    func putCellData(cell:UITableViewCell,indexPath:NSIndexPath,dataSource:NSMutableArray){
+    func putCellData(cell:UITableViewCell,indexPath:NSIndexPath,dataSource:NSArray){
         let item = dataSource[indexPath.row] as! NewsItem
         let title = cell.viewWithTag(1) as! UILabel
         let author = cell.viewWithTag(2) as! UILabel
@@ -255,7 +276,8 @@ class TodayViewController: UIViewController,UITableViewDataSource,UITableViewDel
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell{
         let cell = newsTableView.dequeueReusableCellWithIdentifier("cell")! as UITableViewCell
         switch indexPath.section{
-        case 0:  let imgURL = welfare.valueForKeyPath("url") as! NSArray
+        case 0:
+        let imgURL = welfare.valueForKeyPath("url") as! NSArray
         topImage.contentMode = UIViewContentMode.ScaleAspectFill
          self.topImage.frame = CGRect(origin: CGPoint(x:0 , y: 0), size: CGSize(width: WINDOW_WIDTH, height: WINDOW_HEIGHT))
         topImage.sd_setImageWithURL(NSURL(string: imgURL[0] as! String), completed: { (img:UIImage!, error:NSError!, cache:SDImageCacheType, nsurl:NSURL!) -> Void in
@@ -263,13 +285,10 @@ class TodayViewController: UIViewController,UITableViewDataSource,UITableViewDel
         })
             break
         case 1:
-//            cell = newsTableView.dequeueReusableCellWithIdentifier("cell")! as UITableViewCell
             putCellData(cell, indexPath: indexPath, dataSource: IOSData);break
         case 2:
-//            cell = newsTableView.dequeueReusableCellWithIdentifier("cell")! as UITableViewCell
             putCellData(cell, indexPath: indexPath, dataSource: androidData);break
         case 3:
-//            cell = newsTableView.dequeueReusableCellWithIdentifier("cell")! as UITableViewCell
             putCellData(cell, indexPath: indexPath, dataSource: videoData);break
         default:break
         }
