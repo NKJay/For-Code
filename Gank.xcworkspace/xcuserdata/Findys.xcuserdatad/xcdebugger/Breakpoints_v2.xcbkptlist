@@ -138,13 +138,61 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Gank/TodayViewController.swift"
-            timestampString = "471886084.888315"
+            timestampString = "471887826.491139"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "273"
-            endingLineNumber = "273"
+            startingLineNumber = "265"
+            endingLineNumber = "265"
             landmarkName = "tableView(_:cellForRowAtIndexPath:)"
             landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Gank/TodayViewController.swift"
+            timestampString = "471887826.491139"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "256"
+            endingLineNumber = "256"
+            landmarkName = "tableView(_:didSelectRowAtIndexPath:)"
+            landmarkType = "5">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Gank.TodayViewController.tableView (Gank.TodayViewController)(__ObjC.UITableView, didSelectRowAtIndexPath : __ObjC.NSIndexPath) -&gt; ()"
+                  moduleName = "Gank"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/Findys/Documents/gank/Gank/TodayViewController.swift"
+                  timestampString = "471887791.245603"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "262"
+                  endingLineNumber = "262"
+                  offsetFromSymbolStart = "69">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Gank.TodayViewController.tableView (Gank.TodayViewController)(__ObjC.UITableView, didSelectRowAtIndexPath : __ObjC.NSIndexPath) -&gt; ()"
+                  moduleName = "Gank"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/Findys/Documents/gank/Gank/TodayViewController.swift"
+                  timestampString = "471887791.245913"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "262"
+                  endingLineNumber = "262"
+                  offsetFromSymbolStart = "85">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

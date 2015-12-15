@@ -15,10 +15,7 @@ class TodayViewController: UIViewController,UITableViewDataSource,UITableViewDel
     var category = NSArray()
     var welfare = NSArray()
     var context = (UIApplication.sharedApplication().delegate as! AppDelegate).managedObjectContext
-    var androidData = NSArray()
-    var IOSData = NSArray()
     var recommend = NSArray()
-    var videoData = NSArray()
     var expend = NSArray()
     var topImage = UIImageView()
     var data = NSDictionary()
@@ -64,9 +61,6 @@ class TodayViewController: UIViewController,UITableViewDataSource,UITableViewDel
                     self.welfare = self.data.objectForKey("福利") as! NSArray
                     self.dataSource = currentData
                     self.newsTableView.dataSource = self
-                    self.IOSData = currentIOS
-                    self.androidData = currentAndroid
-                    self.videoData = currentVideo
                     
                     //                self.androidData = self.data.objectForKey("Android") as! NSArray
                     //                self.video = self.data.objectForKey("休息视频") as! NSArray
@@ -258,10 +252,9 @@ class TodayViewController: UIViewController,UITableViewDataSource,UITableViewDel
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         switch indexPath.section{
-        case 1:sendToWeb(indexPath, dataSource: IOSData);break
-        case 2:sendToWeb(indexPath, dataSource: androidData);break
-        case 3:sendToWeb(indexPath, dataSource: videoData)
-            break
+        case 1:sendToWeb(indexPath, dataSource: dataSource[0] as! NSArray);break
+        case 2:sendToWeb(indexPath, dataSource: dataSource[1] as! NSArray);break
+        case 3:sendToWeb(indexPath, dataSource: dataSource[2] as! NSArray);break
         default:break
         }
         newsTableView.deselectRowAtIndexPath(indexPath, animated: true)
