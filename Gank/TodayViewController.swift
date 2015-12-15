@@ -23,6 +23,7 @@ class TodayViewController: UIViewController,UITableViewDataSource,UITableViewDel
     var topImage = UIImageView()
     var data = NSDictionary()
     var i = Double()
+    var localData = NSArray()
     @IBOutlet weak var historyButton: UIBarButtonItem!
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,6 +34,8 @@ class TodayViewController: UIViewController,UITableViewDataSource,UITableViewDel
         })
         newsTableView.dataSource = self
         newsTableView.delegate = self
+        let f = NSFetchRequest(entityName: "DayNews")
+        self.localData = try! context.executeFetchRequest(f)
     }
     
     override func didReceiveMemoryWarning() {
@@ -82,15 +85,16 @@ class TodayViewController: UIViewController,UITableViewDataSource,UITableViewDel
             item.title = each.valueForKey("desc")! as! String
             item.url = each.valueForKey("url")! as! String
             currentData.addObject(item)
+            cacheData(item.title as String, url: item.url as String, author: item.author as String, entityName: "DayNews")
         }
         return currentData
     }
     
     //    缓存数据
-    func cacheData(title:String,time:String,author:String,entityName:String,localData:NSArray){
+    func cacheData(title:String,url:String,author:String,entityName:String){
         let row = NSEntityDescription.insertNewObjectForEntityForName(entityName, inManagedObjectContext: self.context)
         row.setValue(title, forKey: "title")
-        row.setValue(time, forKey: "time")
+        row.setValue(url, forKey: "url")
         row.setValue(author, forKey: "author")
         try! context.save()
     }

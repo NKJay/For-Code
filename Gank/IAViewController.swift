@@ -45,10 +45,10 @@ class IAViewController:UIView,UITableViewDataSource,UITableViewDelegate {
     
     
     //    缓存数据
-    func cacheData(title:String,time:String,author:String){
+    func cacheData(title:String,url:String,author:String){
         let row = NSEntityDescription.insertNewObjectForEntityForName(self.entityName, inManagedObjectContext: self.context)
         row.setValue(title, forKey: "title")
-        row.setValue(time, forKey: "time")
+        row.setValue(url, forKey: "url")
         row.setValue(author, forKey: "author")
         try! context.save()
         let f = NSFetchRequest(entityName: entityName)
@@ -74,9 +74,8 @@ class IAViewController:UIView,UITableViewDataSource,UITableViewDelegate {
                 item.author = each.objectForKey("who")! as! String
                 item.title = each.objectForKey("desc")! as! String
                 item.url = each.objectForKey("url")! as! String
-                item.time = each.objectForKey("publishedAt") as! String
                 currentData.addObject(item)
-                self.cacheData(item.title as String,time: item.time as String,author:
+                self.cacheData(item.title as String,url: item.url as String,author:
                     item.author as String)
                 
             }
@@ -92,7 +91,7 @@ class IAViewController:UIView,UITableViewDataSource,UITableViewDelegate {
                     for each in self.localData{
                         let item = NewsItem()
                         item.author = each.valueForKey("author")! as! String
-                        item.time = each.valueForKey("time")! as! String
+                        item.url = each.valueForKey("url")! as! String
                         item.title = each.valueForKey("title")! as! String
                         self.dataSource.addObject(item)
                         self.newsTableView.reloadData()
@@ -113,7 +112,6 @@ class IAViewController:UIView,UITableViewDataSource,UITableViewDelegate {
                 item.author = each.objectForKey("who")! as! String
                 item.title = each.objectForKey("desc")! as! String
                 item.url = each.objectForKey("url")! as! String
-                item.time = each.objectForKey("publishedAt") as! String
                 
                 self.dataSource.addObject(item)
             }
