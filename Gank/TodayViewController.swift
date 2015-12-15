@@ -199,6 +199,15 @@ class TodayViewController: UIViewController,UITableViewDataSource,UITableViewDel
     //        }
     //    }
     
+    //    跳转webview并发送数据
+    func sendToWeb(indexPath:NSIndexPath,dataSource:NSArray){
+        let myStoryboard = UIStoryboard.init(name: "Main", bundle: nil)
+        let webView = myStoryboard.instantiateViewControllerWithIdentifier("webView") as! WebViewController
+        let item = dataSource[indexPath.row] as! NewsItem
+        webView.url = item.url as String
+        self.navigationController!.pushViewController(webView, animated: true)
+    }
+    
     //    tableView的datasource和delegate
     func numberOfSectionsInTableView(tableView: UITableView) -> Int{
         return dataSource.count
@@ -241,15 +250,6 @@ class TodayViewController: UIViewController,UITableViewDataSource,UITableViewDel
             return 250
         }
         return 85
-    }
-    
-    //    跳转webview并发送数据
-    func sendToWeb(indexPath:NSIndexPath,dataSource:NSArray){
-        let myStoryboard = UIStoryboard.init(name: "Main", bundle: nil)
-        let webView = myStoryboard.instantiateViewControllerWithIdentifier("webView") as! WebViewController
-        let item = dataSource[indexPath.row] as! NewsItem
-        webView.url = item.url as String
-        self.navigationController!.pushViewController(webView, animated: true)
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {

@@ -132,13 +132,11 @@ class IAViewController:UIView,UITableViewDataSource,UITableViewDelegate {
     
     
     //    Tableview的datasource和delegate
-    //    返回Cell数量
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int{
         return dataSource.count
         
     }
     
-    //    加载每个cell的数据
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell{
         let cell = tableView.dequeueReusableCellWithIdentifier("cell")! as UITableViewCell
         let title = cell.viewWithTag(1) as! UILabel
@@ -151,7 +149,6 @@ class IAViewController:UIView,UITableViewDataSource,UITableViewDelegate {
         return cell
     }
     
-    //    每个Cell的点击事件
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath){
         let myStoryboard = UIStoryboard.init(name: "Main", bundle: nil)
         let webView = myStoryboard.instantiateViewControllerWithIdentifier("webView") as! WebViewController
