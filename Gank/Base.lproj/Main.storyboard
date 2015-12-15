@@ -66,7 +66,6 @@
                                     </tableViewCell>
                                 </prototypes>
                                 <connections>
-                                    <outlet property="dataSource" destination="qPY-zp-RsE" id="mSX-N2-gqg"/>
                                     <outlet property="delegate" destination="qPY-zp-RsE" id="R6n-ph-VGI"/>
                                 </connections>
                             </tableView>
@@ -89,7 +88,6 @@
                                 </state>
                             </button>
                             <connections>
-                                <action selector="historyButton:" destination="qPY-zp-RsE" id="rTh-oM-tJg"/>
                                 <segue destination="Icj-BN-pk2" kind="push" id="ySs-42-Uek"/>
                             </connections>
                         </barButtonItem>

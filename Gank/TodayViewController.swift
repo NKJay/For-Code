@@ -24,6 +24,7 @@ class TodayViewController: UIViewController,UITableViewDataSource,UITableViewDel
     var data = NSDictionary()
     var i = Double()
     var localData = NSArray()
+    var dataSource = NSArray()
     @IBOutlet weak var historyButton: UIBarButtonItem!
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,7 +33,6 @@ class TodayViewController: UIViewController,UITableViewDataSource,UITableViewDel
         newsTableView.mj_header = MJRefreshNormalHeader(refreshingBlock: { () -> Void in
             self.loadData(self.getDate(false))
         })
-        newsTableView.dataSource = self
         newsTableView.delegate = self
         let f = NSFetchRequest(entityName: "DayNews")
         self.localData = try! context.executeFetchRequest(f)
@@ -50,14 +50,20 @@ class TodayViewController: UIViewController,UITableViewDataSource,UITableViewDel
         afmanager.GET(getDataUrl, parameters: nil, success: { (nsurl:NSURLSessionDataTask, resp:AnyObject?) -> Void in
             self.data = resp!.objectForKey("results")! as! NSDictionary
             self.category = resp!.objectForKey("category")! as! NSArray
+            let currentData = NSMutableArray()
             if self.data.count == 0{
                 self.loadData(self.getDate(true))
             }else{
-                let currentIOS = self.getSingleData(self.IOSData, key: "iOS") as NSMutableArray
-                let currentAndroid = self.getSingleData(self.androidData, key: "Android")
-                let currentVideo = self.getSingleData(self.videoData, key: "休息视频")
+                let currentIOS = self.getSingleData("iOS") as NSMutableArray
+                let currentAndroid = self.getSingleData("Android")
+                let currentVideo = self.getSingleData("休息视频")
+                currentData.addObject(currentIOS)
+                currentData.addObject(currentAndroid)
+                currentData.addObject(currentVideo)
                 dispatch_async(dispatch_get_main_queue(), { () -> Void in
                     self.welfare = self.data.objectForKey("福利") as! NSArray
+                    self.dataSource = currentData
+                    self.newsTableView.dataSource = self
                     self.IOSData = currentIOS
                     self.androidData = currentAndroid
                     self.videoData = currentVideo
@@ -76,7 +82,7 @@ class TodayViewController: UIViewController,UITableViewDataSource,UITableViewDel
     }
     
 //    获取单个类型数据
-    func getSingleData(data:NSArray,key:String)->NSMutableArray{
+    func getSingleData(key:String)->NSMutableArray{
         let resault = self.data.objectForKey(key) as! NSArray
         let currentData = NSMutableArray()
         for each in resault{
@@ -196,7 +202,7 @@ class TodayViewController: UIViewController,UITableViewDataSource,UITableViewDel
     
     //    tableView的datasource和delegate
     func numberOfSectionsInTableView(tableView: UITableView) -> Int{
-        return 5
+        return dataSource.count+1
     }
     
     func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView?
@@ -227,17 +233,10 @@ class TodayViewController: UIViewController,UITableViewDataSource,UITableViewDel
     
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int{
-        switch section{
-        case 0: return welfare.count;
-        case 1: return IOSData.count;
-        case 2: return androidData.count;
-        case 3: return videoData.count;
-        case 4: return expend.count;
-        case 5: return 2
-        default: break
+        if section == 0{
+            return 1
         }
-        
-        return 0
+        return dataSource[section-1].count
         
     }
     
@@ -254,7 +253,6 @@ class TodayViewController: UIViewController,UITableViewDataSource,UITableViewDel
         let webView = myStoryboard.instantiateViewControllerWithIdentifier("webView") as! WebViewController
         let item = dataSource[indexPath.row] as! NewsItem
         webView.url = item.url as String
-        
         self.navigationController!.pushViewController(webView, animated: true)
     }
     
@@ -266,26 +264,15 @@ class TodayViewController: UIViewController,UITableViewDataSource,UITableViewDel
             break
         default:break
         }
-        print(indexPath.section)
-        print(indexPath.row)
         newsTableView.deselectRowAtIndexPath(indexPath, animated: true)
     }
     
-//    输出cell数据
-    func putCellData(indexPath:Int,dataSource:NSArray)->UITableViewCell{
-        let cell = newsTableView.dequeueReusableCellWithIdentifier("cell")! as UITableViewCell
-        let item = dataSource[indexPath] as! NewsItem
-        let title = cell.viewWithTag(1) as! UILabel
-        let author = cell.viewWithTag(2) as! UILabel
-        title.text = item.title as String
-        author.text = item.author as String
-        return cell
-    }
-    
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell{
-        let cell = UITableViewCell()
-        switch indexPath.section{
-        case 0:
+        var cell = newsTableView.dequeueReusableCellWithIdentifier("cell")! as UITableViewCell?
+        if cell == nil{
+            cell = UITableViewCell(style: UITableViewCellStyle.Default, reuseIdentifier: "cell")
+        }
+        if indexPath.section == 0{
         let cell = newsTableView.dequeueReusableCellWithIdentifier("ImageCell")! as UITableViewCell
         let imgURL = welfare.valueForKeyPath("url") as! NSArray
         topImage.contentMode = UIViewContentMode.ScaleAspectFill
@@ -293,16 +280,18 @@ class TodayViewController: UIViewController,UITableViewDataSource,UITableViewDel
         topImage.sd_setImageWithURL(NSURL(string: imgURL[0] as! String), completed: { (img:UIImage!, error:NSError!, cache:SDImageCacheType, nsurl:NSURL!) -> Void in
             cell.addSubview(self.topImage)
         })
-        return cell
-        case 1:
-            let cell = putCellData(indexPath.row, dataSource: IOSData);return cell
-        case 2:
-            let cell = putCellData(indexPath.row, dataSource: androidData);return cell
-        case 3:
-           let cell = putCellData(indexPath.row, dataSource: videoData);return cell
-        default:break
+            return cell
+        }else{
+            if dataSource.count != 0{
+                let sectionData = dataSource[indexPath.section-1]
+                let item = sectionData[indexPath.row] as! NewsItem
+                let title = cell!.viewWithTag(1) as! UILabel
+                let author = cell!.viewWithTag(2) as! UILabel
+                title.text = item.title as String
+                author.text = item.author as String
+            }
         }
-        return cell
+        return cell!
     }
     
 }
