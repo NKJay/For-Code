@@ -13,15 +13,12 @@ class TodayViewController: UIViewController,UITableViewDataSource,UITableViewDel
     @IBOutlet var newsTableView: UITableView!
     var URL =  "http://gank.avosapps.com/api/day/"
     var category = NSArray()
-    var welfare = NSArray()
     var context = (UIApplication.sharedApplication().delegate as! AppDelegate).managedObjectContext
-    var recommend = NSArray()
-    var expend = NSArray()
     var topImage = UIImageView()
     var data = NSDictionary()
-    var i = Double()
     var localData = NSArray()
     var dataSource = NSArray()
+    var i = Double(1)
     @IBOutlet weak var historyButton: UIBarButtonItem!
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -51,14 +48,16 @@ class TodayViewController: UIViewController,UITableViewDataSource,UITableViewDel
             if self.data.count == 0{
                 self.loadData(self.getDate(true))
             }else{
-                let currentIOS = self.getSingleData("iOS") as NSMutableArray
+                self.i = 1
+                let currentWelfare = self.getSingleData("福利")
+                let currentIOS = self.getSingleData("iOS")
                 let currentAndroid = self.getSingleData("Android")
                 let currentVideo = self.getSingleData("休息视频")
+                currentData.addObject(currentWelfare)
                 currentData.addObject(currentIOS)
                 currentData.addObject(currentAndroid)
                 currentData.addObject(currentVideo)
                 dispatch_async(dispatch_get_main_queue(), { () -> Void in
-                    self.welfare = self.data.objectForKey("福利") as! NSArray
                     self.dataSource = currentData
                     self.newsTableView.dataSource = self
                     
@@ -75,7 +74,7 @@ class TodayViewController: UIViewController,UITableViewDataSource,UITableViewDel
         }
     }
     
-//    获取单个类型数据
+    //    获取单个类型数据
     func getSingleData(key:String)->NSMutableArray{
         let resault = self.data.objectForKey(key) as! NSArray
         let currentData = NSMutableArray()
@@ -121,30 +120,10 @@ class TodayViewController: UIViewController,UITableViewDataSource,UITableViewDel
             dataformator.dateFormat = "yyyy/MM/dd"
             day = dataformator.stringFromDate(date)
         }
-        print(day)
         return day
         
     }
     
-//    func scrollViewDidScroll(scrollView: UIScrollView)
-//    {
-//        updateOffsets()
-//    }
-//    
-//    func updateOffsets() {
-//        let yOffset   = self.newsTableView.contentOffset.y
-//        let threshold = CGFloat(kImageHeight - kInWindowHeight)
-//        
-//        if Double(yOffset) > Double(-threshold) && Double(yOffset) < -64 {
-//            self.topImage.frame = CGRect(origin: CGPoint(x: 0,y: -100+yOffset/2),size: CGSize(width: 320,height: 300-yOffset/2));
-//        }
-//        else if yOffset < -64 {
-//            self.topImage.frame = CGRect(origin: CGPoint(x: 0,y: -100+yOffset/2),size: CGSize(width: 320,height: 300-yOffset/2));
-//        }
-//        else {
-//            self.topImage.frame = CGRect(origin: CGPoint(x: 0,y: -100),size: CGSize(width: 320,height: 300));
-//        }
-//    }
     
     //    显示启动图
     func showLaunch(){
@@ -181,22 +160,22 @@ class TodayViewController: UIViewController,UITableViewDataSource,UITableViewDel
         })
     }
     
-//    func imageTap(){
-//        let newimage = UIImageView(image: topImage.image)
-//        newimage.frame = CGRect(x: 0, y: 64, width: WINDOW_WIDTH, height: WINDOW_WIDTH)
-//        newimage.contentMode = UIViewContentMode.ScaleAspectFill
-//        newimage.alpha = 0
-//        newimage.userInteractionEnabled = true
-//        newimage.addGestureRecognizer(UITapGestureRecognizer(target: self, action: "tapHide"))
-//        self.view.addSubview(newimage)
-//        UIView.animateWithDuration(1) { () -> Void in
-//            newimage.alpha = 1
-//        }
-//    }
+    //    func imageTap(){
+    //        let newimage = UIImageView(image: topImage.image)
+    //        newimage.frame = CGRect(x: 0, y: 64, width: WINDOW_WIDTH, height: WINDOW_WIDTH)
+    //        newimage.contentMode = UIViewContentMode.ScaleAspectFill
+    //        newimage.alpha = 0
+    //        newimage.userInteractionEnabled = true
+    //        newimage.addGestureRecognizer(UITapGestureRecognizer(target: self, action: "tapHide"))
+    //        self.view.addSubview(newimage)
+    //        UIView.animateWithDuration(1) { () -> Void in
+    //            newimage.alpha = 1
+    //        }
+    //    }
     
     //    tableView的datasource和delegate
     func numberOfSectionsInTableView(tableView: UITableView) -> Int{
-        return dataSource.count+1
+        return dataSource.count
     }
     
     func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView?
@@ -227,10 +206,7 @@ class TodayViewController: UIViewController,UITableViewDataSource,UITableViewDel
     
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int{
-        if section == 0{
-            return 1
-        }
-        return dataSource[section-1].count
+        return dataSource[section].count
         
     }
     
@@ -252,9 +228,9 @@ class TodayViewController: UIViewController,UITableViewDataSource,UITableViewDel
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         switch indexPath.section{
-        case 1:sendToWeb(indexPath, dataSource: dataSource[0] as! NSArray);break
-        case 2:sendToWeb(indexPath, dataSource: dataSource[1] as! NSArray);break
-        case 3:sendToWeb(indexPath, dataSource: dataSource[2] as! NSArray);break
+        case 1:sendToWeb(indexPath, dataSource: dataSource[1] as! NSArray);break
+        case 2:sendToWeb(indexPath, dataSource: dataSource[2] as! NSArray);break
+        case 3:sendToWeb(indexPath, dataSource: dataSource[3] as! NSArray);break
         default:break
         }
         newsTableView.deselectRowAtIndexPath(indexPath, animated: true)
@@ -265,24 +241,22 @@ class TodayViewController: UIViewController,UITableViewDataSource,UITableViewDel
         if cell == nil{
             cell = UITableViewCell(style: UITableViewCellStyle.Default, reuseIdentifier: "cell")
         }
+        let sectionData = dataSource[indexPath.section]
+        let item = sectionData[indexPath.row] as! NewsItem
         if indexPath.section == 0{
-        let cell = newsTableView.dequeueReusableCellWithIdentifier("ImageCell")! as UITableViewCell
-        let imgURL = welfare.valueForKeyPath("url") as! NSArray
-        topImage.contentMode = UIViewContentMode.ScaleAspectFill
-         self.topImage.frame = CGRect(origin: CGPoint(x:0 , y: 0), size: CGSize(width: WINDOW_WIDTH, height: WINDOW_HEIGHT))
-        topImage.sd_setImageWithURL(NSURL(string: imgURL[0] as! String), completed: { (img:UIImage!, error:NSError!, cache:SDImageCacheType, nsurl:NSURL!) -> Void in
-            cell.addSubview(self.topImage)
-        })
-            return cell
+            let cell = newsTableView.dequeueReusableCellWithIdentifier("ImageCell")! as UITableViewCell?
+            let imgURL = item.url as String
+            topImage.contentMode = UIViewContentMode.ScaleAspectFill
+            self.topImage.frame = CGRect(origin: CGPoint(x:0 , y: 0), size: CGSize(width: WINDOW_WIDTH, height: WINDOW_HEIGHT))
+            topImage.sd_setImageWithURL(NSURL(string: imgURL), completed: { (img:UIImage!, error:NSError!, cache:SDImageCacheType, nsurl:NSURL!) -> Void in
+                cell!.addSubview(self.topImage)
+            })
+            return cell!
         }else{
-            if dataSource.count != 0{
-                let sectionData = dataSource[indexPath.section-1]
-                let item = sectionData[indexPath.row] as! NewsItem
-                let title = cell!.viewWithTag(1) as! UILabel
-                let author = cell!.viewWithTag(2) as! UILabel
-                title.text = item.title as String
-                author.text = item.author as String
-            }
+            let title = cell!.viewWithTag(1) as! UILabel
+            let author = cell!.viewWithTag(2) as! UILabel
+            title.text = item.title as String
+            author.text = item.author as String
         }
         return cell!
     }

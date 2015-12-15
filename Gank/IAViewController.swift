@@ -83,7 +83,6 @@ class IAViewController:UIView,UITableViewDataSource,UITableViewDelegate {
                 self.dataSource = currentData
                 self.newsTableView.reloadData()
                 self.newsTableView.mj_header.endRefreshing()
-                //                self.newsTableView.mj_footer.endRefreshing()
                 
             })
 
