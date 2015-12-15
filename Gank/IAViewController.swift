@@ -85,7 +85,7 @@ class IAViewController:UIView,UITableViewDataSource,UITableViewDelegate {
                 self.newsTableView.mj_header.endRefreshing()
                 
             })
-
+            
             }) { (nsurl:NSURLSessionDataTask?, error:NSError) -> Void in
                 dispatch_async(dispatch_get_main_queue(), { () -> Void in
                     for each in self.localData{
@@ -98,7 +98,7 @@ class IAViewController:UIView,UITableViewDataSource,UITableViewDelegate {
                         self.newsTableView.mj_header.endRefreshing()
                     }
                 })
-
+                
         }
         
     }

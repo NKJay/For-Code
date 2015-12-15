@@ -15,9 +15,33 @@
         <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="url" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
+    <entity name="TodayAndroid" syncable="YES">
+        <attribute name="author" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="url" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
+    <entity name="TodayImg" syncable="YES">
+        <attribute name="author" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="url" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
+    <entity name="TodayIOS" syncable="YES">
+        <attribute name="author" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="url" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
+    <entity name="TodayVideo" syncable="YES">
+        <attribute name="author" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="url" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
     <elements>
         <element name="AndroidNews" positionX="-63" positionY="-18" width="128" height="90"/>
         <element name="DayNews" positionX="-36" positionY="9" width="128" height="90"/>
         <element name="IOSNews" positionX="-54" positionY="-9" width="128" height="90"/>
+        <element name="TodayIOS" positionX="-45" positionY="18" width="128" height="90"/>
+        <element name="TodayAndroid" positionX="-36" positionY="36" width="128" height="90"/>
+        <element name="TodayVideo" positionX="-27" positionY="54" width="128" height="90"/>
+        <element name="TodayImg" positionX="-18" positionY="72" width="128" height="90"/>
     </elements>
 </model>

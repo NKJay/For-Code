@@ -16,8 +16,7 @@ class TodayViewController: UIViewController,UITableViewDataSource,UITableViewDel
     var context = (UIApplication.sharedApplication().delegate as! AppDelegate).managedObjectContext
     var topImage = UIImageView()
     var data = NSDictionary()
-    var localData = NSArray()
-    var dataSource = NSArray()
+    var dataSource = NSMutableArray()
     var i = Double(1)
     @IBOutlet weak var historyButton: UIBarButtonItem!
     override func viewDidLoad() {
@@ -28,8 +27,6 @@ class TodayViewController: UIViewController,UITableViewDataSource,UITableViewDel
             self.loadData(self.getDate(false))
         })
         newsTableView.delegate = self
-        let f = NSFetchRequest(entityName: "DayNews")
-        self.localData = try! context.executeFetchRequest(f)
     }
     
     override func didReceiveMemoryWarning() {
@@ -61,16 +58,23 @@ class TodayViewController: UIViewController,UITableViewDataSource,UITableViewDel
                     self.dataSource = currentData
                     self.newsTableView.dataSource = self
                     
-                    //                self.androidData = self.data.objectForKey("Android") as! NSArray
-                    //                self.video = self.data.objectForKey("休息视频") as! NSArray
-                    //                self.recommend = self.data.objectForKey("瞎推荐") as! NSArray
-                    //                self.expend = self.data.objectForKey("拓展资源") as! NSArray
+                    self.cacheData(0, entityName: "TodayImg")
+                    self.cacheData(1, entityName: "TodayIOS")
+                    self.cacheData(2, entityName: "TodayAndroid")
+                    self.cacheData(3, entityName: "TodayVideo")
+                    
                     self.newsTableView.reloadData()
                     self.newsTableView.mj_header.endRefreshing()
                 })
             }
             }) { (nsurl:NSURLSessionDataTask?, error:NSError) -> Void in
-                print(error)
+                self.loadLocalData("TodayImg")
+                self.loadLocalData("TodayIOS")
+                self.loadLocalData("TodayAndroid")
+                self.loadLocalData("TodayVideo")
+                self.newsTableView.dataSource = self
+                self.newsTableView.reloadData()
+                self.newsTableView.mj_header.endRefreshing()
         }
     }
     
@@ -84,21 +88,43 @@ class TodayViewController: UIViewController,UITableViewDataSource,UITableViewDel
             item.title = each.valueForKey("desc")! as! String
             item.url = each.valueForKey("url")! as! String
             currentData.addObject(item)
-            cacheData(item.title as String, url: item.url as String, author: item.author as String, entityName: "DayNews")
         }
         return currentData
     }
     
     //    缓存数据
-    func cacheData(title:String,url:String,author:String,entityName:String){
-        let row = NSEntityDescription.insertNewObjectForEntityForName(entityName, inManagedObjectContext: self.context)
-        row.setValue(title, forKey: "title")
-        row.setValue(url, forKey: "url")
-        row.setValue(author, forKey: "author")
-        try! context.save()
+    func cacheData(DataPath:Int,entityName:String){
+        clearCache(entityName)
+        let localSingleData = dataSource[DataPath] as! NSArray
+        for each in localSingleData{
+            let item = each as! NewsItem
+            let row = NSEntityDescription.insertNewObjectForEntityForName(entityName, inManagedObjectContext: self.context)
+            row.setValue(item.title, forKey: "title")
+            row.setValue(item.url, forKey: "url")
+            row.setValue(item.author, forKey: "author")
+            try! context.save()
+        }
     }
     
-    func clearCache(localData:NSArray){
+    //    加载本地数据
+    func loadLocalData(entityName:String){
+        let singleData = NSMutableArray()
+        let f = NSFetchRequest(entityName: entityName)
+        let localData = try! context.executeFetchRequest(f) as NSArray
+        for each in localData{
+            let item = NewsItem()
+            item.author = each.valueForKey("author")! as! String
+            item.url = each.valueForKey("url")! as! String
+            item.title = each.valueForKey("title")! as! String
+            singleData.addObject(item)
+        }
+        dataSource.addObject(singleData)
+    }
+    
+    //    清除缓存数据
+    func clearCache(entityName:String){
+        let f = NSFetchRequest(entityName: entityName)
+        let localData = try! context.executeFetchRequest(f) as NSArray
         for each in localData{
             context.deleteObject(each as! NSManagedObject)
         }
