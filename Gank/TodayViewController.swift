@@ -45,11 +45,11 @@ class TodayViewController: UIViewController,UITableViewDataSource,UITableViewDel
     
     //    获取数据
     func loadData(Date:String){
-        let afmanager = AFHTTPRequestOperationManager()
+        let afmanager = AFHTTPSessionManager()
         let getDataUrl = URL + Date
-        afmanager.GET(getDataUrl, parameters: nil, success: { (AFHTTPRequestOperation, resp:AnyObject) -> Void in
-            self.data = resp.objectForKey("results")! as! NSDictionary
-            self.category = resp.objectForKey("category")! as! NSArray
+        afmanager.GET(getDataUrl, parameters: nil, success: { (nsurl:NSURLSessionDataTask, resp:AnyObject?) -> Void in
+            self.data = resp!.objectForKey("results")! as! NSDictionary
+            self.category = resp!.objectForKey("category")! as! NSArray
             if self.data.count == 0{
                 self.loadData(self.getDate(true))
             }else{
@@ -70,7 +70,7 @@ class TodayViewController: UIViewController,UITableViewDataSource,UITableViewDel
                     self.newsTableView.mj_header.endRefreshing()
                 })
             }
-            }) { (AFHTTPRequestOperation, error:NSError) -> Void in
+            }) { (nsurl:NSURLSessionDataTask?, error:NSError) -> Void in
                 print(error)
         }
     }

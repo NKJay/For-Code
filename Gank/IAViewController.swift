@@ -64,9 +64,9 @@ class IAViewController:UIView,UITableViewDataSource,UITableViewDelegate {
     //    加载数据
     func loadData(){
         let loadUrl = URL + "1"
-        let afmanager = AFHTTPRequestOperationManager()
-        afmanager.GET(loadUrl, parameters: nil, success: { (AFHTTPRequestOperation, resp:AnyObject) -> Void in
-            let results = resp.objectForKey("results")! as! NSArray
+        let afmanager = AFHTTPSessionManager()
+        afmanager.GET(loadUrl, parameters: nil, success: { (nsurl:NSURLSessionDataTask, resp:AnyObject?) -> Void in
+            let results = resp!.objectForKey("results")! as! NSArray
             self.clearCache()
             let currentData = NSMutableArray()
             for each in results{
@@ -86,7 +86,8 @@ class IAViewController:UIView,UITableViewDataSource,UITableViewDelegate {
                 //                self.newsTableView.mj_footer.endRefreshing()
                 
             })
-            }) { (AFHTTPRequestOperation, error:NSError) -> Void in
+
+            }) { (nsurl:NSURLSessionDataTask?, error:NSError) -> Void in
                 dispatch_async(dispatch_get_main_queue(), { () -> Void in
                     for each in self.localData{
                         let item = NewsItem()
@@ -98,15 +99,17 @@ class IAViewController:UIView,UITableViewDataSource,UITableViewDelegate {
                         self.newsTableView.mj_header.endRefreshing()
                     }
                 })
+
         }
+        
     }
     
     //    加载更多数据
     func loadMoreData(){
         let loadUrl = URL + String(i++)
-        let afmanager = AFHTTPRequestOperationManager()
-        afmanager.GET(loadUrl, parameters: nil, success: { (AFHTTPRequestOperation, resp:AnyObject) -> Void in
-            let results = resp.objectForKey("results")! as! NSArray
+        let afmanager = AFHTTPSessionManager()
+        afmanager.GET(loadUrl, parameters: nil, success: { (nsurl:NSURLSessionDataTask, resp:AnyObject?) -> Void in
+            let results = resp!.objectForKey("results")! as! NSArray
             for each in results{
                 let item = NewsItem()
                 item.author = each.objectForKey("who")! as! String
@@ -118,13 +121,12 @@ class IAViewController:UIView,UITableViewDataSource,UITableViewDelegate {
             dispatch_async(dispatch_get_main_queue(), { () -> Void in
                 self.newsTableView.reloadData()
                 self.newsTableView.mj_header.endRefreshing()
-                                self.newsTableView.mj_footer.endRefreshing()
+                self.newsTableView.mj_footer.endRefreshing()
                 
             })
-            }) { (AFHTTPRequestOperation, error:NSError) -> Void in
-            self.newsTableView.mj_footer.endRefreshing()
-            MozTopAlertView.showWithType(MozAlertTypeError, text: "请检查网络", parentView: self.myView)
-                
+            }) { (nsurl:NSURLSessionDataTask?, error:NSError) -> Void in
+                self.newsTableView.mj_footer.endRefreshing()
+                MozTopAlertView.showWithType(MozAlertTypeError, text: "请检查网络", parentView: self.myView)
         }
         
     }

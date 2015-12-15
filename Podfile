@@ -1,5 +1,4 @@
 platform :ios, ‘8.0’
-pod "AFNetworking", "~> 2.0"
-pod "JVFloatingDrawer"
+pod "AFNetworking", "~> 3.0”
 pod 'MJRefresh'
 pod 'SDWebImage','~>3.7'
