@@ -12,15 +12,22 @@ import CoreData
 class TodayViewController: UIViewController,UITableViewDataSource,UITableViewDelegate {
     @IBOutlet var newsTableView: UITableView!
     var URL =  "http://gank.avosapps.com/api/day/"
-    var category = NSArray()
+    var key = ["福利","iOS","Android","休息视频"]
+    var entityNamge = ["TodayImg","TodayIOS","TodayAndroid","TodayVideo"]
     var context = (UIApplication.sharedApplication().delegate as! AppDelegate).managedObjectContext
     var topImage = UIImageView()
+    let newimage = UIImageView()
     var data = NSDictionary()
     var dataSource = NSMutableArray()
     var i = Double(1)
     override func viewDidLoad() {
         super.viewDidLoad()
         showLaunch()
+        loadData(getDate(false))
+        
+        topImage.userInteractionEnabled = true
+        topImage.addGestureRecognizer(UITapGestureRecognizer(target: self, action: "imageTap"))
+        
         newsTableView.mj_header = MJRefreshNormalHeader(refreshingBlock: { () -> Void in
             self.loadData(self.getDate(false))
         })
@@ -38,20 +45,15 @@ class TodayViewController: UIViewController,UITableViewDataSource,UITableViewDel
         let getDataUrl = URL + Date
         afmanager.GET(getDataUrl, parameters: nil, success: { (nsurl:NSURLSessionDataTask, resp:AnyObject?) -> Void in
             self.data = resp!.objectForKey("results")! as! NSDictionary
-            self.category = resp!.objectForKey("category")! as! NSArray
             let currentData = NSMutableArray()
             if self.data.count == 0{
                 self.loadData(self.getDate(true))
             }else{
                 self.i = 1
-                let currentWelfare = self.getSingleData("福利")
-                let currentIOS = self.getSingleData("iOS")
-                let currentAndroid = self.getSingleData("Android")
-                let currentVideo = self.getSingleData("休息视频")
-                currentData.addObject(currentWelfare)
-                currentData.addObject(currentIOS)
-                currentData.addObject(currentAndroid)
-                currentData.addObject(currentVideo)
+                for each in self.key{
+                    let current = self.getSingleData(each)
+                    currentData.addObject(current)
+                }
                 dispatch_async(dispatch_get_main_queue(), { () -> Void in
                     self.dataSource = currentData
                     self.newsTableView.dataSource = self
@@ -76,12 +78,6 @@ class TodayViewController: UIViewController,UITableViewDataSource,UITableViewDel
         }
     }
     
-//    override func viewDidAppear(animated: Bool) {
-//        let dataformator = NSDateFormatter()
-//        dataformator.dateFormat = "yyyy/MM/dd"
-//        let day = dataformator.stringFromDate(historyDate)
-//        loadData(day)
-//    }
     
     //    获取单个类型数据
     func getSingleData(key:String)->NSMutableArray{
@@ -154,7 +150,10 @@ class TodayViewController: UIViewController,UITableViewDataSource,UITableViewDel
     }
     
     override func viewDidAppear(animated: Bool) {
-        newsTableView.mj_header.beginRefreshing()
+        if ifrefresh{
+            newsTableView.mj_header.beginRefreshing()
+            ifrefresh = false
+        }
     }
     
     
@@ -193,18 +192,25 @@ class TodayViewController: UIViewController,UITableViewDataSource,UITableViewDel
         })
     }
     
-    //    func imageTap(){
-    //        let newimage = UIImageView(image: topImage.image)
-    //        newimage.frame = CGRect(x: 0, y: 64, width: WINDOW_WIDTH, height: WINDOW_WIDTH)
-    //        newimage.contentMode = UIViewContentMode.ScaleAspectFill
-    //        newimage.alpha = 0
-    //        newimage.userInteractionEnabled = true
-    //        newimage.addGestureRecognizer(UITapGestureRecognizer(target: self, action: "tapHide"))
-    //        self.view.addSubview(newimage)
-    //        UIView.animateWithDuration(1) { () -> Void in
-    //            newimage.alpha = 1
-    //        }
-    //    }
+        func imageTap(){
+            newimage.image = topImage.image
+            newimage.frame = CGRect(x: 0, y: 64, width: WINDOW_WIDTH, height: WINDOW_HEIGHT)
+            newimage.contentMode = UIViewContentMode.ScaleAspectFill
+            newimage.alpha = 0
+            newimage.userInteractionEnabled = true
+            newimage.addGestureRecognizer(UITapGestureRecognizer(target: self, action: "tapHide"))
+            self.view.addSubview(newimage)
+            UIView.animateWithDuration(1) { () -> Void in
+                self.newimage.alpha = 1
+            }
+        }
+    func tapHide(){
+        UIView.animateWithDuration(1, animations: { () -> Void in
+            self.newimage.alpha = 0
+            }) { (Bool) -> Void in
+                self.newimage.removeFromSuperview()
+        }
+    }
     
     //    跳转webview并发送数据
     func sendToWeb(indexPath:NSIndexPath,dataSource:NSArray){

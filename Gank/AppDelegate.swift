@@ -12,6 +12,7 @@ import CoreData
 let WINDOW_WIDTH = UIScreen.mainScreen().bounds.width
 let WINDOW_HEIGHT = UIScreen.mainScreen().bounds.height
 var Date = NSDate()
+var ifrefresh = false
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
@@ -113,10 +114,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     //    显示启动图
     func showLaunch(){
         let img = UIImageView(frame:CGRectMake(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT))
-        let lbl = UILabel(frame:CGRectMake(WINDOW_WIDTH/2-50,WINDOW_HEIGHT/2-50,WINDOW_WIDTH,20))
+        let lbl = UILabel(frame:CGRectMake(0,WINDOW_HEIGHT/2-50,WINDOW_WIDTH,100))
         lbl.text = "干 货 集 中 营"
-        lbl.font = UIFont(name: "System", size: 100)
-        lbl.textAlignment = NSTextAlignment.Left
+        lbl.adjustsFontSizeToFitWidth = true
+        lbl.font = UIFont.boldSystemFontOfSize(20)
+        lbl.textAlignment = NSTextAlignment.Center
         img.image = UIImage(named: "LaunchImg")
         lbl.textColor = UIColor.whiteColor()
         let window = UIApplication.sharedApplication().keyWindow

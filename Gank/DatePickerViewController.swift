@@ -30,6 +30,7 @@ class DatePickerViewController: UIViewController {
         if day == "Sat"||day == "Sun"{
             
         }else{
+            ifrefresh = true
             Date = datePicker.date
             self.navigationController?.popViewControllerAnimated(true)
         }

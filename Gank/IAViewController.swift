@@ -34,7 +34,6 @@ class IAViewController:UIView,UITableViewDataSource,UITableViewDelegate {
         newsTableView.mj_footer = MJRefreshAutoNormalFooter(refreshingBlock: { () -> Void in
             self.loadMoreData()
         })
-        newsTableView.mj_header.beginRefreshing()
         let f = NSFetchRequest(entityName: entityName)
         myTableView.delegate = self
         self.clearCache()
