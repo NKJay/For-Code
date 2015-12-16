@@ -12,7 +12,7 @@ import CoreData
 class TodayViewController: UIViewController,UITableViewDataSource,UITableViewDelegate {
     @IBOutlet var newsTableView: UITableView!
     var URL =  "http://gank.avosapps.com/api/day/"
-    var key = ["福利","iOS","Android","休息视频"]
+    var key = [["福利","TodayImg"],["iOS","TodayIOS"],["Android","TodayAndroid"],["休息视频","TodayVideo"]]
     var entityNamge = ["TodayImg","TodayIOS","TodayAndroid","TodayVideo"]
     var context = (UIApplication.sharedApplication().delegate as! AppDelegate).managedObjectContext
     var topImage = UIImageView()
@@ -51,27 +51,21 @@ class TodayViewController: UIViewController,UITableViewDataSource,UITableViewDel
             }else{
                 self.i = 1
                 for each in self.key{
-                    let current = self.getSingleData(each)
+                    let current = self.getSingleData(each[0])
                     currentData.addObject(current)
+                    self.cacheData(current, entityName: each[1])
                 }
                 dispatch_async(dispatch_get_main_queue(), { () -> Void in
                     self.dataSource = currentData
                     self.newsTableView.dataSource = self
-                    
-                    self.cacheData(0, entityName: "TodayImg")
-                    self.cacheData(1, entityName: "TodayIOS")
-                    self.cacheData(2, entityName: "TodayAndroid")
-                    self.cacheData(3, entityName: "TodayVideo")
-                    
                     self.newsTableView.reloadData()
                     self.newsTableView.mj_header.endRefreshing()
                 })
             }
             }) { (nsurl:NSURLSessionDataTask?, error:NSError) -> Void in
-                self.loadLocalData("TodayImg")
-                self.loadLocalData("TodayIOS")
-                self.loadLocalData("TodayAndroid")
-                self.loadLocalData("TodayVideo")
+                for each in self.key{
+                    self.loadLocalData(each[1])
+                }
                 self.newsTableView.dataSource = self
                 self.newsTableView.reloadData()
                 self.newsTableView.mj_header.endRefreshing()
@@ -94,9 +88,8 @@ class TodayViewController: UIViewController,UITableViewDataSource,UITableViewDel
     }
     
     //    缓存数据
-    func cacheData(DataPath:Int,entityName:String){
+    func cacheData(localSingleData:NSArray,entityName:String){
         clearCache(entityName)
-        let localSingleData = dataSource[DataPath] as! NSArray
         for each in localSingleData{
             let item = each as! NewsItem
             let row = NSEntityDescription.insertNewObjectForEntityForName(entityName, inManagedObjectContext: self.context)
@@ -194,8 +187,8 @@ class TodayViewController: UIViewController,UITableViewDataSource,UITableViewDel
     
         func imageTap(){
             newimage.image = topImage.image
-            newimage.frame = CGRect(x: 0, y: 64, width: WINDOW_WIDTH, height: WINDOW_HEIGHT)
-            newimage.contentMode = UIViewContentMode.ScaleAspectFill
+            newimage.frame = CGRect(x: 0, y: 0, width: WINDOW_WIDTH, height: WINDOW_HEIGHT)
+            newimage.contentMode = UIViewContentMode.ScaleAspectFit
             newimage.alpha = 0
             newimage.userInteractionEnabled = true
             newimage.addGestureRecognizer(UITapGestureRecognizer(target: self, action: "tapHide"))
@@ -204,6 +197,7 @@ class TodayViewController: UIViewController,UITableViewDataSource,UITableViewDel
                 self.newimage.alpha = 1
             }
         }
+    
     func tapHide(){
         UIView.animateWithDuration(1, animations: { () -> Void in
             self.newimage.alpha = 0
