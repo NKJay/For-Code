@@ -123,7 +123,8 @@ class IAViewController:UIView,UITableViewDataSource,UITableViewDelegate {
             })
             }) { (nsurl:NSURLSessionDataTask?, error:NSError) -> Void in
                 self.newsTableView.mj_footer.endRefreshing()
-                MozTopAlertView.showWithType(MozAlertTypeError, text: "请检查网络", parentView: self.myView)
+                MozTopAlertView.showWithType(MozAlertTypeError, text: "请检查网络", parentView: self.newsTableView)
+                print("123")
         }
         
     }

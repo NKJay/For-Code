@@ -187,7 +187,6 @@
                                                 <label opaque="NO" userInteractionEnabled="NO" tag="1" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title 1" textAlignment="center" lineBreakMode="characterWrap" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="da4-nb-dgv">
                                                     <rect key="frame" x="24" y="0.0" width="276" height="58"/>
                                                     <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
-                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" tag="2" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="author 2" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ifs-TY-aCB">
@@ -226,7 +225,7 @@
                             <constraint firstItem="d0K-se-PLS" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="ZHZ-pe-y30"/>
                         </constraints>
                     </view>
-                    <tabBarItem key="tabBarItem" title="IOS" id="9wp-F7-44k"/>
+                    <tabBarItem key="tabBarItem" title="IOS" image="Untitled" id="9wp-F7-44k"/>
                     <navigationItem key="navigationItem" title="IOS资源" id="LdW-wn-Grw"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                     <connections>
@@ -257,7 +256,7 @@
                                         <rect key="frame" x="0.0" y="92" width="320" height="85"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="ZX7-5t-iiR" id="eAQ-AG-NC5">
-                                            <rect key="frame" x="0.0" y="0.0" width="320" height="85"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="84.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" tag="1" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Jbg-tW-naj">
@@ -345,13 +344,13 @@
         <scene sceneID="NMj-Gf-rth">
             <objects>
                 <navigationController storyboardIdentifier="IOSNavigation" automaticallyAdjustsScrollViewInsets="NO" id="JEW-xw-qDH" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="IOS" id="2VT-xC-X9J"/>
+                    <tabBarItem key="tabBarItem" title="IOS" image="Untitled" id="2VT-xC-X9J"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" barStyle="black" id="dRN-jt-MWx">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <color key="barTintColor" red="0.32810897084574853" green="0.71082499786844278" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="barTintColor" red="0.98039215690000003" green="0.41444301690000002" blue="0.27198639650000001" alpha="1" colorSpace="calibratedRGB"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
@@ -371,7 +370,13 @@
                     <tabBar key="tabBar" contentMode="scaleToFill" id="IjP-yu-Kjh">
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                        <color key="tintColor" red="0.96078431369999995" green="0.40000000000000002" blue="0.27450980390000002" alpha="1" colorSpace="calibratedRGB"/>
                     </tabBar>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="color" keyPath="tabBar.tintColor">
+                            <color key="value" red="0.98039215686274506" green="0.41568627450980389" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
                     <connections>
                         <segue destination="KmT-eW-x0u" kind="relationship" relationship="viewControllers" id="Vbf-lk-ZIU"/>
                         <segue destination="JEW-xw-qDH" kind="relationship" relationship="viewControllers" id="Jk3-O9-UU9"/>
@@ -386,13 +391,13 @@
         <scene sceneID="pyV-vB-pZq">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="v0z-6L-MoK" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Android" id="ngf-hN-o9k"/>
+                    <tabBarItem key="tabBarItem" title="Android" image="Android" id="ngf-hN-o9k"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" barStyle="black" id="8X1-4e-9sB">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <color key="barTintColor" red="0.1007742830223443" green="0.78918520942408377" blue="0.62725727482618621" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="barTintColor" red="0.98039215690000003" green="0.41444301690000002" blue="0.27198639650000001" alpha="1" colorSpace="calibratedRGB"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
@@ -403,11 +408,11 @@
             </objects>
             <point key="canvasLocation" x="853" y="941"/>
         </scene>
-        <!--每日-->
+        <!--今日-->
         <scene sceneID="mwE-mQ-OW7">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="KmT-eW-x0u" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="每日" id="k2l-Cd-yWV"/>
+                    <tabBarItem key="tabBarItem" title="今日" image="Today" id="k2l-Cd-yWV"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" barStyle="blackTranslucent" id="T4V-IJ-XIB">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -425,4 +430,9 @@
             <point key="canvasLocation" x="853" y="-494"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="Android" width="32" height="32"/>
+        <image name="Today" width="27" height="27"/>
+        <image name="Untitled" width="32" height="32"/>
+    </resources>
 </document>
