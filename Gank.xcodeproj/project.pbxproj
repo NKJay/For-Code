@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		147824A81C20F28B0026E1BE /* DatePickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 147824A71C20F28B0026E1BE /* DatePickerViewController.swift */; };
 		14BBDA9C1C1D986E0084FD35 /* TabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14BBDA9B1C1D986E0084FD35 /* TabViewController.swift */; };
 		14BED2571C18262F00D1CA52 /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14BED2561C18262F00D1CA52 /* WebViewController.swift */; };
 		14E573701C1EC3FD0088ED89 /* FAImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 14E573681C1EC3FD0088ED89 /* FAImageView.m */; };
@@ -47,6 +48,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		147824A71C20F28B0026E1BE /* DatePickerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DatePickerViewController.swift; sourceTree = "<group>"; };
 		14BBDA9B1C1D986E0084FD35 /* TabViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabViewController.swift; sourceTree = "<group>"; };
 		14BED2561C18262F00D1CA52 /* WebViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
 		14E573671C1EC3FD0088ED89 /* FAImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FAImageView.h; sourceTree = "<group>"; };
@@ -125,6 +127,7 @@
 				14F7049E1C1B16E60021D464 /* AndroidViewController.swift */,
 				14BBDA9B1C1D986E0084FD35 /* TabViewController.swift */,
 				14ECBADD1C1BF41200461BC5 /* IAViewController.swift */,
+				147824A71C20F28B0026E1BE /* DatePickerViewController.swift */,
 			);
 			name = ViewController;
 			sourceTree = "<group>";
@@ -420,6 +423,7 @@
 			files = (
 				9389A13E1C095440007B2A9D /* IOSViewController.swift in Sources */,
 				14BED2571C18262F00D1CA52 /* WebViewController.swift in Sources */,
+				147824A81C20F28B0026E1BE /* DatePickerViewController.swift in Sources */,
 				14ECBADE1C1BF41200461BC5 /* IAViewController.swift in Sources */,
 				936B4EF11C08B04900DDECA5 /* Gank.xcdatamodeld in Sources */,
 				14E573741C1EC3FD0088ED89 /* MozTopAlertView.m in Sources */,

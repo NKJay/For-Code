@@ -18,11 +18,9 @@ class TodayViewController: UIViewController,UITableViewDataSource,UITableViewDel
     var data = NSDictionary()
     var dataSource = NSMutableArray()
     var i = Double(1)
-    @IBOutlet weak var historyButton: UIBarButtonItem!
     override func viewDidLoad() {
         super.viewDidLoad()
         showLaunch()
-        loadData(getDate(false))
         newsTableView.mj_header = MJRefreshNormalHeader(refreshingBlock: { () -> Void in
             self.loadData(self.getDate(false))
         })
@@ -77,6 +75,13 @@ class TodayViewController: UIViewController,UITableViewDataSource,UITableViewDel
                 self.newsTableView.mj_header.endRefreshing()
         }
     }
+    
+//    override func viewDidAppear(animated: Bool) {
+//        let dataformator = NSDateFormatter()
+//        dataformator.dateFormat = "yyyy/MM/dd"
+//        let day = dataformator.stringFromDate(historyDate)
+//        loadData(day)
+//    }
     
     //    获取单个类型数据
     func getSingleData(key:String)->NSMutableArray{
@@ -133,21 +138,23 @@ class TodayViewController: UIViewController,UITableViewDataSource,UITableViewDel
     
     //    判断今天是否有数据并获取日期
     func getDate(changDate:Bool)->String{
-        let date = NSDate()
         let dataformator = NSDateFormatter()
         dataformator.dateFormat = "EEE"
-        var day = dataformator.stringFromDate(date)
+        var day = dataformator.stringFromDate(Date)
         if changDate{
             dataformator.dateFormat = "yyyy/MM/dd"
-            let yesterday = date.dateByAddingTimeInterval(-60 * 60 * 24 * i) as NSDate
+            let yesterday = Date.dateByAddingTimeInterval(-60 * 60 * 24 * i) as NSDate
             day = dataformator.stringFromDate(yesterday)
             i++
         }else{
             dataformator.dateFormat = "yyyy/MM/dd"
-            day = dataformator.stringFromDate(date)
+            day = dataformator.stringFromDate(Date)
         }
         return day
-        
+    }
+    
+    override func viewDidAppear(animated: Bool) {
+        newsTableView.mj_header.beginRefreshing()
     }
     
     

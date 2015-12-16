@@ -40,7 +40,6 @@ class IAViewController:UIView,UITableViewDataSource,UITableViewDelegate {
         self.clearCache()
         myTableView.dataSource = self
         self.localData = try! self.context.executeFetchRequest(f)
-        print(localData.count)
     }
     
     

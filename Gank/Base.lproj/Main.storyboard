@@ -86,14 +86,13 @@
                                 <state key="normal" title="历史">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <connections>
+                                    <segue destination="Icj-BN-pk2" kind="push" id="TnU-pN-SAL"/>
+                                </connections>
                             </button>
-                            <connections>
-                                <segue destination="Icj-BN-pk2" kind="push" id="ySs-42-Uek"/>
-                            </connections>
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="historyButton" destination="XuB-uq-obq" id="hzr-hI-IYn"/>
                         <outlet property="newsTableView" destination="hM6-lj-BYe" id="OeP-rB-ljt"/>
                     </connections>
                 </viewController>
@@ -101,10 +100,10 @@
             </objects>
             <point key="canvasLocation" x="1274" y="-494"/>
         </scene>
-        <!--View Controller-->
+        <!--Date Picker View Controller-->
         <scene sceneID="SJJ-Jd-y2s">
             <objects>
-                <viewController storyboardIdentifier="DatePicker" id="Icj-BN-pk2" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="DatePicker" id="Icj-BN-pk2" customClass="DatePickerViewController" customModule="Gank" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="1l8-aF-A68"/>
                         <viewControllerLayoutGuide type="bottom" id="Ben-Em-RTB"/>
@@ -113,16 +112,29 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <datePicker contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="mj1-23-2L7">
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9lI-sa-soI">
+                                <rect key="frame" x="137" y="411" width="46" height="30"/>
+                                <state key="normal" title="Button"/>
+                                <connections>
+                                    <action selector="confirm:" destination="Icj-BN-pk2" eventType="touchUpInside" id="YM5-Yq-Kiz"/>
+                                </connections>
+                            </button>
+                            <datePicker contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="date" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="mj1-23-2L7">
                                 <rect key="frame" x="0.0" y="150" width="320" height="216"/>
                                 <date key="date" timeIntervalSinceReferenceDate="471782208.67903203">
                                     <!--2015-12-14 10:36:48 +0000-->
+                                </date>
+                                <date key="maximumDate" timeIntervalSinceReferenceDate="1167562800">
+                                    <!--2037-12-31 11:00:00 +0000-->
                                 </date>
                             </datePicker>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" id="RWq-8I-j35"/>
+                    <connections>
+                        <outlet property="datePicker" destination="mj1-23-2L7" id="lXK-5W-bKY"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Kdn-Kf-vfU" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
