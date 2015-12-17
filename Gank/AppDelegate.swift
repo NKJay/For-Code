@@ -36,11 +36,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func applicationWillEnterForeground(application: UIApplication) {
         // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
-        let vc = TodayViewController()
-        if vc.ifshowLancuh == false{
-            vc.showLaunch()
-            
-        }
     }
 
     func applicationDidBecomeActive(application: UIApplication) {

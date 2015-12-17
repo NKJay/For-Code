@@ -26,7 +26,6 @@ class TodayViewController: UIViewController,UITableViewDataSource,UITableViewDel
     var dataSource = NSMutableArray()
     var i = Double(1)
     var imgBack = UIView()
-    var ifshowLancuh = false
     override func viewDidLoad() {
         super.viewDidLoad()
         showLaunch()
@@ -221,17 +220,10 @@ class TodayViewController: UIViewController,UITableViewDataSource,UITableViewDel
                                 self.img.removeFromSuperview()
                                 self.lbl.removeFromSuperview()
                                 self.txt.removeFromSuperview()
-                                self.ifshowLancuh = true
                             }
                     })
                 }
         })
-    }
-    
-    func hideLaunch(){
-        self.img.removeFromSuperview()
-        self.lbl.removeFromSuperview()
-        self.txt.removeFromSuperview()
     }
     
     //    图片点击放大
