@@ -65,7 +65,6 @@ class TodayViewController: UIViewController,UITableViewDataSource,UITableViewDel
                 dispatch_async(dispatch_get_main_queue(), { () -> Void in
                     self.userdefault.setObject(self.todayEntity, forKey: "entity")
                     self.userdefault.setObject(self.todayCategory, forKey: "category")
-                    print(self.todayCategory)
                     self.dataSource = currentData
                     self.newsTableView.dataSource = self
                     self.newsTableView.reloadData()
@@ -184,7 +183,7 @@ class TodayViewController: UIViewController,UITableViewDataSource,UITableViewDel
         window!.addSubview(img)
         window!.addSubview(lbl)
         
-        UIView.animateWithDuration(3,animations:{
+        UIView.animateWithDuration(2,animations:{
             let rect = CGRectMake(-50,-50/9*16,WINDOW_WIDTH+100,WINDOW_HEIGHT+100/9*16)
             img.frame = rect
             },completion:{
@@ -238,8 +237,7 @@ class TodayViewController: UIViewController,UITableViewDataSource,UITableViewDel
     
     //    跳转webview并发送数据
     func sendToWeb(indexPath:NSIndexPath,dataSource:NSArray){
-        let myStoryboard = UIStoryboard.init(name: "Main", bundle: nil)
-        let webView = myStoryboard.instantiateViewControllerWithIdentifier("webView") as! WebViewController
+        let webView = WebViewController()
         let item = dataSource[indexPath.row] as! NewsItem
         webView.url = item.url as String
         self.navigationController!.pushViewController(webView, animated: true)
@@ -305,7 +303,6 @@ class TodayViewController: UIViewController,UITableViewDataSource,UITableViewDel
             topImage.contentMode = UIViewContentMode.ScaleAspectFill
             topImage.sd_setImageWithURL(NSURL(string: imgURL), completed: { (img:UIImage!, error:NSError!, cache:SDImageCacheType, nsurl:NSURL!) -> Void in
                 self.topImage.frame = CGRect(origin: CGPoint(x:0 , y: 0), size: CGSize(width: WINDOW_WIDTH, height:250))
-                print(self.topImage.frame.height)
                 cell!.addSubview(self.topImage)
             })
             return cell!

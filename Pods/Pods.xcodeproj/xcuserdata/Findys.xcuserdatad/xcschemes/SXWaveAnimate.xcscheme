@@ -14,10 +14,10 @@
             buildForArchiving = "YES">
             <BuildableReference
                BuildableIdentifier = 'primary'
-               BlueprintIdentifier = '68B13479553FE7B96F217575'
-               BlueprintName = 'SDWebImage'
+               BlueprintIdentifier = '051819A888D88BBFF7FAA1EF'
+               BlueprintName = 'SXWaveAnimate'
                ReferencedContainer = 'container:Pods.xcodeproj'
-               BuildableName = 'libSDWebImage.a'>
+               BuildableName = 'libSXWaveAnimate.a'>
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>

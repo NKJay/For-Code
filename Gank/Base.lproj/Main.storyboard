@@ -310,36 +310,6 @@
             </objects>
             <point key="canvasLocation" x="1274" y="941"/>
         </scene>
-        <!--Web View Controller-->
-        <scene sceneID="iUQ-1x-jLu">
-            <objects>
-                <viewController storyboardIdentifier="webView" id="k79-ij-LGq" customClass="WebViewController" customModule="Gank" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="QZ4-Uy-xGZ"/>
-                        <viewControllerLayoutGuide type="bottom" id="9vu-fM-HS0"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="KRc-er-Ibv">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <webView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4bP-bx-0Y1">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
-                                <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="deviceRGB"/>
-                            </webView>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstAttribute="trailing" secondItem="4bP-bx-0Y1" secondAttribute="trailing" id="3f4-XZ-cvK"/>
-                            <constraint firstItem="4bP-bx-0Y1" firstAttribute="bottom" secondItem="9vu-fM-HS0" secondAttribute="top" id="NCs-7p-sby"/>
-                            <constraint firstItem="4bP-bx-0Y1" firstAttribute="top" secondItem="KRc-er-Ibv" secondAttribute="top" id="eDb-nc-q4g"/>
-                            <constraint firstItem="4bP-bx-0Y1" firstAttribute="leading" secondItem="KRc-er-Ibv" secondAttribute="leading" id="gOi-VQ-5fz"/>
-                        </constraints>
-                    </view>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="lOI-UC-faw" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1742" y="255"/>
-        </scene>
         <!--IOS-->
         <scene sceneID="NMj-Gf-rth">
             <objects>
@@ -407,32 +377,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="veY-xA-wuV" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="853" y="941"/>
-        </scene>
-        <!--View Controller-->
-        <scene sceneID="i4E-lm-aWZ">
-            <objects>
-                <viewController id="8Im-xR-pPu" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="bhX-xW-byb"/>
-                        <viewControllerLayoutGuide type="bottom" id="N3O-w9-5yg"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="yPc-Ed-07R">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BFx-xI-Lsd">
-                                <rect key="frame" x="42" y="171" width="149" height="46"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="54"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    </view>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="eMs-ty-1cN" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="414" y="-479"/>
         </scene>
         <!--今日-->
         <scene sceneID="mwE-mQ-OW7">
