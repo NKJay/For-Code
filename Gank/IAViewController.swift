@@ -149,8 +149,7 @@ class IAViewController:UIViewController,UITableViewDataSource,UITableViewDelegat
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath){
-        let myStoryboard = UIStoryboard.init(name: "Main", bundle: nil)
-        let webView = myStoryboard.instantiateViewControllerWithIdentifier("webView") as! WebViewController
+        let webView = WebViewController()
         let item = dataSource[indexPath.row] as! NewsItem
         webView.url = item.url as String
         

@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "936B4EE41C08B04900DDECA5"
-               BuildableName = "Gank.app"
-               BlueprintName = "Gank"
-               ReferencedContainer = "container:Gank.xcodeproj">
+               BuildableName = "For Code.app"
+               BlueprintName = "For Code"
+               ReferencedContainer = "container:For Code.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -33,9 +33,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "936B4EFB1C08B04900DDECA5"
-               BuildableName = "GankTests.xctest"
-               BlueprintName = "GankTests"
-               ReferencedContainer = "container:Gank.xcodeproj">
+               BuildableName = "For Code.xctest"
+               BlueprintName = "For CodeTests"
+               ReferencedContainer = "container:For Code.xcodeproj">
             </BuildableReference>
          </TestableReference>
          <TestableReference
@@ -43,9 +43,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "936B4F061C08B04900DDECA5"
-               BuildableName = "GankUITests.xctest"
-               BlueprintName = "GankUITests"
-               ReferencedContainer = "container:Gank.xcodeproj">
+               BuildableName = "For Code.xctest"
+               BlueprintName = "For CodeUITests"
+               ReferencedContainer = "container:For Code.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -53,9 +53,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "936B4EE41C08B04900DDECA5"
-            BuildableName = "Gank.app"
-            BlueprintName = "Gank"
-            ReferencedContainer = "container:Gank.xcodeproj">
+            BuildableName = "For Code.app"
+            BlueprintName = "For Code"
+            ReferencedContainer = "container:For Code.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
       <AdditionalOptions>
@@ -76,9 +76,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "936B4EE41C08B04900DDECA5"
-            BuildableName = "Gank.app"
-            BlueprintName = "Gank"
-            ReferencedContainer = "container:Gank.xcodeproj">
+            BuildableName = "For Code.app"
+            BlueprintName = "For Code"
+            ReferencedContainer = "container:For Code.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <AdditionalOptions>
@@ -95,9 +95,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "936B4EE41C08B04900DDECA5"
-            BuildableName = "Gank.app"
-            BlueprintName = "Gank"
-            ReferencedContainer = "container:Gank.xcodeproj">
+            BuildableName = "For Code.app"
+            BlueprintName = "For Code"
+            ReferencedContainer = "container:For Code.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

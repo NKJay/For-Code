@@ -17,12 +17,16 @@ class TodayViewController: UIViewController,UITableViewDataSource,UITableViewDel
     var todayEntity = NSMutableArray()
     var context = (UIApplication.sharedApplication().delegate as! AppDelegate).managedObjectContext
     var userdefault = NSUserDefaults.standardUserDefaults()
+    
     var topImage = UIImageView()
     let newimage = UIImageView()
+    
+    
     var data = NSDictionary()
     var dataSource = NSMutableArray()
     var i = Double(1)
     var imgBack = UIView()
+    var ifshowLancuh = false
     override func viewDidLoad() {
         super.viewDidLoad()
         showLaunch()
@@ -34,6 +38,11 @@ class TodayViewController: UIViewController,UITableViewDataSource,UITableViewDel
         newsTableView.mj_header = MJRefreshNormalHeader(refreshingBlock: { () -> Void in
             self.loadData(self.getDate(false))
         })
+        let window = UIApplication.sharedApplication().keyWindow
+        window!.addSubview(img)
+        window!.addSubview(lbl)
+        window?.addSubview(txt)
+        NSTimer.scheduledTimerWithTimeInterval(3, target: self, selector: "hideLaunch", userInfo: nil, repeats: false)
         newsTableView.delegate = self
     }
     
@@ -169,40 +178,60 @@ class TodayViewController: UIViewController,UITableViewDataSource,UITableViewDel
     
     
     //    显示启动图
+    var txt = UILabel()
+    var img = UIImageView()
+    var lbl = UILabel()
     func showLaunch(){
-        let img = UIImageView(frame:CGRectMake(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT))
-        let lbl = UILabel(frame:CGRectMake(WINDOW_WIDTH/2-50,WINDOW_HEIGHT/2-50,WINDOW_WIDTH,20))
-
-        lbl.font = UIFont.boldSystemFontOfSize(20)
-        lbl.text = "干 货 集 中 营"
+        img = UIImageView(frame:CGRectMake(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT))
+        lbl = UILabel(frame:CGRectMake(WINDOW_WIDTH/2-50,WINDOW_HEIGHT/2-50,WINDOW_WIDTH,100))
+        lbl.font = UIFont(name: "Verdana-BoldItalic", size: 40)
+        lbl.text = "For Code"
         lbl.textAlignment = NSTextAlignment.Center
         lbl.center = CGPoint(x: WINDOW_WIDTH/2, y: WINDOW_HEIGHT/2-50)
-        img.image = UIImage(named: "LaunchImg")
+        img.image = UIImage(named: "IMG_0123")
         lbl.textColor = UIColor.whiteColor()
-        let window = UIApplication.sharedApplication().keyWindow
-        window!.addSubview(img)
-        window!.addSubview(lbl)
+        txt = UILabel(frame:CGRectMake(WINDOW_WIDTH/2-50,WINDOW_HEIGHT/2,WINDOW_WIDTH,20))
+        txt.center = CGPoint(x: WINDOW_WIDTH/2, y: WINDOW_HEIGHT/2)
+        txt.textAlignment = NSTextAlignment.Center
+        txt.textColor = UIColor.lightGrayColor()
+        txt.font = UIFont.systemFontOfSize(15)
+        txt.text = "gank.io"
+        txt.alpha = 0
+        lbl.alpha = 0
+        
+        UIView.animateWithDuration(0.5, animations: { () -> Void in
+            self.txt.alpha = 1
+            self.lbl.alpha = 1
+        })
         
         UIView.animateWithDuration(2,animations:{
             let rect = CGRectMake(-50,-50/9*16,WINDOW_WIDTH+100,WINDOW_HEIGHT+100/9*16)
-            img.frame = rect
+            self.img.frame = rect
             },completion:{
                 (Bool completion) in
-                
                 if completion {
                     UIView.animateWithDuration(1,animations:{
-                        img.alpha = 0
-                        lbl.alpha = 0
+                        self.img.alpha = 0
+                        self.lbl.alpha = 0
+                        self.txt.alpha = 0
                         },completion:{
                             (Bool completion) in
                             
                             if completion {
-                                img.removeFromSuperview()
-                                lbl.removeFromSuperview()
+                                self.img.removeFromSuperview()
+                                self.lbl.removeFromSuperview()
+                                self.txt.removeFromSuperview()
+                                self.ifshowLancuh = true
                             }
                     })
                 }
         })
+    }
+    
+    func hideLaunch(){
+        self.img.removeFromSuperview()
+        self.lbl.removeFromSuperview()
+        self.txt.removeFromSuperview()
     }
     
     //    图片点击放大

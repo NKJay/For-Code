@@ -57,16 +57,16 @@
 		6702E809F240C92FD2BC0844 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		930779AB1C0955FC00AD773A /* Gank-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Gank-Bridging-Header.h"; sourceTree = "<group>"; };
 		930779AC1C095F1A00AD773A /* NewsItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewsItem.swift; sourceTree = "<group>"; };
-		936B4EE51C08B04900DDECA5 /* Gank.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Gank.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		936B4EE51C08B04900DDECA5 /* For Code.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "For Code.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		936B4EE81C08B04900DDECA5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		936B4EEA1C08B04900DDECA5 /* TodayViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayViewController.swift; sourceTree = "<group>"; };
 		936B4EF21C08B04900DDECA5 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		936B4EF51C08B04900DDECA5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		936B4EF71C08B04900DDECA5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		936B4EFC1C08B04900DDECA5 /* GankTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GankTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		936B4EFC1C08B04900DDECA5 /* For Code.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "For Code.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		936B4F001C08B04900DDECA5 /* GankTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GankTests.swift; sourceTree = "<group>"; };
 		936B4F021C08B04900DDECA5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		936B4F071C08B04900DDECA5 /* GankUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GankUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		936B4F071C08B04900DDECA5 /* For Code.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "For Code.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		936B4F0B1C08B04900DDECA5 /* GankUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GankUITests.swift; sourceTree = "<group>"; };
 		936B4F0D1C08B04900DDECA5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9389A13C1C095440007B2A9D /* IOSViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IOSViewController.swift; sourceTree = "<group>"; };
@@ -149,9 +149,9 @@
 		936B4EE61C08B04900DDECA5 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				936B4EE51C08B04900DDECA5 /* Gank.app */,
-				936B4EFC1C08B04900DDECA5 /* GankTests.xctest */,
-				936B4F071C08B04900DDECA5 /* GankUITests.xctest */,
+				936B4EE51C08B04900DDECA5 /* For Code.app */,
+				936B4EFC1C08B04900DDECA5 /* For Code.xctest */,
+				936B4F071C08B04900DDECA5 /* For Code.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -205,9 +205,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		936B4EE41C08B04900DDECA5 /* Gank */ = {
+		936B4EE41C08B04900DDECA5 /* For Code */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 936B4F101C08B04900DDECA5 /* Build configuration list for PBXNativeTarget "Gank" */;
+			buildConfigurationList = 936B4F101C08B04900DDECA5 /* Build configuration list for PBXNativeTarget "For Code" */;
 			buildPhases = (
 				7F8D9B3DFEA163ABB75DBB3D /* Check Pods Manifest.lock */,
 				936B4EE11C08B04900DDECA5 /* Sources */,
@@ -220,14 +220,14 @@
 			);
 			dependencies = (
 			);
-			name = Gank;
+			name = "For Code";
 			productName = Gank;
-			productReference = 936B4EE51C08B04900DDECA5 /* Gank.app */;
+			productReference = 936B4EE51C08B04900DDECA5 /* For Code.app */;
 			productType = "com.apple.product-type.application";
 		};
-		936B4EFB1C08B04900DDECA5 /* GankTests */ = {
+		936B4EFB1C08B04900DDECA5 /* For CodeTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 936B4F131C08B04900DDECA5 /* Build configuration list for PBXNativeTarget "GankTests" */;
+			buildConfigurationList = 936B4F131C08B04900DDECA5 /* Build configuration list for PBXNativeTarget "For CodeTests" */;
 			buildPhases = (
 				936B4EF81C08B04900DDECA5 /* Sources */,
 				936B4EF91C08B04900DDECA5 /* Frameworks */,
@@ -238,14 +238,14 @@
 			dependencies = (
 				936B4EFE1C08B04900DDECA5 /* PBXTargetDependency */,
 			);
-			name = GankTests;
+			name = "For CodeTests";
 			productName = GankTests;
-			productReference = 936B4EFC1C08B04900DDECA5 /* GankTests.xctest */;
+			productReference = 936B4EFC1C08B04900DDECA5 /* For Code.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		936B4F061C08B04900DDECA5 /* GankUITests */ = {
+		936B4F061C08B04900DDECA5 /* For CodeUITests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 936B4F161C08B04900DDECA5 /* Build configuration list for PBXNativeTarget "GankUITests" */;
+			buildConfigurationList = 936B4F161C08B04900DDECA5 /* Build configuration list for PBXNativeTarget "For CodeUITests" */;
 			buildPhases = (
 				936B4F031C08B04900DDECA5 /* Sources */,
 				936B4F041C08B04900DDECA5 /* Frameworks */,
@@ -256,9 +256,9 @@
 			dependencies = (
 				936B4F091C08B04900DDECA5 /* PBXTargetDependency */,
 			);
-			name = GankUITests;
+			name = "For CodeUITests";
 			productName = GankUITests;
-			productReference = 936B4F071C08B04900DDECA5 /* GankUITests.xctest */;
+			productReference = 936B4F071C08B04900DDECA5 /* For Code.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
 /* End PBXNativeTarget section */
@@ -285,7 +285,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 936B4EE01C08B04900DDECA5 /* Build configuration list for PBXProject "Gank" */;
+			buildConfigurationList = 936B4EE01C08B04900DDECA5 /* Build configuration list for PBXProject "For Code" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -298,9 +298,9 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				936B4EE41C08B04900DDECA5 /* Gank */,
-				936B4EFB1C08B04900DDECA5 /* GankTests */,
-				936B4F061C08B04900DDECA5 /* GankUITests */,
+				936B4EE41C08B04900DDECA5 /* For Code */,
+				936B4EFB1C08B04900DDECA5 /* For CodeTests */,
+				936B4F061C08B04900DDECA5 /* For CodeUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -420,12 +420,12 @@
 /* Begin PBXTargetDependency section */
 		936B4EFE1C08B04900DDECA5 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 936B4EE41C08B04900DDECA5 /* Gank */;
+			target = 936B4EE41C08B04900DDECA5 /* For Code */;
 			targetProxy = 936B4EFD1C08B04900DDECA5 /* PBXContainerItemProxy */;
 		};
 		936B4F091C08B04900DDECA5 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 936B4EE41C08B04900DDECA5 /* Gank */;
+			target = 936B4EE41C08B04900DDECA5 /* For Code */;
 			targetProxy = 936B4F081C08B04900DDECA5 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -535,7 +535,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = Findys.Gank;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "For Code";
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Gank/Gank-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -554,7 +554,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = Findys.Gank;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "For Code";
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Gank/Gank-Bridging-Header.h";
 			};
@@ -567,8 +567,8 @@
 				INFOPLIST_FILE = GankTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = GeekTeen.GankTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Gank.app/Gank";
+				PRODUCT_NAME = "For Code";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/For Code.app/For Code";
 			};
 			name = Debug;
 		};
@@ -579,8 +579,8 @@
 				INFOPLIST_FILE = GankTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = GeekTeen.GankTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Gank.app/Gank";
+				PRODUCT_NAME = "For Code";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/For Code.app/For Code";
 			};
 			name = Release;
 		};
@@ -590,7 +590,7 @@
 				INFOPLIST_FILE = GankUITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = GeekTeen.GankUITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "For Code";
 				TEST_TARGET_NAME = Gank;
 				USES_XCTRUNNER = YES;
 			};
@@ -602,7 +602,7 @@
 				INFOPLIST_FILE = GankUITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = GeekTeen.GankUITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "For Code";
 				TEST_TARGET_NAME = Gank;
 				USES_XCTRUNNER = YES;
 			};
@@ -611,7 +611,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		936B4EE01C08B04900DDECA5 /* Build configuration list for PBXProject "Gank" */ = {
+		936B4EE01C08B04900DDECA5 /* Build configuration list for PBXProject "For Code" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				936B4F0E1C08B04900DDECA5 /* Debug */,
@@ -620,7 +620,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		936B4F101C08B04900DDECA5 /* Build configuration list for PBXNativeTarget "Gank" */ = {
+		936B4F101C08B04900DDECA5 /* Build configuration list for PBXNativeTarget "For Code" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				936B4F111C08B04900DDECA5 /* Debug */,
@@ -629,7 +629,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		936B4F131C08B04900DDECA5 /* Build configuration list for PBXNativeTarget "GankTests" */ = {
+		936B4F131C08B04900DDECA5 /* Build configuration list for PBXNativeTarget "For CodeTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				936B4F141C08B04900DDECA5 /* Debug */,
@@ -638,7 +638,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		936B4F161C08B04900DDECA5 /* Build configuration list for PBXNativeTarget "GankUITests" */ = {
+		936B4F161C08B04900DDECA5 /* Build configuration list for PBXNativeTarget "For CodeUITests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				936B4F171C08B04900DDECA5 /* Debug */,
