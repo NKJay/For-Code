@@ -65,7 +65,7 @@ class TodayViewController: UIViewController,UITableViewDataSource,UITableViewDel
                 dispatch_async(dispatch_get_main_queue(), { () -> Void in
                     self.userdefault.setObject(self.todayEntity, forKey: "entity")
                     self.userdefault.setObject(self.todayCategory, forKey: "category")
-                                print(self.todayCategory)
+                    print(self.todayCategory)
                     self.dataSource = currentData
                     self.newsTableView.dataSource = self
                     self.newsTableView.reloadData()
@@ -74,11 +74,11 @@ class TodayViewController: UIViewController,UITableViewDataSource,UITableViewDel
             }
             }) { (nsurl:NSURLSessionDataTask?, error:NSError) -> Void in
                 if let _ = self.userdefault.objectForKey("entity"){
-                self.todayEntity = self.userdefault.objectForKey("entity") as! NSMutableArray
-                self.todayCategory = self.userdefault.objectForKey("category") as! NSMutableArray
-                for each in self.todayEntity{
-                    self.loadLocalData(each as! String)
-                }
+                    self.todayEntity = self.userdefault.objectForKey("entity") as! NSMutableArray
+                    self.todayCategory = self.userdefault.objectForKey("category") as! NSMutableArray
+                    for each in self.todayEntity{
+                        self.loadLocalData(each as! String)
+                    }
                 }
                 self.newsTableView.dataSource = self
                 self.newsTableView.reloadData()
@@ -92,14 +92,14 @@ class TodayViewController: UIViewController,UITableViewDataSource,UITableViewDel
     func getSingleData(key:String)->NSMutableArray{
         let currentData = NSMutableArray()
         if let _ = self.data.objectForKey(key){
-        let resault = self.data.objectForKey(key) as! NSArray
-        for each in resault{
-            let item = NewsItem()
-            item.author = each.valueForKey("who")! as! String
-            item.title = each.valueForKey("desc")! as! String
-            item.url = each.valueForKey("url")! as! String
-            currentData.addObject(item)
-        }
+            let resault = self.data.objectForKey(key) as! NSArray
+            for each in resault{
+                let item = NewsItem()
+                item.author = each.valueForKey("who")! as! String
+                item.title = each.valueForKey("desc")! as! String
+                item.url = each.valueForKey("url")! as! String
+                currentData.addObject(item)
+            }
         }
         return currentData
     }
@@ -161,8 +161,8 @@ class TodayViewController: UIViewController,UITableViewDataSource,UITableViewDel
     
     override func viewDidAppear(animated: Bool) {
         if ifrefresh{
-        todayCategory = []
-        todayEntity = []
+            todayCategory = []
+            todayEntity = []
             newsTableView.mj_header.beginRefreshing()
             ifrefresh = false
         }
@@ -204,24 +204,26 @@ class TodayViewController: UIViewController,UITableViewDataSource,UITableViewDel
         })
     }
     
-        func imageTap(){
-            self.imgBack = UIView(frame: self.view.frame)
-            newimage.image = topImage.image
-            newimage.frame = CGRect(x: 0, y: 0, width: WINDOW_WIDTH, height: WINDOW_HEIGHT)
-            newimage.contentMode = UIViewContentMode.ScaleAspectFit
-            newimage.alpha = 0
-            newimage.userInteractionEnabled = true
-            newimage.addGestureRecognizer(UITapGestureRecognizer(target: self, action: "tapHide"))
-            imgBack.alpha = 0
-            imgBack.backgroundColor = UIColor.whiteColor()
-            self.imgBack.addSubview(newimage)
-            self.view.addSubview(imgBack)
-            UIView.animateWithDuration(1) { () -> Void in
-                self.newimage.alpha = 1
-                self.imgBack.alpha = 1
-            }
+    //    图片点击放大
+    func imageTap(){
+        self.imgBack = UIView(frame: self.view.frame)
+        newimage.image = topImage.image
+        newimage.frame = CGRect(x: 0, y: 0, width: WINDOW_WIDTH, height: WINDOW_HEIGHT)
+        newimage.contentMode = UIViewContentMode.ScaleAspectFit
+        newimage.alpha = 0
+        newimage.userInteractionEnabled = true
+        newimage.addGestureRecognizer(UITapGestureRecognizer(target: self, action: "tapHide"))
+        imgBack.alpha = 0
+        imgBack.backgroundColor = UIColor.whiteColor()
+        self.imgBack.addSubview(newimage)
+        self.view.addSubview(imgBack)
+        UIView.animateWithDuration(1) { () -> Void in
+            self.newimage.alpha = 1
+            self.imgBack.alpha = 1
         }
+    }
     
+    //    图片点击隐藏
     func tapHide(){
         UIView.animateWithDuration(1, animations: { () -> Void in
             self.newimage.alpha = 0
@@ -284,12 +286,7 @@ class TodayViewController: UIViewController,UITableViewDataSource,UITableViewDel
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        switch indexPath.section{
-        case 1:sendToWeb(indexPath, dataSource: dataSource[1] as! NSArray);break
-        case 2:sendToWeb(indexPath, dataSource: dataSource[2] as! NSArray);break
-        case 3:sendToWeb(indexPath, dataSource: dataSource[3] as! NSArray);break
-        default:break
-        }
+        sendToWeb(indexPath, dataSource: dataSource[indexPath.section] as! NSArray)
         newsTableView.deselectRowAtIndexPath(indexPath, animated: true)
     }
     
@@ -304,8 +301,9 @@ class TodayViewController: UIViewController,UITableViewDataSource,UITableViewDel
             let cell = newsTableView.dequeueReusableCellWithIdentifier("ImageCell")! as UITableViewCell?
             let imgURL = item.url as String
             topImage.contentMode = UIViewContentMode.ScaleAspectFill
-            self.topImage.frame = CGRect(origin: CGPoint(x:0 , y: 0), size: CGSize(width: WINDOW_WIDTH, height: WINDOW_HEIGHT))
             topImage.sd_setImageWithURL(NSURL(string: imgURL), completed: { (img:UIImage!, error:NSError!, cache:SDImageCacheType, nsurl:NSURL!) -> Void in
+                self.topImage.frame = CGRect(origin: CGPoint(x:0 , y: 0), size: CGSize(width: WINDOW_WIDTH, height:250))
+                print(self.topImage.frame.height)
                 cell!.addSubview(self.topImage)
             })
             return cell!

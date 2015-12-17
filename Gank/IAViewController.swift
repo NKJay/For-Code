@@ -27,13 +27,13 @@ class IAViewController:UIViewController,UITableViewDataSource,UITableViewDelegat
         URL = myURL
         newsTableView = myTableView
         entityName = myEntityName
-        loadData()
         newsTableView.mj_header = MJRefreshNormalHeader(refreshingBlock: { () -> Void in
             self.loadData()
         })
         newsTableView.mj_footer = MJRefreshAutoNormalFooter(refreshingBlock: { () -> Void in
             self.loadMoreData()
         })
+                newsTableView.mj_header.beginRefreshing()
         let f = NSFetchRequest(entityName: entityName)
         myTableView.delegate = self
         self.clearCache()
@@ -53,6 +53,7 @@ class IAViewController:UIViewController,UITableViewDataSource,UITableViewDelegat
         self.localData = try! self.context.executeFetchRequest(f)
     }
     
+//    清除旧缓存数据
     func clearCache(){
         for each in localData{
             context.deleteObject(each as! NSManagedObject)

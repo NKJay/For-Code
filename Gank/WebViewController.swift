@@ -44,7 +44,6 @@ class WebViewController: UIViewController {
     }
     
     
-    //    view将要消失时执行
     override func viewWillDisappear(animated: Bool) {
         myWebView.removeObserver(self, forKeyPath: "estimatedProgress")
         progressBar.setProgress(0.0, animated: false)
@@ -69,7 +68,12 @@ class WebViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
+//    用safari打开网页
     func openUrl(){
+        let alert = UIAlertView()
+        alert.message = "要用Safari打开网页吗？"
+        alert.addButtonWithTitle("取消")
+        alert.addButtonWithTitle("是的")
         UIApplication.sharedApplication().openURL(NSURL(string: url)!)
     }
     
