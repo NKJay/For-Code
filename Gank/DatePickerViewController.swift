@@ -28,7 +28,7 @@ class DatePickerViewController: UIViewController {
         dateformater.dateFormat = "EEE"
         let day = dateformater.stringFromDate(datePicker.date)
         if day == "Sat"||day == "Sun"{
-            
+            self.notice("周末休息", type: NoticeType.info, autoClear: true)
         }else{
             ifrefresh = true
             Date = datePicker.date

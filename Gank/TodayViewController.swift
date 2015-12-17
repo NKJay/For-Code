@@ -12,14 +12,17 @@ import CoreData
 class TodayViewController: UIViewController,UITableViewDataSource,UITableViewDelegate {
     @IBOutlet var newsTableView: UITableView!
     var URL =  "http://gank.avosapps.com/api/day/"
-    var key = [["福利","TodayImg"],["iOS","TodayIOS"],["Android","TodayAndroid"],["休息视频","TodayVideo"]]
-    var entityNamge = ["TodayImg","TodayIOS","TodayAndroid","TodayVideo"]
+    var key = [["福利","TodayImg"],["iOS","TodayIOS"],["Android","TodayAndroid"],["休息视频","TodayVideo"],["拓展资源","TodayExpend"],["App","TodayApp"],["瞎推荐","TodayRecommand"]]
+    var todayCategory = NSMutableArray()
+    var todayEntity = NSMutableArray()
     var context = (UIApplication.sharedApplication().delegate as! AppDelegate).managedObjectContext
+    var userdefault = NSUserDefaults.standardUserDefaults()
     var topImage = UIImageView()
     let newimage = UIImageView()
     var data = NSDictionary()
     var dataSource = NSMutableArray()
     var i = Double(1)
+    var imgBack = UIView()
     override func viewDidLoad() {
         super.viewDidLoad()
         showLaunch()
@@ -52,10 +55,16 @@ class TodayViewController: UIViewController,UITableViewDataSource,UITableViewDel
                 self.i = 1
                 for each in self.key{
                     let current = self.getSingleData(each[0])
-                    currentData.addObject(current)
-                    self.cacheData(current, entityName: each[1])
+                    if current.count != 0{
+                        currentData.addObject(current)
+                        self.todayCategory.addObject(each[0])
+                        self.todayEntity.addObject(each[1])
+                        self.cacheData(current, entityName: each[1])
+                    }
                 }
                 dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                    self.userdefault.setObject(self.todayEntity, forKey: "entity")
+                    self.userdefault.setObject(self.todayCategory, forKey: "category")
                     self.dataSource = currentData
                     self.newsTableView.dataSource = self
                     self.newsTableView.reloadData()
@@ -63,12 +72,17 @@ class TodayViewController: UIViewController,UITableViewDataSource,UITableViewDel
                 })
             }
             }) { (nsurl:NSURLSessionDataTask?, error:NSError) -> Void in
-                for each in self.key{
-                    self.loadLocalData(each[1])
+                if let _ = self.userdefault.objectForKey("entity"){
+                self.todayEntity = self.userdefault.objectForKey("entity") as! NSMutableArray
+                self.todayCategory = self.userdefault.objectForKey("category") as! NSMutableArray
+                for each in self.todayEntity{
+                    self.loadLocalData(each as! String)
+                }
                 }
                 self.newsTableView.dataSource = self
                 self.newsTableView.reloadData()
                 self.newsTableView.mj_header.endRefreshing()
+                self.notice("请检查网络", type: NoticeType.error, autoClear: true)
         }
     }
     
@@ -186,23 +200,30 @@ class TodayViewController: UIViewController,UITableViewDataSource,UITableViewDel
     }
     
         func imageTap(){
+            self.imgBack = UIView(frame: self.view.frame)
             newimage.image = topImage.image
             newimage.frame = CGRect(x: 0, y: 0, width: WINDOW_WIDTH, height: WINDOW_HEIGHT)
             newimage.contentMode = UIViewContentMode.ScaleAspectFit
             newimage.alpha = 0
             newimage.userInteractionEnabled = true
             newimage.addGestureRecognizer(UITapGestureRecognizer(target: self, action: "tapHide"))
-            self.view.addSubview(newimage)
+            imgBack.alpha = 0
+            imgBack.backgroundColor = UIColor.whiteColor()
+            self.imgBack.addSubview(newimage)
+            self.view.addSubview(imgBack)
             UIView.animateWithDuration(1) { () -> Void in
                 self.newimage.alpha = 1
+                self.imgBack.alpha = 1
             }
         }
     
     func tapHide(){
         UIView.animateWithDuration(1, animations: { () -> Void in
             self.newimage.alpha = 0
+            self.imgBack.alpha = 0
             }) { (Bool) -> Void in
                 self.newimage.removeFromSuperview()
+                self.imgBack.removeFromSuperview()
         }
     }
     
@@ -224,12 +245,10 @@ class TodayViewController: UIViewController,UITableViewDataSource,UITableViewDel
     {
         let lbl = UILabel(frame:CGRectMake(0,0,320,25))
         lbl.backgroundColor = UIColor(red: 245/255.0, green: 102/255.0, blue: 70/255.0, alpha: 0.7)
-        switch section{
-        case 1: lbl.text = "IOS";break
-        case 2: lbl.text = "Android";break
-        case 3: lbl.text = "休息视频";break
-        case 4: lbl.text = "拓展资源";break
-        default: break
+        if section == 0{
+            lbl.text = ""
+        }else{
+            lbl.text = todayCategory[section] as! String
         }
         lbl.textColor = UIColor.whiteColor()
         lbl.textAlignment = NSTextAlignment.Center

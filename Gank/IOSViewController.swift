@@ -16,7 +16,7 @@ class IOSViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         let IOSView = IAViewController()
-        IOSView.initMyView(URL, myTableView: newsTableView, myEntityName: "IOSNews", navigationController: self.navigationController!,selfView: newsTableView)
+        IOSView.initMyView(URL, myTableView: newsTableView, myEntityName: "IOSNews", navigationController: self.navigationController!,selfView: self.view.viewWithTag(1)!)
     }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

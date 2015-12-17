@@ -9,7 +9,7 @@
 import UIKit
 import CoreData
 
-class IAViewController:UIView,UITableViewDataSource,UITableViewDelegate {
+class IAViewController:UIViewController,UITableViewDataSource,UITableViewDelegate {
     var URL = String()
     var dataSource = NSMutableArray()
     var localData = NSArray()
@@ -94,6 +94,7 @@ class IAViewController:UIView,UITableViewDataSource,UITableViewDelegate {
                         self.dataSource.addObject(item)
                         self.newsTableView.reloadData()
                         self.newsTableView.mj_header.endRefreshing()
+                        self.notice("请检查网络", type: NoticeType.error, autoClear: true)
                     }
                 })
                 
@@ -117,14 +118,12 @@ class IAViewController:UIView,UITableViewDataSource,UITableViewDelegate {
             }
             dispatch_async(dispatch_get_main_queue(), { () -> Void in
                 self.newsTableView.reloadData()
-                self.newsTableView.mj_header.endRefreshing()
                 self.newsTableView.mj_footer.endRefreshing()
                 
             })
             }) { (nsurl:NSURLSessionDataTask?, error:NSError) -> Void in
                 self.newsTableView.mj_footer.endRefreshing()
-                MozTopAlertView.showWithType(MozAlertTypeError, text: "请检查网络", parentView: self.newsTableView)
-                print("123")
+                self.notice("请检查网络", type: NoticeType.error, autoClear: true)
         }
         
     }
