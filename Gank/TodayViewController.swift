@@ -173,9 +173,11 @@ class TodayViewController: UIViewController,UITableViewDataSource,UITableViewDel
     func showLaunch(){
         let img = UIImageView(frame:CGRectMake(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT))
         let lbl = UILabel(frame:CGRectMake(WINDOW_WIDTH/2-50,WINDOW_HEIGHT/2-50,WINDOW_WIDTH,20))
+
+        lbl.font = UIFont.boldSystemFontOfSize(20)
         lbl.text = "干 货 集 中 营"
-        lbl.font = UIFont(name: "System", size: 100)
-        lbl.textAlignment = NSTextAlignment.Left
+        lbl.textAlignment = NSTextAlignment.Center
+        lbl.center = CGPoint(x: WINDOW_WIDTH/2, y: WINDOW_HEIGHT/2-50)
         img.image = UIImage(named: "LaunchImg")
         lbl.textColor = UIColor.whiteColor()
         let window = UIApplication.sharedApplication().keyWindow
