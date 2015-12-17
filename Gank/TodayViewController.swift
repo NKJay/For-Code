@@ -65,6 +65,7 @@ class TodayViewController: UIViewController,UITableViewDataSource,UITableViewDel
                 dispatch_async(dispatch_get_main_queue(), { () -> Void in
                     self.userdefault.setObject(self.todayEntity, forKey: "entity")
                     self.userdefault.setObject(self.todayCategory, forKey: "category")
+                                print(self.todayCategory)
                     self.dataSource = currentData
                     self.newsTableView.dataSource = self
                     self.newsTableView.reloadData()
@@ -89,14 +90,16 @@ class TodayViewController: UIViewController,UITableViewDataSource,UITableViewDel
     
     //    获取单个类型数据
     func getSingleData(key:String)->NSMutableArray{
-        let resault = self.data.objectForKey(key) as! NSArray
         let currentData = NSMutableArray()
+        if let _ = self.data.objectForKey(key){
+        let resault = self.data.objectForKey(key) as! NSArray
         for each in resault{
             let item = NewsItem()
             item.author = each.valueForKey("who")! as! String
             item.title = each.valueForKey("desc")! as! String
             item.url = each.valueForKey("url")! as! String
             currentData.addObject(item)
+        }
         }
         return currentData
     }
@@ -158,6 +161,8 @@ class TodayViewController: UIViewController,UITableViewDataSource,UITableViewDel
     
     override func viewDidAppear(animated: Bool) {
         if ifrefresh{
+        todayCategory.removeAllObjects()
+        todayEntity.removeAllObjects()
             newsTableView.mj_header.beginRefreshing()
             ifrefresh = false
         }
