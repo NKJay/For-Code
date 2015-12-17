@@ -161,8 +161,8 @@ class TodayViewController: UIViewController,UITableViewDataSource,UITableViewDel
     
     override func viewDidAppear(animated: Bool) {
         if ifrefresh{
-        todayCategory.removeAllObjects()
-        todayEntity.removeAllObjects()
+        todayCategory = []
+        todayEntity = []
             newsTableView.mj_header.beginRefreshing()
             ifrefresh = false
         }
@@ -253,7 +253,7 @@ class TodayViewController: UIViewController,UITableViewDataSource,UITableViewDel
         if section == 0{
             lbl.text = ""
         }else{
-            lbl.text = todayCategory[section] as! String
+            lbl.text = todayCategory[section] as? String
         }
         lbl.textColor = UIColor.whiteColor()
         lbl.textAlignment = NSTextAlignment.Center
