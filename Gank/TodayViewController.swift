@@ -226,6 +226,12 @@ class TodayViewController: UIViewController,UITableViewDataSource,UITableViewDel
         })
     }
     
+    func hideLaunch(){
+        txt.removeFromSuperview()
+        lbl.removeFromSuperview()
+        img.removeFromSuperview()
+    }
+    
     //    图片点击放大
     func imageTap(){
         self.imgBack = UIView(frame: self.view.frame)

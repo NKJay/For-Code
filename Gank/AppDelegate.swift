@@ -110,43 +110,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             }
         }
     }
-    
-    //    显示启动图
-    func showLaunch(){
-        let img = UIImageView(frame:CGRectMake(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT))
-        let lbl = UILabel(frame:CGRectMake(0,WINDOW_HEIGHT/2-50,WINDOW_WIDTH,100))
-        lbl.text = "干 货 集 中 营"
-        lbl.adjustsFontSizeToFitWidth = true
-        lbl.font = UIFont.boldSystemFontOfSize(20)
-        lbl.textAlignment = NSTextAlignment.Center
-        img.image = UIImage(named: "LaunchImg")
-        lbl.textColor = UIColor.whiteColor()
-        let window = UIApplication.sharedApplication().keyWindow
-        window!.addSubview(img)
-        window!.addSubview(lbl)
-        
-        UIView.animateWithDuration(3,animations:{
-            let rect = CGRectMake(-50,-50/9*16,WINDOW_WIDTH+100,WINDOW_HEIGHT+100/9*16)
-            img.frame = rect
-            },completion:{
-                (Bool completion) in
-                
-                if completion {
-                    UIView.animateWithDuration(1,animations:{
-                        img.alpha = 0
-                        lbl.alpha = 0
-                        },completion:{
-                            (Bool completion) in
-                            
-                            if completion {
-                                img.removeFromSuperview()
-                                lbl.removeFromSuperview()
-                            }
-                    })
-                }
-        })
-    }
-
 
 }
 
