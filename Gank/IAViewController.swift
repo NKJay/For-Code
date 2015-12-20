@@ -64,7 +64,7 @@ class IAViewController:UIViewController,UITableViewDataSource,UITableViewDelegat
     func loadData(){
         let loadUrl = URL + "1"
         let afmanager = AFHTTPSessionManager()
-        afmanager.GET(loadUrl, parameters: nil, success: { (nsurl:NSURLSessionDataTask, resp:AnyObject?) -> Void in
+        afmanager.GET(loadUrl, parameters: nil, progress: nil, success: { (nsurl:NSURLSessionDataTask, resp:AnyObject?) -> Void in
             let results = resp!.objectForKey("results")! as! NSArray
             self.clearCache()
             let currentData = NSMutableArray()
@@ -107,7 +107,7 @@ class IAViewController:UIViewController,UITableViewDataSource,UITableViewDelegat
     func loadMoreData(){
         let loadUrl = URL + String(i++)
         let afmanager = AFHTTPSessionManager()
-        afmanager.GET(loadUrl, parameters: nil, success: { (nsurl:NSURLSessionDataTask, resp:AnyObject?) -> Void in
+        afmanager.GET(loadUrl, parameters: nil, progress: nil, success: { (nsurl:NSURLSessionDataTask, resp:AnyObject?) -> Void in
             let results = resp!.objectForKey("results")! as! NSArray
             for each in results{
                 let item = NewsItem()

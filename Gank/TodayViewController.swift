@@ -54,7 +54,7 @@ class TodayViewController: UIViewController,UITableViewDataSource,UITableViewDel
     func loadData(Date:String){
         let afmanager = AFHTTPSessionManager()
         let getDataUrl = URL + Date
-        afmanager.GET(getDataUrl, parameters: nil, success: { (nsurl:NSURLSessionDataTask, resp:AnyObject?) -> Void in
+        afmanager.GET(getDataUrl, parameters: nil, progress: nil, success: { (nsurl:NSURLSessionDataTask, resp:AnyObject?) -> Void in
             self.data = resp!.objectForKey("results")! as! NSDictionary
             let currentData = NSMutableArray()
             if self.data.count == 0{

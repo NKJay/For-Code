@@ -14,7 +14,7 @@
             buildForArchiving = "YES">
             <BuildableReference
                BuildableIdentifier = 'primary'
-               BlueprintIdentifier = '051819A888D88BBFF7FAA1EF'
+               BlueprintIdentifier = '554AE587D5465A3E9ED669C3'
                BlueprintName = 'SXWaveAnimate'
                ReferencedContainer = 'container:Pods.xcodeproj'
                BuildableName = 'libSXWaveAnimate.a'>

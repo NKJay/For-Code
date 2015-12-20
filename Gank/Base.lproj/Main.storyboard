@@ -79,7 +79,7 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="今日资讯" id="q1D-aI-2l8">
-                        <barButtonItem key="rightBarButtonItem" style="plain" id="XuB-uq-obq">
+                        <barButtonItem key="rightBarButtonItem" id="XuB-uq-obq">
                             <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="whx-co-cuJ">
                                 <rect key="frame" x="233" y="7" width="71" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -184,7 +184,7 @@
                                                 <rect key="frame" x="0.0" y="92" width="320" height="85"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Zd7-A0-SHv" id="5SG-Xf-GPQ">
-                                                    <rect key="frame" x="0.0" y="0.0" width="320" height="85"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="320" height="84.5"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" tag="2" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BFo-Af-weS">
