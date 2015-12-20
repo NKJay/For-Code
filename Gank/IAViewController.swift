@@ -13,7 +13,6 @@ class IAViewController:UIViewController,UITableViewDataSource,UITableViewDelegat
     var URL = String()
     var dataSource = NSMutableArray()
     var localData = NSArray()
-    var context = (UIApplication.sharedApplication().delegate as! AppDelegate).managedObjectContext
     var navigation = UINavigationController()
     var i = 2
     var newsTableView = UITableView()
@@ -38,19 +37,19 @@ class IAViewController:UIViewController,UITableViewDataSource,UITableViewDelegat
         myTableView.delegate = self
         self.clearCache()
         myTableView.dataSource = self
-        self.localData = try! self.context.executeFetchRequest(f)
+        self.localData = try! context.executeFetchRequest(f)
     }
     
     
     //    缓存数据
     func cacheData(title:String,url:String,author:String){
-        let row = NSEntityDescription.insertNewObjectForEntityForName(self.entityName, inManagedObjectContext: self.context)
+        let row = NSEntityDescription.insertNewObjectForEntityForName(self.entityName, inManagedObjectContext: context)
         row.setValue(title, forKey: "title")
         row.setValue(url, forKey: "url")
         row.setValue(author, forKey: "author")
         try! context.save()
         let f = NSFetchRequest(entityName: entityName)
-        self.localData = try! self.context.executeFetchRequest(f)
+        self.localData = try! context.executeFetchRequest(f)
     }
     
 //    清除旧缓存数据

@@ -10,6 +10,7 @@ import UIKit
 
 class DatePickerViewController: UIViewController {
     @IBOutlet weak var datePicker: UIDatePicker!
+    var changeDate:((date:String)->Void)?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,12 +27,14 @@ class DatePickerViewController: UIViewController {
     @IBAction func confirm(sender: AnyObject) {
         let dateformater = NSDateFormatter()
         dateformater.dateFormat = "EEE"
-        let day = dateformater.stringFromDate(datePicker.date)
-        if day == "Sat"||day == "Sun"{
+        let day = NSCalendar(calendarIdentifier: NSCalendarIdentifierChinese)!.components(NSCalendarUnit.Weekday, fromDate: datePicker.date).weekday
+        print(day)
+        if day == 1||day == 7{
             self.notice("周末休息", type: NoticeType.info, autoClear: true)
         }else{
-            ifrefresh = true
-            Date = datePicker.date
+            dateformater.dateFormat = "yyyy/MM/dd"
+            let day = dateformater.stringFromDate(self.datePicker.date)
+            self.changeDate!(date: day)
             self.navigationController?.popViewControllerAnimated(true)
         }
     }

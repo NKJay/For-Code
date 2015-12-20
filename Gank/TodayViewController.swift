@@ -15,17 +15,15 @@ class TodayViewController: UIViewController,UITableViewDataSource,UITableViewDel
     var key = [["福利","TodayImg"],["iOS","TodayIOS"],["Android","TodayAndroid"],["休息视频","TodayVideo"],["拓展资源","TodayExpend"],["App","TodayApp"],["瞎推荐","TodayRecommand"]]
     var todayCategory = NSMutableArray()
     var todayEntity = NSMutableArray()
-    var context = (UIApplication.sharedApplication().delegate as! AppDelegate).managedObjectContext
-    var userdefault = NSUserDefaults.standardUserDefaults()
-    
+    let datePickervc = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("DatePicker") as! DatePickerViewController
     var topImage = UIImageView()
     let newimage = UIImageView()
-    
-    
     var data = NSDictionary()
     var dataSource = NSMutableArray()
     var i = Double(1)
     var imgBack = UIView()
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         showLaunch()
@@ -45,9 +43,24 @@ class TodayViewController: UIViewController,UITableViewDataSource,UITableViewDel
         newsTableView.delegate = self
     }
     
+    override func viewWillAppear(animated: Bool) {
+        datePickervc.changeDate = {
+            (date:String)->Void in
+            self.loadData(date)
+        }
+    }
+    
+    override func viewWillDisappear(animated: Bool) {
+        self.todayCategory = []
+        self.todayEntity = []
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    @IBAction func historySend(sender: AnyObject) {
+        self.navigationController?.pushViewController(datePickervc, animated: true)
     }
     
     //    获取数据
@@ -71,8 +84,8 @@ class TodayViewController: UIViewController,UITableViewDataSource,UITableViewDel
                     }
                 }
                 dispatch_async(dispatch_get_main_queue(), { () -> Void in
-                    self.userdefault.setObject(self.todayEntity, forKey: "entity")
-                    self.userdefault.setObject(self.todayCategory, forKey: "category")
+                    userdefault.setObject(self.todayEntity, forKey: "entity")
+                    userdefault.setObject(self.todayCategory, forKey: "category")
                     self.dataSource = currentData
                     self.newsTableView.dataSource = self
                     self.newsTableView.reloadData()
@@ -80,9 +93,9 @@ class TodayViewController: UIViewController,UITableViewDataSource,UITableViewDel
                 })
             }
             }) { (nsurl:NSURLSessionDataTask?, error:NSError) -> Void in
-                if let _ = self.userdefault.objectForKey("entity"){
-                    self.todayEntity = self.userdefault.objectForKey("entity") as! NSMutableArray
-                    self.todayCategory = self.userdefault.objectForKey("category") as! NSMutableArray
+                if let _ = userdefault.objectForKey("entity"){
+                    self.todayEntity = userdefault.objectForKey("entity") as! NSMutableArray
+                    self.todayCategory = userdefault.objectForKey("category") as! NSMutableArray
                     for each in self.todayEntity{
                         self.loadLocalData(each as! String)
                     }
@@ -116,7 +129,7 @@ class TodayViewController: UIViewController,UITableViewDataSource,UITableViewDel
         clearCache(entityName)
         for each in localSingleData{
             let item = each as! NewsItem
-            let row = NSEntityDescription.insertNewObjectForEntityForName(entityName, inManagedObjectContext: self.context)
+            let row = NSEntityDescription.insertNewObjectForEntityForName(entityName, inManagedObjectContext: context)
             row.setValue(item.title, forKey: "title")
             row.setValue(item.url, forKey: "url")
             row.setValue(item.author, forKey: "author")
@@ -164,15 +177,6 @@ class TodayViewController: UIViewController,UITableViewDataSource,UITableViewDel
             day = dataformator.stringFromDate(Date)
         }
         return day
-    }
-    
-    override func viewDidAppear(animated: Bool) {
-        if ifrefresh{
-            todayCategory = []
-            todayEntity = []
-            newsTableView.mj_header.beginRefreshing()
-            ifrefresh = false
-        }
     }
     
     

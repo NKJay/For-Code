@@ -7,7 +7,7 @@
 //
 
 import XCTest
-@testable import Gank
+@testable import ForCode
 
 class GankTests: XCTestCase {
     

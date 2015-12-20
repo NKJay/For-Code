@@ -12,7 +12,8 @@ import CoreData
 let WINDOW_WIDTH = UIScreen.mainScreen().bounds.width
 let WINDOW_HEIGHT = UIScreen.mainScreen().bounds.height
 var Date = NSDate()
-var ifrefresh = false
+var userdefault = NSUserDefaults.standardUserDefaults()
+var context = (UIApplication.sharedApplication().delegate as! AppDelegate).managedObjectContext
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
