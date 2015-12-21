@@ -26,13 +26,13 @@ class TodayViewController: UIViewController,UITableViewDataSource,UITableViewDel
     override func viewDidLoad() {
         super.viewDidLoad()
         showLaunch()
-        loadData(getDate(false))
+        requestData(getDate(false))
         
         topImage.userInteractionEnabled = true
         topImage.addGestureRecognizer(UITapGestureRecognizer(target: self, action: "imageTap"))
         
         newsTableView.mj_header = MJRefreshNormalHeader(refreshingBlock: { () -> Void in
-            self.loadData(self.getDate(false))
+            self.requestData(self.getDate(false))
         })
         NSTimer.scheduledTimerWithTimeInterval(3, target: self, selector: "hideLaunch", userInfo: nil, repeats: false)
         newsTableView.delegate = self
@@ -42,7 +42,7 @@ class TodayViewController: UIViewController,UITableViewDataSource,UITableViewDel
         datePickervc.changeDate = {
             (date:String)->Void in
             self.todayCategory = []
-            self.loadData(date)
+            self.requestData(date)
         }
     }
     
@@ -56,13 +56,14 @@ class TodayViewController: UIViewController,UITableViewDataSource,UITableViewDel
     }
     
     //    获取数据
-    func loadData(Date:String){
+    func requestData(Date:String){
         let afmanager = AFHTTPSessionManager()
         let getDataUrl = URL + Date
         afmanager.GET(getDataUrl, parameters: nil, progress: nil, success: { (nsurl:NSURLSessionDataTask, resp:AnyObject?) -> Void in
             self.data = resp!.objectForKey("results")! as! NSDictionary
             self.loadData()
             userdefault.setObject(self.data, forKey: "TodayData")
+            userdefault.synchronize()
             }) { (nsurl:NSURLSessionDataTask?, error:NSError) -> Void in
                 if let _ = userdefault.objectForKey("TodayData"){
                     self.data = userdefault.objectForKey("TodayData") as! NSDictionary
@@ -75,7 +76,7 @@ class TodayViewController: UIViewController,UITableViewDataSource,UITableViewDel
     func loadData(){
         let currentData = NSMutableArray()
         if self.data.count == 0{
-            self.loadData(self.getDate(true))
+            self.requestData(self.getDate(true))
         }else{
             self.i = 1
             for each in self.key{
@@ -87,6 +88,7 @@ class TodayViewController: UIViewController,UITableViewDataSource,UITableViewDel
             }
             dispatch_async(dispatch_get_main_queue(), { () -> Void in
                 userdefault.setObject(self.todayCategory, forKey: "category")
+                userdefault.synchronize()
                 self.dataSource = currentData
                 self.newsTableView.dataSource = self
                 self.newsTableView.reloadData()

@@ -42,6 +42,7 @@ class IAViewController:UIViewController,UITableViewDataSource,UITableViewDelegat
             let results = resp!.objectForKey("results")! as! NSArray
             self.loadData(results)
             userdefault.setObject(results, forKey: self.entityName)
+            userdefault.synchronize()
             }) { (nsurl:NSURLSessionDataTask?, error:NSError) -> Void in
                 dispatch_async(dispatch_get_main_queue(), { () -> Void in
                         if let _ = userdefault.objectForKey(self.entityName){
