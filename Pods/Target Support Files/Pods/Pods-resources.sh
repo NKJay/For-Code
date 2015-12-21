@@ -59,15 +59,9 @@ install_resource()
 }
 if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_resource "MJRefresh/MJRefresh/MJRefresh.bundle"
-  install_resource "SXWaveAnimate/SXWaveAnimate/images/fb_rotation.png"
-  install_resource "SXWaveAnimate/SXWaveAnimate/images/fb_wave.png"
-  install_resource "SXWaveAnimate/SXWaveAnimate/images/SXWaveCell.xib"
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
   install_resource "MJRefresh/MJRefresh/MJRefresh.bundle"
-  install_resource "SXWaveAnimate/SXWaveAnimate/images/fb_rotation.png"
-  install_resource "SXWaveAnimate/SXWaveAnimate/images/fb_wave.png"
-  install_resource "SXWaveAnimate/SXWaveAnimate/images/SXWaveCell.xib"
 fi
 
 mkdir -p "${CONFIGURATION_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}"

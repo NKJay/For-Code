@@ -12,9 +12,8 @@ import CoreData
 class TodayViewController: UIViewController,UITableViewDataSource,UITableViewDelegate {
     @IBOutlet var newsTableView: UITableView!
     var URL =  "http://gank.avosapps.com/api/day/"
-    var key = [["福利","TodayImg"],["iOS","TodayIOS"],["Android","TodayAndroid"],["休息视频","TodayVideo"],["拓展资源","TodayExpend"],["App","TodayApp"],["瞎推荐","TodayRecommand"]]
+    var key = ["福利","iOS","Android","休息视频","拓展资源","App","瞎推荐"]
     var todayCategory = NSMutableArray()
-    var todayEntity = NSMutableArray()
     let datePickervc = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("DatePicker") as! DatePickerViewController
     var topImage = UIImageView()
     let newimage = UIImageView()
@@ -35,10 +34,6 @@ class TodayViewController: UIViewController,UITableViewDataSource,UITableViewDel
         newsTableView.mj_header = MJRefreshNormalHeader(refreshingBlock: { () -> Void in
             self.loadData(self.getDate(false))
         })
-        let window = UIApplication.sharedApplication().keyWindow
-        window!.addSubview(img)
-        window!.addSubview(lbl)
-        window?.addSubview(txt)
         NSTimer.scheduledTimerWithTimeInterval(3, target: self, selector: "hideLaunch", userInfo: nil, repeats: false)
         newsTableView.delegate = self
     }
@@ -46,14 +41,11 @@ class TodayViewController: UIViewController,UITableViewDataSource,UITableViewDel
     override func viewWillAppear(animated: Bool) {
         datePickervc.changeDate = {
             (date:String)->Void in
+            self.todayCategory = []
             self.loadData(date)
         }
     }
     
-    override func viewWillDisappear(animated: Bool) {
-        self.todayCategory = []
-        self.todayEntity = []
-    }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -69,41 +61,37 @@ class TodayViewController: UIViewController,UITableViewDataSource,UITableViewDel
         let getDataUrl = URL + Date
         afmanager.GET(getDataUrl, parameters: nil, progress: nil, success: { (nsurl:NSURLSessionDataTask, resp:AnyObject?) -> Void in
             self.data = resp!.objectForKey("results")! as! NSDictionary
-            let currentData = NSMutableArray()
-            if self.data.count == 0{
-                self.loadData(self.getDate(true))
-            }else{
-                self.i = 1
-                for each in self.key{
-                    let current = self.getSingleData(each[0])
-                    if current.count != 0{
-                        currentData.addObject(current)
-                        self.todayCategory.addObject(each[0])
-                        self.todayEntity.addObject(each[1])
-                        self.cacheData(current, entityName: each[1])
-                    }
-                }
-                dispatch_async(dispatch_get_main_queue(), { () -> Void in
-                    userdefault.setObject(self.todayEntity, forKey: "entity")
-                    userdefault.setObject(self.todayCategory, forKey: "category")
-                    self.dataSource = currentData
-                    self.newsTableView.dataSource = self
-                    self.newsTableView.reloadData()
-                    self.newsTableView.mj_header.endRefreshing()
-                })
-            }
+            self.loadData()
+            userdefault.setObject(self.data, forKey: "TodayData")
             }) { (nsurl:NSURLSessionDataTask?, error:NSError) -> Void in
-                if let _ = userdefault.objectForKey("entity"){
-                    self.todayEntity = userdefault.objectForKey("entity") as! NSMutableArray
-                    self.todayCategory = userdefault.objectForKey("category") as! NSMutableArray
-                    for each in self.todayEntity{
-                        self.loadLocalData(each as! String)
-                    }
+                if let _ = userdefault.objectForKey("TodayData"){
+                    self.data = userdefault.objectForKey("TodayData") as! NSDictionary
+                    self.loadData()
                 }
+                self.notice("请检查网络", type: NoticeType.error, autoClear: true)
+        }
+    }
+    
+    func loadData(){
+        let currentData = NSMutableArray()
+        if self.data.count == 0{
+            self.loadData(self.getDate(true))
+        }else{
+            self.i = 1
+            for each in self.key{
+                let current = self.getSingleData(each)
+                if current.count != 0{
+                    currentData.addObject(current)
+                    self.todayCategory.addObject(each)
+                }
+            }
+            dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                userdefault.setObject(self.todayCategory, forKey: "category")
+                self.dataSource = currentData
                 self.newsTableView.dataSource = self
                 self.newsTableView.reloadData()
                 self.newsTableView.mj_header.endRefreshing()
-                self.notice("请检查网络", type: NoticeType.error, autoClear: true)
+            })
         }
     }
     
@@ -122,43 +110,6 @@ class TodayViewController: UIViewController,UITableViewDataSource,UITableViewDel
             }
         }
         return currentData
-    }
-    
-    //    缓存数据
-    func cacheData(localSingleData:NSArray,entityName:String){
-        clearCache(entityName)
-        for each in localSingleData{
-            let item = each as! NewsItem
-            let row = NSEntityDescription.insertNewObjectForEntityForName(entityName, inManagedObjectContext: context)
-            row.setValue(item.title, forKey: "title")
-            row.setValue(item.url, forKey: "url")
-            row.setValue(item.author, forKey: "author")
-            try! context.save()
-        }
-    }
-    
-    //    加载本地数据
-    func loadLocalData(entityName:String){
-        let singleData = NSMutableArray()
-        let f = NSFetchRequest(entityName: entityName)
-        let localData = try! context.executeFetchRequest(f) as NSArray
-        for each in localData{
-            let item = NewsItem()
-            item.author = each.valueForKey("author")! as! String
-            item.url = each.valueForKey("url")! as! String
-            item.title = each.valueForKey("title")! as! String
-            singleData.addObject(item)
-        }
-        dataSource.addObject(singleData)
-    }
-    
-    //    清除缓存数据
-    func clearCache(entityName:String){
-        let f = NSFetchRequest(entityName: entityName)
-        let localData = try! context.executeFetchRequest(f) as NSArray
-        for each in localData{
-            context.deleteObject(each as! NSManagedObject)
-        }
     }
     
     
@@ -201,6 +152,11 @@ class TodayViewController: UIViewController,UITableViewDataSource,UITableViewDel
         txt.text = "gank.io"
         txt.alpha = 0
         lbl.alpha = 0
+        
+        let window = UIApplication.sharedApplication().keyWindow
+        window!.addSubview(img)
+        window!.addSubview(lbl)
+        window?.addSubview(txt)
         
         UIView.animateWithDuration(0.5, animations: { () -> Void in
             self.txt.alpha = 1
