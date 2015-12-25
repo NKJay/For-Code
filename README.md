@@ -5,5 +5,5 @@ AFNetworking＞
 SDWebImage  
 第三方文件：  
 Swift提示框：https://github.com/johnlui/SwiftNotice/blob/master/SwiftNotice.swift   
-如有代码不规范的地方请各位不吝赐教。
- ![image](http://github.com/Geetion/For-Code/raw/master/review/500x500bb.png)
+如有代码不规范的地方请各位不吝赐教。  
+ ![image](http://github.com/Geetion/For-Code/raw/master/review/500x500bb.jpg)
