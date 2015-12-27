@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import CoreData
 
 class TodayViewController: UIViewController,UITableViewDataSource,UITableViewDelegate {
     @IBOutlet var newsTableView: UITableView!
@@ -20,11 +19,11 @@ class TodayViewController: UIViewController,UITableViewDataSource,UITableViewDel
     var data = NSDictionary()
     var dataSource = NSMutableArray()
     var i = Double(1)
-    var imgBack = UIView()
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         showLaunch()
         requestData(getDate(false))
         
@@ -34,7 +33,9 @@ class TodayViewController: UIViewController,UITableViewDataSource,UITableViewDel
         newsTableView.mj_header = MJRefreshNormalHeader(refreshingBlock: { () -> Void in
             self.requestData(self.getDate(false))
         })
+        
         NSTimer.scheduledTimerWithTimeInterval(3, target: self, selector: "hideLaunch", userInfo: nil, repeats: false)
+        
         newsTableView.delegate = self
     }
     
@@ -51,6 +52,7 @@ class TodayViewController: UIViewController,UITableViewDataSource,UITableViewDel
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    
     @IBAction func historySend(sender: AnyObject) {
         self.navigationController?.pushViewController(datePickervc, animated: true)
     }
@@ -138,13 +140,17 @@ class TodayViewController: UIViewController,UITableViewDataSource,UITableViewDel
     var img = UIImageView()
     var lbl = UILabel()
     func showLaunch(){
+        
         img = UIImageView(frame:CGRectMake(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT))
+        img.image = UIImage(named: "IMG_0123")
+        
         lbl = UILabel(frame:CGRectMake(WINDOW_WIDTH/2-50,WINDOW_HEIGHT/2-50,WINDOW_WIDTH,100))
         lbl.font = UIFont(name: "Verdana-BoldItalic", size: 40)
         lbl.text = "For Code"
         lbl.textAlignment = NSTextAlignment.Center
         lbl.center = CGPoint(x: WINDOW_WIDTH/2, y: WINDOW_HEIGHT/2-50)
-        img.image = UIImage(named: "IMG_0123")
+        lbl.alpha = 0
+        
         lbl.textColor = UIColor.whiteColor()
         txt = UILabel(frame:CGRectMake(WINDOW_WIDTH/2-50,WINDOW_HEIGHT/2,WINDOW_WIDTH,20))
         txt.center = CGPoint(x: WINDOW_WIDTH/2, y: WINDOW_HEIGHT/2)
@@ -153,7 +159,6 @@ class TodayViewController: UIViewController,UITableViewDataSource,UITableViewDel
         txt.font = UIFont.systemFontOfSize(15)
         txt.text = "gank.io"
         txt.alpha = 0
-        lbl.alpha = 0
         
         let window = UIApplication.sharedApplication().keyWindow
         window!.addSubview(img)
@@ -196,20 +201,16 @@ class TodayViewController: UIViewController,UITableViewDataSource,UITableViewDel
     
     //    图片点击放大
     func imageTap(){
-        self.imgBack = UIView(frame: self.view.frame)
         newimage.image = topImage.image
         newimage.frame = CGRect(x: 0, y: 0, width: WINDOW_WIDTH, height: WINDOW_HEIGHT)
         newimage.contentMode = UIViewContentMode.ScaleAspectFit
         newimage.alpha = 0
         newimage.userInteractionEnabled = true
+        newimage.backgroundColor = UIColor.whiteColor()
         newimage.addGestureRecognizer(UITapGestureRecognizer(target: self, action: "tapHide"))
-        imgBack.alpha = 0
-        imgBack.backgroundColor = UIColor.whiteColor()
-        self.imgBack.addSubview(newimage)
-        self.view.addSubview(imgBack)
+        self.view.addSubview(newimage)
         UIView.animateWithDuration(1) { () -> Void in
             self.newimage.alpha = 1
-            self.imgBack.alpha = 1
         }
     }
     
@@ -217,10 +218,8 @@ class TodayViewController: UIViewController,UITableViewDataSource,UITableViewDel
     func tapHide(){
         UIView.animateWithDuration(1, animations: { () -> Void in
             self.newimage.alpha = 0
-            self.imgBack.alpha = 0
             }) { (Bool) -> Void in
                 self.newimage.removeFromSuperview()
-                self.imgBack.removeFromSuperview()
         }
     }
     
@@ -281,9 +280,11 @@ class TodayViewController: UIViewController,UITableViewDataSource,UITableViewDel
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell{
         var cell = newsTableView.dequeueReusableCellWithIdentifier("cell")! as UITableViewCell?
+        
         if cell == nil{
             cell = UITableViewCell(style: UITableViewCellStyle.Default, reuseIdentifier: "cell")
         }
+        
         let sectionData = dataSource[indexPath.section]
         let item = sectionData[indexPath.row] as! NewsItem
         if indexPath.section == 0{

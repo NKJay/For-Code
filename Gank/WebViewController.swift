@@ -16,8 +16,11 @@ class WebViewController: UIViewController,WKNavigationDelegate {
     
     override func loadView() {
         super.loadView()
+        
         let frame = CGRect(x: 0, y:0, width: WINDOW_WIDTH, height: WINDOW_HEIGHT)
+        
         self.view.backgroundColor = UIColor.whiteColor()
+        
         myWebView = WKWebView(frame: frame)
         myWebView.alpha = 0
         myWebView.navigationDelegate = self
@@ -42,7 +45,9 @@ class WebViewController: UIViewController,WKNavigationDelegate {
     
     override func viewWillAppear(animated: Bool) {
         myWebView.addObserver(self, forKeyPath: "estimatedProgress", options: .New, context: nil)
+        
         myWebView.loadRequest(NSURLRequest(URL: NSURL(string: url)!))
+        
         UIView.animateWithDuration(0.3) { () -> Void in
             let frame = self.tabBarController?.tabBar.frame
             self.tabBarController?.tabBar.frame = CGRect(x: frame!.origin.x, y: frame!.origin.y + 50, width: frame!.width, height: frame!.height)
@@ -52,11 +57,12 @@ class WebViewController: UIViewController,WKNavigationDelegate {
     
     override func viewWillDisappear(animated: Bool) {
         myWebView.removeObserver(self, forKeyPath: "estimatedProgress")
+        
         progressBar.setProgress(0.0, animated: false)
+        
         NSURLCache.sharedURLCache().removeAllCachedResponses()
         UIView.animateWithDuration(0.3) { () -> Void in
             let frame = self.tabBarController?.tabBar.frame
-            self.myWebView.alpha = 1
             self.tabBarController?.tabBar.frame = CGRect(x: frame!.origin.x, y: frame!.origin.y - 50, width: frame!.width, height: frame!.height)
         }
     }
@@ -69,13 +75,18 @@ class WebViewController: UIViewController,WKNavigationDelegate {
     
     //    添加KVO相应事件
     override func observeValueForKeyPath(keyPath: String?, ofObject object: AnyObject?, change: [String : AnyObject]?, context: UnsafeMutablePointer<Void>) {
+        
         if (keyPath == "estimatedProgress"){
+            
             if myWebView.estimatedProgress == 1{
+                
                 progressBar.hidden = true
+                
                 UIView.animateWithDuration(0.5, animations: { () -> Void in
                     self.myWebView.alpha = 1
                 })
             }
+            
             progressBar.setProgress(Float(myWebView.estimatedProgress), animated: true)
         }
     }
@@ -94,16 +105,5 @@ class WebViewController: UIViewController,WKNavigationDelegate {
         UIApplication.sharedApplication().openURL(NSURL(string: url)!)
     }
     
-    
-    
-    /*
-    // MARK: - Navigation
-    
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-    // Get the new view controller using segue.destinationViewController.
-    // Pass the selected object to the new view controller.
-    }
-    */
-    
+
 }

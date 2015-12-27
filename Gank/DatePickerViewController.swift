@@ -28,7 +28,6 @@ class DatePickerViewController: UIViewController {
         let dateformater = NSDateFormatter()
         dateformater.dateFormat = "EEE"
         let day = NSCalendar(calendarIdentifier: NSCalendarIdentifierChinese)!.components(NSCalendarUnit.Weekday, fromDate: datePicker.date).weekday
-        print(day)
         if day == 1||day == 7{
             self.notice("周末休息", type: NoticeType.info, autoClear: true)
         }else{
@@ -43,14 +42,5 @@ class DatePickerViewController: UIViewController {
         datePicker.date = Date
     }
 
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }
