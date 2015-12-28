@@ -28,6 +28,7 @@ class DatePickerViewController: UIViewController {
         let dateformater = NSDateFormatter()
         dateformater.dateFormat = "EEE"
         let day = NSCalendar(calendarIdentifier: NSCalendarIdentifierChinese)!.components(NSCalendarUnit.Weekday, fromDate: datePicker.date).weekday
+//        如果今天是周六或周日则不获取数据
         if day == 1||day == 7{
             self.notice("周末休息", type: NoticeType.info, autoClear: true)
         }else{

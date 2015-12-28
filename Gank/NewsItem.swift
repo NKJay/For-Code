@@ -12,6 +12,4 @@ class NewsItem {
     var title = NSString()
     var author = NSString()
     var url = NSString()
-    var time = NSString()
-    var type = NSString()
 }

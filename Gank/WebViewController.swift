@@ -17,7 +17,7 @@ class WebViewController: UIViewController,WKNavigationDelegate {
     override func loadView() {
         super.loadView()
         
-        let frame = CGRect(x: 0, y:0, width: WINDOW_WIDTH, height: WINDOW_HEIGHT)
+        let frame = CGRect(x: 0, y:0, width: WINDOW_WIDTH, height: WINDOW_HEIGHT+64)
         
         self.view.backgroundColor = UIColor.whiteColor()
         

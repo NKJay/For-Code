@@ -13,7 +13,7 @@ class TodayViewController: UIViewController,UITableViewDataSource,UITableViewDel
     var URL =  "http://gank.avosapps.com/api/day/"
     var key = ["福利","iOS","Android","休息视频","拓展资源","App","瞎推荐"]
     var todayCategory = NSMutableArray()
-    let datePickervc = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("DatePicker") as! DatePickerViewController
+    let datePickerViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("DatePicker") as! DatePickerViewController
     var topImage = UIImageView()
     let newimage = UIImageView()
     var data = NSDictionary()
@@ -34,13 +34,11 @@ class TodayViewController: UIViewController,UITableViewDataSource,UITableViewDel
             self.requestData(self.getDate(false))
         })
         
-        NSTimer.scheduledTimerWithTimeInterval(3, target: self, selector: "hideLaunch", userInfo: nil, repeats: false)
-        
         newsTableView.delegate = self
     }
     
     override func viewWillAppear(animated: Bool) {
-        datePickervc.changeDate = {
+        datePickerViewController.changeDate = {
             (date:String)->Void in
             self.todayCategory = []
             self.requestData(date)
@@ -54,10 +52,9 @@ class TodayViewController: UIViewController,UITableViewDataSource,UITableViewDel
     }
     
     @IBAction func historySend(sender: AnyObject) {
-        self.navigationController?.pushViewController(datePickervc, animated: true)
+        self.navigationController?.pushViewController(datePickerViewController, animated: true)
     }
     
-    //    获取数据
     func requestData(Date:String){
         let afmanager = AFHTTPSessionManager()
         let getDataUrl = URL + Date
@@ -77,12 +74,13 @@ class TodayViewController: UIViewController,UITableViewDataSource,UITableViewDel
     
     func loadData(){
         let currentData = NSMutableArray()
+//        如果今天没数据则获取前一天的数据
         if self.data.count == 0{
             self.requestData(self.getDate(true))
         }else{
             self.i = 1
             for each in self.key{
-                let current = self.getSingleData(each)
+                let current = self.setSingleData(each)
                 if current.count != 0{
                     currentData.addObject(current)
                     self.todayCategory.addObject(each)
@@ -100,8 +98,8 @@ class TodayViewController: UIViewController,UITableViewDataSource,UITableViewDel
     }
     
     
-    //    获取单个类型数据
-    func getSingleData(key:String)->NSMutableArray{
+    //    设置单个类型数据
+    func setSingleData(key:String)->NSMutableArray{
         let currentData = NSMutableArray()
         if let _ = self.data.objectForKey(key){
             let resault = self.data.objectForKey(key) as! NSArray
@@ -135,71 +133,71 @@ class TodayViewController: UIViewController,UITableViewDataSource,UITableViewDel
     }
     
     
-    //    显示启动图
-    var txt = UILabel()
-    var img = UIImageView()
-    var lbl = UILabel()
+    //    启动图的显示和隐藏
+    var launchTitle = UILabel()
+    var launchImage = UIImageView()
+    var launchSmallTitle = UILabel()
     func showLaunch(){
         
-        img = UIImageView(frame:CGRectMake(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT))
-        img.image = UIImage(named: "IMG_0123")
+        launchImage = UIImageView(frame:CGRectMake(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT))
+        launchImage.image = UIImage(named: "IMG_0123")
         
-        lbl = UILabel(frame:CGRectMake(WINDOW_WIDTH/2-50,WINDOW_HEIGHT/2-50,WINDOW_WIDTH,100))
-        lbl.font = UIFont(name: "Verdana-BoldItalic", size: 40)
-        lbl.text = "For Code"
-        lbl.textAlignment = NSTextAlignment.Center
-        lbl.center = CGPoint(x: WINDOW_WIDTH/2, y: WINDOW_HEIGHT/2-50)
-        lbl.alpha = 0
+        launchTitle.frame.size = CGSize(width: WINDOW_WIDTH, height: 100)
+        launchTitle.font = UIFont(name: "Verdana-BoldItalic", size: 40)
+        launchTitle.text = "For Code"
+        launchTitle.textAlignment = NSTextAlignment.Center
+        launchTitle.center = CGPoint(x: WINDOW_WIDTH/2, y: WINDOW_HEIGHT/2-50)
+        launchTitle.alpha = 0
+        launchTitle.textColor = UIColor.whiteColor()
         
-        lbl.textColor = UIColor.whiteColor()
-        txt = UILabel(frame:CGRectMake(WINDOW_WIDTH/2-50,WINDOW_HEIGHT/2,WINDOW_WIDTH,20))
-        txt.center = CGPoint(x: WINDOW_WIDTH/2, y: WINDOW_HEIGHT/2)
-        txt.textAlignment = NSTextAlignment.Center
-        txt.textColor = UIColor.lightGrayColor()
-        txt.font = UIFont.systemFontOfSize(15)
-        txt.text = "gank.io"
-        txt.alpha = 0
+        launchSmallTitle.frame.size = CGSize(width: WINDOW_WIDTH, height: 20)
+        launchSmallTitle.center = CGPoint(x: WINDOW_WIDTH/2, y: WINDOW_HEIGHT/2)
+        launchSmallTitle.textAlignment = NSTextAlignment.Center
+        launchSmallTitle.textColor = UIColor.lightGrayColor()
+        launchSmallTitle.font = UIFont.systemFontOfSize(15)
+        launchSmallTitle.text = "gank.io"
+        launchSmallTitle.alpha = 0
         
         let window = UIApplication.sharedApplication().keyWindow
-        window!.addSubview(img)
-        window!.addSubview(lbl)
-        window?.addSubview(txt)
+        window!.addSubview(launchImage)
+        window!.addSubview(launchTitle)
+        window?.addSubview(launchSmallTitle)
         
         UIView.animateWithDuration(0.5, animations: { () -> Void in
-            self.txt.alpha = 1
-            self.lbl.alpha = 1
+            self.launchTitle.alpha = 1
+            self.launchSmallTitle.alpha = 1
         })
         
         UIView.animateWithDuration(2,animations:{
-            let rect = CGRectMake(-50,-50/9*16,WINDOW_WIDTH+100,WINDOW_HEIGHT+100/9*16)
-            self.img.frame = rect
+            self.launchImage.frame = CGRectMake(-50,-50/9*16,WINDOW_WIDTH+100,WINDOW_HEIGHT+100/9*16)
             },completion:{
                 (Bool completion) in
                 if completion {
                     UIView.animateWithDuration(1,animations:{
-                        self.img.alpha = 0
-                        self.lbl.alpha = 0
-                        self.txt.alpha = 0
+                        self.launchImage.alpha = 0
+                        self.launchTitle.alpha = 0
+                        self.launchSmallTitle.alpha = 0
                         },completion:{
                             (Bool completion) in
                             
                             if completion {
-                                self.img.removeFromSuperview()
-                                self.lbl.removeFromSuperview()
-                                self.txt.removeFromSuperview()
+                                self.launchImage.removeFromSuperview()
+                                self.launchTitle.removeFromSuperview()
+                                self.launchSmallTitle.removeFromSuperview()
                             }
                     })
                 }
         })
+        NSTimer.scheduledTimerWithTimeInterval(3, target: self, selector: "hideLaunch", userInfo: nil, repeats: false)
     }
     
     func hideLaunch(){
-        txt.removeFromSuperview()
-        lbl.removeFromSuperview()
-        img.removeFromSuperview()
+        launchTitle.removeFromSuperview()
+        launchSmallTitle.removeFromSuperview()
+        launchImage.removeFromSuperview()
     }
     
-    //    图片点击放大
+    //    top图片的点击放大和隐藏
     func imageTap(){
         newimage.image = topImage.image
         newimage.frame = CGRect(x: 0, y: 0, width: WINDOW_WIDTH, height: WINDOW_HEIGHT)
@@ -214,7 +212,6 @@ class TodayViewController: UIViewController,UITableViewDataSource,UITableViewDel
         }
     }
     
-    //    图片点击隐藏
     func tapHide(){
         UIView.animateWithDuration(1, animations: { () -> Void in
             self.newimage.alpha = 0
@@ -238,17 +235,17 @@ class TodayViewController: UIViewController,UITableViewDataSource,UITableViewDel
     
     func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView?
     {
-        let lbl = UILabel(frame:CGRectMake(0,0,320,25))
-        lbl.backgroundColor = UIColor(red: 245/255.0, green: 102/255.0, blue: 70/255.0, alpha: 0.7)
+        let headerTitle = UILabel(frame:CGRectMake(0,0,320,25))
+        headerTitle.backgroundColor = UIColor(red: 245/255.0, green: 102/255.0, blue: 70/255.0, alpha: 0.7)
         if section == 0{
-            lbl.text = ""
+            headerTitle.text = ""
         }else{
-            lbl.text = todayCategory[section] as? String
+            headerTitle.text = todayCategory[section] as? String
         }
-        lbl.textColor = UIColor.whiteColor()
-        lbl.textAlignment = NSTextAlignment.Center
-        lbl.font = UIFont.systemFontOfSize(14)
-        return lbl
+        headerTitle.textColor = UIColor.whiteColor()
+        headerTitle.textAlignment = NSTextAlignment.Center
+        headerTitle.font = UIFont.systemFontOfSize(14)
+        return headerTitle
     }
     
     
@@ -275,11 +272,11 @@ class TodayViewController: UIViewController,UITableViewDataSource,UITableViewDel
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         sendToWeb(indexPath, dataSource: dataSource[indexPath.section] as! NSArray)
-        newsTableView.deselectRowAtIndexPath(indexPath, animated: true)
+        tableView.deselectRowAtIndexPath(indexPath, animated: true)
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell{
-        var cell = newsTableView.dequeueReusableCellWithIdentifier("cell")! as UITableViewCell?
+        var cell = tableView.dequeueReusableCellWithIdentifier("cell")! as UITableViewCell?
         
         if cell == nil{
             cell = UITableViewCell(style: UITableViewCellStyle.Default, reuseIdentifier: "cell")
@@ -288,7 +285,7 @@ class TodayViewController: UIViewController,UITableViewDataSource,UITableViewDel
         let sectionData = dataSource[indexPath.section]
         let item = sectionData[indexPath.row] as! NewsItem
         if indexPath.section == 0{
-            let cell = newsTableView.dequeueReusableCellWithIdentifier("ImageCell")! as UITableViewCell?
+            let cell = tableView.dequeueReusableCellWithIdentifier("ImageCell")! as UITableViewCell?
             let imgURL = item.url as String
             topImage.contentMode = UIViewContentMode.ScaleAspectFill
             topImage.sd_setImageWithURL(NSURL(string: imgURL), completed: { (img:UIImage!, error:NSError!, cache:SDImageCacheType, nsurl:NSURL!) -> Void in

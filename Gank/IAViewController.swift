@@ -17,7 +17,6 @@ class IAViewController:UIViewController,UITableViewDataSource,UITableViewDelegat
     var newsTableView = UITableView()
     var entityName = String()
     
-    //    初始化View
     func initMyView(myURL:String,myTableView:UITableView,myEntityName:String,navigationController:UINavigationController,selfView:UIView) {
         navigation = navigationController
         URL = myURL
@@ -29,7 +28,7 @@ class IAViewController:UIViewController,UITableViewDataSource,UITableViewDelegat
         })
         
         newsTableView.mj_footer = MJRefreshAutoNormalFooter(refreshingBlock: { () -> Void in
-            self.loadMoreData()
+            self.requestMoreData()
         })
         
         requestData()
@@ -38,7 +37,6 @@ class IAViewController:UIViewController,UITableViewDataSource,UITableViewDelegat
         myTableView.dataSource = self
     }
     
-    //    加载数据
     func requestData(){
         
         let loadUrl = URL + "1"
@@ -89,7 +87,7 @@ class IAViewController:UIViewController,UITableViewDataSource,UITableViewDelegat
         })
     }
     
-    func loadMoreData(){
+    func requestMoreData(){
         let loadUrl = URL + String(i++)
         let afmanager = AFHTTPSessionManager()
         afmanager.GET(loadUrl, parameters: nil, progress: nil, success: { (nsurl:NSURLSessionDataTask, resp:AnyObject?) -> Void in
