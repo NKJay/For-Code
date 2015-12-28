@@ -26,6 +26,10 @@ class WebViewController: UIViewController,WKNavigationDelegate {
         myWebView.navigationDelegate = self
         self.view.addSubview(myWebView)
         
+        myWebView.addObserver(self, forKeyPath: "estimatedProgress", options: .New, context: nil)
+        
+        myWebView.loadRequest(NSURLRequest(URL: NSURL(string: url)!))
+        
         let openUrl = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Action, target: self, action: "openUrl")
         openUrl.title = "打开"
         self.navigationItem.rightBarButtonItem = openUrl
@@ -44,9 +48,6 @@ class WebViewController: UIViewController,WKNavigationDelegate {
     }
     
     override func viewWillAppear(animated: Bool) {
-        myWebView.addObserver(self, forKeyPath: "estimatedProgress", options: .New, context: nil)
-        
-        myWebView.loadRequest(NSURLRequest(URL: NSURL(string: url)!))
         
         UIView.animateWithDuration(0.3) { () -> Void in
             let frame = self.tabBarController?.tabBar.frame
@@ -56,11 +57,6 @@ class WebViewController: UIViewController,WKNavigationDelegate {
     
     
     override func viewWillDisappear(animated: Bool) {
-        myWebView.removeObserver(self, forKeyPath: "estimatedProgress")
-        
-        progressBar.setProgress(0.0, animated: false)
-        
-        NSURLCache.sharedURLCache().removeAllCachedResponses()
         UIView.animateWithDuration(0.3) { () -> Void in
             let frame = self.tabBarController?.tabBar.frame
             self.tabBarController?.tabBar.frame = CGRect(x: frame!.origin.x, y: frame!.origin.y - 50, width: frame!.width, height: frame!.height)
@@ -68,6 +64,11 @@ class WebViewController: UIViewController,WKNavigationDelegate {
     }
     
     override func viewDidDisappear(animated: Bool) {
+        myWebView.removeObserver(self, forKeyPath: "estimatedProgress")
+        
+        progressBar.setProgress(0.0, animated: false)
+        
+        NSURLCache.sharedURLCache().removeAllCachedResponses()
         myWebView.alpha = 0
         myWebView.removeFromSuperview()
     }
