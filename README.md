@@ -1,11 +1,34 @@
-# gank
-所使用第三方库文件：  
-MJRefresh  
-AFNetworking＞  
-SDWebImage  
-第三方文件：  
-Swift提示框：https://github.com/johnlui/SwiftNotice/blob/master/SwiftNotice.swift   
-如有代码不规范的地方请各位不吝赐教。  
- ![image](https://raw.githubusercontent.com/Geetion/For-Code/master/review/500x500bb.jpg)
- ![image](https://raw.githubusercontent.com/Geetion/For-Code/master/review/500x500bb-2.jpg)
- ![image](https://raw.githubusercontent.com/Geetion/For-Code/master/review/500x500bb-3.jpg)
+For-Code
+============
+[![BuddyBuild](https://dashboard.buddybuild.com/api/statusImage?appID=562a9aac2492560100211378&branch=master&build=latest)](https://dashboard.buddybuild.com/apps/562a9aac2492560100211378/build/latest)
+
+For-Code is an iOS news app developed in Swift 2. The app has been actively upgrading to adopt the latest features of iOS and Swift language.Use gank.io api by Daimajia
+
+##Third party Library
+AFNetworking
+SDWebImage
+MJRefreshing
+
+## Notices
+The current version is working with Xcode Version 7. If you are using different Xcode version, please check out the previous versions.
+
+## Screenshots
+
+
+## How to build
+
+1) Clone the repository
+
+
+2) Install pods
+
+
+3) Open the workspace in Xcode
+
+
+4) Compile and run the app in your simulator
+
+# Requirements
+
+* Xcode 7
+* iOS 8
