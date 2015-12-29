@@ -122,25 +122,35 @@ class IAViewController:UIViewController,UITableViewDataSource,UITableViewDelegat
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell{
-        let cell = tableView.dequeueReusableCellWithIdentifier("cell")! as UITableViewCell
+        
+        var cell = tableView.dequeueReusableCellWithIdentifier("cell") as UITableViewCell?
+        
+        if cell == nil{
+            cell = UITableViewCell(style: UITableViewCellStyle.Default, reuseIdentifier: "cell")
+        }
+        
+        let item = dataSource[indexPath.row] as! NewsItem
+        
+        setDatawithCell(cell!, item: item)
+        
+        return cell!
+    }
+    
+    func setDatawithCell(cell:UITableViewCell,item:NewsItem){
         
         let title = cell.viewWithTag(1) as! UILabel
         let author = cell.viewWithTag(2) as! UILabel
         
-        let item = dataSource[indexPath.row] as! NewsItem
-        
         title.text = item.title as String
         author.text = item.author as String
         
-        return cell
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath){
-        let item = dataSource[indexPath.row] as! NewsItem
         
+        let item = dataSource[indexPath.row] as! NewsItem
         let webView = WebViewController()
         webView.url = item.url as String
-        
         navigation.pushViewController(webView, animated: true)
         
         tableView.deselectRowAtIndexPath(indexPath, animated: true)

@@ -64,7 +64,7 @@ class TodayViewController: UIViewController,UITableViewDataSource,UITableViewDel
             userdefault.setObject(self.data, forKey: "TodayData")
             userdefault.synchronize()
             }) { (nsurl:NSURLSessionDataTask?, error:NSError) -> Void in
-                if let _ = userdefault.objectForKey("TodayData"){
+                if userdefault.objectForKey("TodayData") != nil{
                     self.data = userdefault.objectForKey("TodayData") as! NSDictionary
                     self.loadData()
                 }
@@ -285,14 +285,13 @@ class TodayViewController: UIViewController,UITableViewDataSource,UITableViewDel
         let sectionData = dataSource[indexPath.section]
         let item = sectionData[indexPath.row] as! NewsItem
         if indexPath.section == 0{
-            let cell = tableView.dequeueReusableCellWithIdentifier("ImageCell")! as UITableViewCell?
+            cell = tableView.dequeueReusableCellWithIdentifier("ImageCell")! as UITableViewCell?
             let imgURL = item.url as String
             topImage.contentMode = UIViewContentMode.ScaleAspectFill
             topImage.sd_setImageWithURL(NSURL(string: imgURL), completed: { (img:UIImage!, error:NSError!, cache:SDImageCacheType, nsurl:NSURL!) -> Void in
                 self.topImage.frame = CGRect(origin: CGPoint(x:0 , y: 0), size: CGSize(width: WINDOW_WIDTH, height:250))
                 cell!.addSubview(self.topImage)
             })
-            return cell!
         }else{
             let title = cell!.viewWithTag(1) as! UILabel
             let author = cell!.viewWithTag(2) as! UILabel
