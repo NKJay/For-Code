@@ -1,6 +1,7 @@
 For-Code
 ============
 [![BuddyBuild](https://dashboard.buddybuild.com/api/statusImage?appID=56815502b32b3d01000b3d04&branch=master&build=latest)](https://dashboard.buddybuild.com/apps/56815502b32b3d01000b3d04/build/latest)
+[![Build Status](https://travis-ci.org/Geetion/For-Code.svg?branch=master)](https://travis-ci.org/Geetion/For-Code)
 
 For-Code is an iOS news app developed in Swift 2. The app has been actively upgrading to adopt the latest features of iOS and Swift language.Use gank.io api by Daimajia
 
