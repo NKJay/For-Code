@@ -24,7 +24,7 @@ class TodayViewController: UIViewController,UITableViewDataSource,UITableViewDel
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        showLaunch()
+        self.showLaunch(UIImage(named: "IMG_0123")!)
         requestData(getDate(false))
         
         topImage.userInteractionEnabled = true
@@ -35,6 +35,7 @@ class TodayViewController: UIViewController,UITableViewDataSource,UITableViewDel
         })
         
         newsTableView.delegate = self
+        newsTableView.tag = 1
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -133,69 +134,6 @@ class TodayViewController: UIViewController,UITableViewDataSource,UITableViewDel
     }
     
     
-    //    启动图的显示和隐藏
-    var launchTitle = UILabel()
-    var launchImage = UIImageView()
-    var launchSmallTitle = UILabel()
-    func showLaunch(){
-        
-        launchImage = UIImageView(frame:CGRectMake(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT))
-        launchImage.image = UIImage(named: "IMG_0123")
-        
-        launchTitle.frame.size = CGSize(width: WINDOW_WIDTH, height: 100)
-        launchTitle.font = UIFont(name: "Verdana-BoldItalic", size: 40)
-        launchTitle.text = "For Code"
-        launchTitle.textAlignment = NSTextAlignment.Center
-        launchTitle.center = CGPoint(x: WINDOW_WIDTH/2, y: WINDOW_HEIGHT/2-50)
-        launchTitle.alpha = 0
-        launchTitle.textColor = UIColor.whiteColor()
-        
-        launchSmallTitle.frame.size = CGSize(width: WINDOW_WIDTH, height: 20)
-        launchSmallTitle.center = CGPoint(x: WINDOW_WIDTH/2, y: WINDOW_HEIGHT/2)
-        launchSmallTitle.textAlignment = NSTextAlignment.Center
-        launchSmallTitle.textColor = UIColor.lightGrayColor()
-        launchSmallTitle.font = UIFont.systemFontOfSize(15)
-        launchSmallTitle.text = "gank.io"
-        launchSmallTitle.alpha = 0
-        
-        let window = UIApplication.sharedApplication().keyWindow
-        window!.addSubview(launchImage)
-        window!.addSubview(launchTitle)
-        window?.addSubview(launchSmallTitle)
-        
-        UIView.animateWithDuration(0.5, animations: { () -> Void in
-            self.launchTitle.alpha = 1
-            self.launchSmallTitle.alpha = 1
-        })
-        
-        UIView.animateWithDuration(2,animations:{
-            self.launchImage.frame = CGRectMake(-50,-50/9*16,WINDOW_WIDTH+100,WINDOW_HEIGHT+100/9*16)
-            },completion:{
-                (Bool completion) in
-                if completion {
-                    UIView.animateWithDuration(1,animations:{
-                        self.launchImage.alpha = 0
-                        self.launchTitle.alpha = 0
-                        self.launchSmallTitle.alpha = 0
-                        },completion:{
-                            (Bool completion) in
-                            
-                            if completion {
-                                self.launchImage.removeFromSuperview()
-                                self.launchTitle.removeFromSuperview()
-                                self.launchSmallTitle.removeFromSuperview()
-                            }
-                    })
-                }
-        })
-        NSTimer.scheduledTimerWithTimeInterval(3, target: self, selector: "hideLaunch", userInfo: nil, repeats: false)
-    }
-    
-    func hideLaunch(){
-        launchTitle.removeFromSuperview()
-        launchSmallTitle.removeFromSuperview()
-        launchImage.removeFromSuperview()
-    }
     
     //    top图片的点击放大和隐藏
     func imageTap(){

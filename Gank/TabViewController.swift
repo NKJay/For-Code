@@ -22,17 +22,10 @@ class TabViewController: UITabBarController,UITabBarControllerDelegate {
     }
     
     func tabBarController(tabBarController: UITabBarController, didSelectViewController viewController: UIViewController){
+        viewController.view.viewWithTag(1)?.alpha = 0
+        UIView.animateWithDuration(0.5) { () -> Void in
+            viewController.view.viewWithTag(1)?.alpha = 1
+        }
+        
     }
-    
-    
-    /*
-    // MARK: - Navigation
-    
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-    // Get the new view controller using segue.destinationViewController.
-    // Pass the selected object to the new view controller.
-    }
-    */
-    
 }

@@ -33,8 +33,18 @@ class IAViewController:UIViewController,UITableViewDataSource,UITableViewDelegat
         
         requestData()
         
+        newsTableView.tag = 1
+        
+        if let _ = userdefault.objectForKey(self.entityName){
+            
+            let results = userdefault.objectForKey(self.entityName) as! NSArray
+            self.loadData(results)
+        }
+        
         myTableView.delegate = self
         myTableView.dataSource = self
+        
+        self.newsTableView.mj_header.beginRefreshing()
     }
     
     func requestData(){
@@ -52,15 +62,9 @@ class IAViewController:UIViewController,UITableViewDataSource,UITableViewDelegat
             
             }) { (nsurl:NSURLSessionDataTask?, error:NSError) -> Void in
                 dispatch_async(dispatch_get_main_queue(), { () -> Void in
-                    if let _ = userdefault.objectForKey(self.entityName){
-                        
-                        let results = userdefault.objectForKey(self.entityName) as! NSArray
-                        self.loadData(results)
-                        
                         self.newsTableView.mj_header.endRefreshing()
                         
                         self.notice("请检查网络", type: NoticeType.error, autoClear: true)
-                    }
                 })
                 
         }

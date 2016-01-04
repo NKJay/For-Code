@@ -24,6 +24,7 @@
 		936B4F011C08B04900DDECA5 /* GankTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 936B4F001C08B04900DDECA5 /* GankTests.swift */; };
 		936B4F0C1C08B04900DDECA5 /* GankUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 936B4F0B1C08B04900DDECA5 /* GankUITests.swift */; };
 		9389A13E1C095440007B2A9D /* IOSViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9389A13C1C095440007B2A9D /* IOSViewController.swift */; };
+		C0B5AA751C39FEA900AEB7CC /* LaunchScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0B5AA741C39FEA900AEB7CC /* LaunchScreen.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -70,6 +71,7 @@
 		936B4F0B1C08B04900DDECA5 /* GankUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GankUITests.swift; sourceTree = "<group>"; };
 		936B4F0D1C08B04900DDECA5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9389A13C1C095440007B2A9D /* IOSViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IOSViewController.swift; sourceTree = "<group>"; };
+		C0B5AA741C39FEA900AEB7CC /* LaunchScreen.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LaunchScreen.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -111,6 +113,7 @@
 			children = (
 				149735BF1C22587100F26D9C /* SwiftNotice.swift */,
 				14D39F861C26AE3E0027E1D0 /* TodayViewController.swift */,
+				C0B5AA741C39FEA900AEB7CC /* LaunchScreen.swift */,
 				14BED2561C18262F00D1CA52 /* WebViewController.swift */,
 				9389A13C1C095440007B2A9D /* IOSViewController.swift */,
 				14F7049E1C1B16E60021D464 /* AndroidViewController.swift */,
@@ -396,6 +399,7 @@
 				149735C31C2261CD00F26D9C /* Gank.xcdatamodeld in Sources */,
 				930779AD1C095F1A00AD773A /* NewsItem.swift in Sources */,
 				14BBDA9C1C1D986E0084FD35 /* TabViewController.swift in Sources */,
+				C0B5AA751C39FEA900AEB7CC /* LaunchScreen.swift in Sources */,
 				936B4EE91C08B04900DDECA5 /* AppDelegate.swift in Sources */,
 				14F7049F1C1B16E60021D464 /* AndroidViewController.swift in Sources */,
 				14D39F871C26AE3E0027E1D0 /* TodayViewController.swift in Sources */,
