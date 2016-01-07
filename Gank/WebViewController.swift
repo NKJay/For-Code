@@ -10,8 +10,11 @@ import UIKit
 import WebKit
 
 class WebViewController: UIViewController,WKNavigationDelegate {
+    
     var url = String()
+    
     var myWebView = WKWebView()
+    
     var progressBar = UIProgressView()
     
     override func loadView() {
@@ -50,25 +53,32 @@ class WebViewController: UIViewController,WKNavigationDelegate {
     override func viewWillAppear(animated: Bool) {
         
         UIView.animateWithDuration(0.3) { () -> Void in
+            
             let frame = self.tabBarController?.tabBar.frame
+            
             self.tabBarController?.tabBar.frame = CGRect(x: frame!.origin.x, y: frame!.origin.y + 50, width: frame!.width, height: frame!.height)
         }
     }
     
     
     override func viewWillDisappear(animated: Bool) {
+        
         UIView.animateWithDuration(0.3) { () -> Void in
+            
             let frame = self.tabBarController?.tabBar.frame
+            
             self.tabBarController?.tabBar.frame = CGRect(x: frame!.origin.x, y: frame!.origin.y - 50, width: frame!.width, height: frame!.height)
         }
     }
     
     override func viewDidDisappear(animated: Bool) {
+        
         myWebView.removeObserver(self, forKeyPath: "estimatedProgress")
         
         progressBar.setProgress(0.0, animated: false)
         
         NSURLCache.sharedURLCache().removeAllCachedResponses()
+        
         myWebView.alpha = 0
         myWebView.removeFromSuperview()
     }

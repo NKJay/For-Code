@@ -10,11 +10,17 @@ import UIKit
 import CoreData
 
 class IAViewController:UIViewController,UITableViewDataSource,UITableViewDelegate {
+    
     var URL = String()
+    
     var dataSource = NSMutableArray()
+    
     var navigation = UINavigationController()
+    
     var i = 2
+    
     var newsTableView = UITableView()
+    
     var entityName = String()
     
     func initMyView(myURL:String,myTableView:UITableView,myEntityName:String,navigationController:UINavigationController,selfView:UIView) {
@@ -55,6 +61,7 @@ class IAViewController:UIViewController,UITableViewDataSource,UITableViewDelegat
         afmanager.GET(loadUrl, parameters: nil, progress: nil, success: { (nsurl:NSURLSessionDataTask, resp:AnyObject?) -> Void in
             
             let results = resp!.objectForKey("results")! as! NSArray
+            
             self.loadData(results)
             
             userdefault.setObject(results, forKey: self.entityName)
@@ -76,6 +83,7 @@ class IAViewController:UIViewController,UITableViewDataSource,UITableViewDelegat
         let currentData = NSMutableArray()
         
         for each in results{
+            
             let item = NewsItem()
             item.author = each.objectForKey("who")! as! String
             item.title = each.objectForKey("desc")! as! String
@@ -83,8 +91,11 @@ class IAViewController:UIViewController,UITableViewDataSource,UITableViewDelegat
             
             currentData.addObject(item)
         }
+        
         dispatch_async(dispatch_get_main_queue(), { () -> Void in
+            
             self.dataSource = currentData
+            
             self.newsTableView.reloadData()
             self.newsTableView.mj_header.endRefreshing()
             
@@ -92,11 +103,15 @@ class IAViewController:UIViewController,UITableViewDataSource,UITableViewDelegat
     }
     
     func requestMoreData(){
+        
         let loadUrl = URL + String(i++)
+        
         let afmanager = AFHTTPSessionManager()
+        
         afmanager.GET(loadUrl, parameters: nil, progress: nil, success: { (nsurl:NSURLSessionDataTask, resp:AnyObject?) -> Void in
             
             let results = resp!.objectForKey("results")! as! NSArray
+            
             for each in results{
                 
                 let item = NewsItem()
@@ -106,13 +121,16 @@ class IAViewController:UIViewController,UITableViewDataSource,UITableViewDelegat
                 
                 self.dataSource.addObject(item)
             }
+            
             dispatch_async(dispatch_get_main_queue(), { () -> Void in
                 self.newsTableView.reloadData()
                 self.newsTableView.mj_footer.endRefreshing()
                 
             })
             }) { (nsurl:NSURLSessionDataTask?, error:NSError) -> Void in
+                
                 self.newsTableView.mj_footer.endRefreshing()
+                
                 self.notice("请检查网络", type: NoticeType.error, autoClear: true)
         }
         
@@ -153,8 +171,11 @@ class IAViewController:UIViewController,UITableViewDataSource,UITableViewDelegat
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath){
         
         let item = dataSource[indexPath.row] as! NewsItem
+        
         let webView = WebViewController()
+        
         webView.url = item.url as String
+        
         navigation.pushViewController(webView, animated: true)
         
         tableView.deselectRowAtIndexPath(indexPath, animated: true)

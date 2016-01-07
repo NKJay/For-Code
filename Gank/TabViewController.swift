@@ -12,7 +12,9 @@ class TabViewController: UITabBarController,UITabBarControllerDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         self.delegate = self
+        
         // Do any additional setup after loading the view.
     }
     
@@ -22,9 +24,13 @@ class TabViewController: UITabBarController,UITabBarControllerDelegate {
     }
     
     func tabBarController(tabBarController: UITabBarController, didSelectViewController viewController: UIViewController){
+        
         viewController.view.viewWithTag(1)?.alpha = 0
+        
         UIView.animateWithDuration(0.5) { () -> Void in
+            
             viewController.view.viewWithTag(1)?.alpha = 1
+            
         }
         
     }

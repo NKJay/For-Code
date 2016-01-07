@@ -10,12 +10,16 @@ import UIKit
 import CoreData
 
 class AndroidViewController: UIViewController{
+    
     var URL = "http://gank.avosapps.com/api/data/Android/10/"
+    
     @IBOutlet weak var newsTableView: UITableView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         let AndroidView = IAViewController()
+        
         AndroidView.initMyView(URL, myTableView: newsTableView, myEntityName: "AndroidNews", navigationController: self.navigationController!,selfView: self.view)
         
     }

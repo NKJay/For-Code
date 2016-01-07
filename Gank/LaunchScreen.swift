@@ -9,9 +9,13 @@
 import UIKit
 
 extension UIViewController{
+    
     func showLaunch(image:UIImage){
+        
         LaunchScreen.showLaunch(image)
+        
     }
+    
     class LaunchScreen: NSObject {
         //    启动图的显示和隐藏
         static var launchTitle = UILabel()
@@ -45,8 +49,10 @@ extension UIViewController{
             window?.addSubview(launchSmallTitle)
             
             UIView.animateWithDuration(0.5, animations: { () -> Void in
+                
                 self.launchTitle.alpha = 1
                 self.launchSmallTitle.alpha = 1
+                
             })
             
             UIView.animateWithDuration(2,animations:{
