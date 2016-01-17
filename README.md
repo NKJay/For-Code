@@ -14,6 +14,9 @@ MJRefreshing
 The current version is working with Xcode Version 7. If you are using different Xcode version, please check out the previous versions.
 
 ## Screenshots
+![screenshot1](https://github.com/Geetion/For-Code/blob/master/review/500x500bb.jpg)
+![screenshot2](https://github.com/Geetion/For-Code/blob/master/review/500x500bb-2.jpg)
+![screenshot3](https://github.com/Geetion/For-Code/blob/master/review/500x500bb-3.jpg)
 
 
 ## How to build
