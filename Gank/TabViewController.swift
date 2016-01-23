@@ -14,17 +14,11 @@ class TabViewController: UITabBarController,UITabBarControllerDelegate {
         super.viewDidLoad()
         
         self.delegate = self
-        
-        // Do any additional setup after loading the view.
-    }
-    
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
     
     func tabBarController(tabBarController: UITabBarController, didSelectViewController viewController: UIViewController){
         
+        if self.selectedViewController == viewController{
         viewController.view.viewWithTag(1)?.alpha = 0
         
         UIView.animateWithDuration(0.5) { () -> Void in
@@ -32,6 +26,8 @@ class TabViewController: UITabBarController,UITabBarControllerDelegate {
             viewController.view.viewWithTag(1)?.alpha = 1
             
         }
+        }
+        
         
     }
 }

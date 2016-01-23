@@ -61,12 +61,6 @@ class TodayViewController: UIViewController,UITableViewDataSource,UITableViewDel
         }
     }
     
-    
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
     @IBAction func historySend(sender: AnyObject) {
         
         self.navigationController?.pushViewController(datePickerViewController, animated: true)
@@ -102,7 +96,7 @@ class TodayViewController: UIViewController,UITableViewDataSource,UITableViewDel
         
         let currentData = NSMutableArray()
         
-//        如果今天没数据则获取前一天的数据
+        //        如果今天没数据则获取前一天的数据
         if self.data.count == 0{
             self.requestData(self.getDate(true))
         }else{

@@ -102,12 +102,7 @@ class WebViewController: UIViewController,WKNavigationDelegate {
         }
     }
     
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
-//    用safari打开网页
+    //    用safari打开网页
     func openUrl(){
         let alert = UIAlertView()
         alert.message = "要用Safari打开网页吗？"
@@ -116,5 +111,5 @@ class WebViewController: UIViewController,WKNavigationDelegate {
         UIApplication.sharedApplication().openURL(NSURL(string: url)!)
     }
     
-
+    
 }

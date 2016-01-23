@@ -24,6 +24,7 @@ class IAViewController:UIViewController,UITableViewDataSource,UITableViewDelegat
     var entityName = String()
     
     func initMyView(myURL:String,myTableView:UITableView,myEntityName:String,navigationController:UINavigationController,selfView:UIView) {
+        
         navigation = navigationController
         URL = myURL
         newsTableView = myTableView
@@ -41,10 +42,9 @@ class IAViewController:UIViewController,UITableViewDataSource,UITableViewDelegat
         
         newsTableView.tag = 1
         
-        if let _ = userdefault.objectForKey(self.entityName){
-            
-            let results = userdefault.objectForKey(self.entityName) as! NSArray
-            self.loadData(results)
+        if let data = userdefault.objectForKey(self.entityName) as? NSData{
+            let localData = NSKeyedUnarchiver.unarchiveObjectWithData(data)
+            self.dataSource = localData as! NSMutableArray
         }
         
         myTableView.delegate = self
@@ -62,44 +62,38 @@ class IAViewController:UIViewController,UITableViewDataSource,UITableViewDelegat
             
             let results = resp!.objectForKey("results")! as! NSArray
             
-            self.loadData(results)
+            let currentData = NSMutableArray()
             
-            userdefault.setObject(results, forKey: self.entityName)
-            userdefault.synchronize()
+            for each in results{
+                
+                let item = NewsItem()
+                item.author = each.objectForKey("who")! as! String
+                item.title = each.objectForKey("desc")! as! String
+                item.url = each.objectForKey("url")! as! String
+                
+                currentData.addObject(item)
+                
+                let localData = NSKeyedArchiver.archivedDataWithRootObject(currentData)
+                userdefault.setObject(localData, forKey: self.entityName)
+                userdefault.synchronize()
+            }
+            
+            dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                
+                self.dataSource = currentData
+                
+                self.newsTableView.reloadData()
+                self.newsTableView.mj_header.endRefreshing()
+                
+            })
             
             }) { (nsurl:NSURLSessionDataTask?, error:NSError) -> Void in
-                dispatch_async(dispatch_get_main_queue(), { () -> Void in
-                        self.newsTableView.mj_header.endRefreshing()
-                        
-                        self.notice("请检查网络", type: NoticeType.error, autoClear: true)
-                })
+                self.newsTableView.mj_header.endRefreshing()
+                
+                self.notice("请检查网络", type: NoticeType.error, autoClear: true)
                 
         }
         
-    }
-    
-    func loadData(results:NSArray){
-        
-        let currentData = NSMutableArray()
-        
-        for each in results{
-            
-            let item = NewsItem()
-            item.author = each.objectForKey("who")! as! String
-            item.title = each.objectForKey("desc")! as! String
-            item.url = each.objectForKey("url")! as! String
-            
-            currentData.addObject(item)
-        }
-        
-        dispatch_async(dispatch_get_main_queue(), { () -> Void in
-            
-            self.dataSource = currentData
-            
-            self.newsTableView.reloadData()
-            self.newsTableView.mj_header.endRefreshing()
-            
-        })
     }
     
     func requestMoreData(){

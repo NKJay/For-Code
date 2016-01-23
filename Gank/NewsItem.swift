@@ -8,8 +8,24 @@
 
 import Foundation
 
-class NewsItem {
-    var title = NSString()
-    var author = NSString()
-    var url = NSString()
+class NewsItem:NSObject,NSCoding {
+    var title = String()
+    var author = String()
+    var url = String()
+    
+    override init() {
+        super.init()
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        self.title = aDecoder.decodeObjectForKey("title") as! String
+        self.author = aDecoder.decodeObjectForKey("author") as! String
+        self.url = aDecoder.decodeObjectForKey("url") as! String
+    }
+    
+    func encodeWithCoder(aCoder: NSCoder) {
+        aCoder.encodeObject(title, forKey: "title")
+        aCoder.encodeObject(author, forKey: "author")
+        aCoder.encodeObject(url, forKey: "url")
+    }
 }
