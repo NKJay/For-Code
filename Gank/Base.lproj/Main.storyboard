@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="15B42" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="Sqt-tW-6rK">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9532" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="Sqt-tW-6rK">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
@@ -115,13 +115,13 @@
                             <datePicker contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="date" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="mj1-23-2L7">
                                 <rect key="frame" x="0.0" y="150" width="320" height="216"/>
                                 <date key="date" timeIntervalSinceReferenceDate="471782208.67903203">
-                                    <!--2015-12-14 10:36:48 +0000-->
+                                    <!--2015-12-14 10:36:48 am +0000-->
                                 </date>
                                 <date key="minimumDate" timeIntervalSinceReferenceDate="454935600">
-                                    <!--2015-06-02 11:00:00 +0000-->
+                                    <!--2015-06-02 11:00:00 am +0000-->
                                 </date>
                                 <date key="maximumDate" timeIntervalSinceReferenceDate="1167562800">
-                                    <!--2037-12-31 11:00:00 +0000-->
+                                    <!--2037-12-31 11:00:00 am +0000-->
                                 </date>
                             </datePicker>
                             <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9lI-sa-soI">
@@ -321,7 +321,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="X7C-9Q-qbJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1274" y="941"/>
+            <point key="canvasLocation" x="1806" y="941"/>
         </scene>
         <!--IOS-->
         <scene sceneID="NMj-Gf-rth">
@@ -365,11 +365,57 @@
                         <segue destination="KmT-eW-x0u" kind="relationship" relationship="viewControllers" id="Vbf-lk-ZIU"/>
                         <segue destination="JEW-xw-qDH" kind="relationship" relationship="viewControllers" id="Jk3-O9-UU9"/>
                         <segue destination="v0z-6L-MoK" kind="relationship" relationship="viewControllers" id="Qob-i3-6iM"/>
+                        <segue destination="V2v-ni-vQ0" kind="relationship" relationship="viewControllers" id="Qq9-vm-khH"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ea8-Mt-xdW" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="277" y="255"/>
+        </scene>
+        <!--福利-->
+        <scene sceneID="tNt-4h-L80">
+            <objects>
+                <collectionViewController id="pLs-S0-OdL" customClass="PictureViewController" customModule="For_Code" customModuleProvider="target" sceneMemberID="viewController">
+                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="Dmk-ep-vfX">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="78r-12-pea">
+                            <size key="itemSize" width="149" height="151"/>
+                            <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                            <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                            <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                        </collectionViewFlowLayout>
+                        <cells>
+                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="collectioncell" id="A7n-oP-ScK">
+                                <rect key="frame" x="0.0" y="64" width="149" height="151"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                    <rect key="frame" x="0.0" y="0.0" width="149" height="151"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                </view>
+                                <color key="backgroundColor" cocoaTouchSystemColor="darkTextColor"/>
+                            </collectionViewCell>
+                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="IP2-rv-wJZ">
+                                <rect key="frame" x="171" y="64" width="149" height="151"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                    <rect key="frame" x="0.0" y="0.0" width="149" height="151"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                </view>
+                            </collectionViewCell>
+                        </cells>
+                        <connections>
+                            <outlet property="dataSource" destination="pLs-S0-OdL" id="SPP-iM-mue"/>
+                            <outlet property="delegate" destination="pLs-S0-OdL" id="Npg-Vz-L5s"/>
+                        </connections>
+                    </collectionView>
+                    <navigationItem key="navigationItem" title="福利" id="Srw-Rc-vh6"/>
+                </collectionViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="KSW-IA-g3U" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="904" y="982"/>
         </scene>
         <!--Android-->
         <scene sceneID="pyV-vB-pZq">
@@ -390,7 +436,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="veY-xA-wuV" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="853" y="941"/>
+            <point key="canvasLocation" x="1385" y="941"/>
         </scene>
         <!--今日-->
         <scene sceneID="mwE-mQ-OW7">
@@ -412,6 +458,26 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hEU-e4-uON" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="853" y="-494"/>
+        </scene>
+        <!--Item-->
+        <scene sceneID="aQw-hV-0Mv">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="V2v-ni-vQ0" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Item" id="1GL-Ys-fhd"/>
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" barStyle="blackTranslucent" id="oVb-ye-eQz">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="barTintColor" red="0.98039215690000003" green="0.41444301690000002" blue="0.27198639650000001" alpha="1" colorSpace="calibratedRGB"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="pLs-S0-OdL" kind="relationship" relationship="rootViewController" id="GNQ-a8-5LZ"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="3oI-bQ-Bog" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="372" y="982"/>
         </scene>
     </scenes>
     <resources>
