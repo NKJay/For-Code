@@ -78,14 +78,10 @@ class IAViewController:UIViewController,UITableViewDataSource,UITableViewDelegat
                 userdefault.synchronize()
             }
             
-            dispatch_async(dispatch_get_main_queue(), { () -> Void in
-                
-                self.dataSource = currentData
-                
-                self.newsTableView.reloadData()
-                self.newsTableView.mj_header.endRefreshing()
-                
-            })
+            self.dataSource = currentData
+            
+            self.newsTableView.reloadData()
+            self.newsTableView.mj_header.endRefreshing()
             
             }) { (nsurl:NSURLSessionDataTask?, error:NSError) -> Void in
                 self.newsTableView.mj_header.endRefreshing()
@@ -116,11 +112,9 @@ class IAViewController:UIViewController,UITableViewDataSource,UITableViewDelegat
                 self.dataSource.addObject(item)
             }
             
-            dispatch_async(dispatch_get_main_queue(), { () -> Void in
-                self.newsTableView.reloadData()
-                self.newsTableView.mj_footer.endRefreshing()
-                
-            })
+            self.newsTableView.reloadData()
+            self.newsTableView.mj_footer.endRefreshing()
+
             }) { (nsurl:NSURLSessionDataTask?, error:NSError) -> Void in
                 
                 self.newsTableView.mj_footer.endRefreshing()

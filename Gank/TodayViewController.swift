@@ -115,16 +115,14 @@ class TodayViewController: UIViewController,UITableViewDataSource,UITableViewDel
                     
                 }
             }
-            dispatch_async(dispatch_get_main_queue(), { () -> Void in
-                
-                userdefault.setObject(self.todayCategory, forKey: "category")
-                userdefault.synchronize()
-                
-                self.dataSource = currentData
-                self.newsTableView.dataSource = self
-                self.newsTableView.reloadData()
-                self.newsTableView.mj_header.endRefreshing()
-            })
+            
+            userdefault.setObject(self.todayCategory, forKey: "category")
+            userdefault.synchronize()
+            
+            self.dataSource = currentData
+            self.newsTableView.dataSource = self
+            self.newsTableView.reloadData()
+            self.newsTableView.mj_header.endRefreshing()
         }
     }
     

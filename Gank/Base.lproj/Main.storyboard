@@ -238,7 +238,7 @@
                             <constraint firstAttribute="trailing" secondItem="Rt5-Zm-cig" secondAttribute="trailing" id="gAB-kn-79L"/>
                         </constraints>
                     </view>
-                    <tabBarItem key="tabBarItem" title="IOS" image="Untitled" id="9wp-F7-44k"/>
+                    <tabBarItem key="tabBarItem" title="" image="Untitled" id="9wp-F7-44k"/>
                     <navigationItem key="navigationItem" title="IOS资源" id="LdW-wn-Grw"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                     <connections>
@@ -323,11 +323,11 @@
             </objects>
             <point key="canvasLocation" x="1806" y="941"/>
         </scene>
-        <!--IOS-->
+        <!--i资讯-->
         <scene sceneID="NMj-Gf-rth">
             <objects>
                 <navigationController storyboardIdentifier="IOSNavigation" automaticallyAdjustsScrollViewInsets="NO" id="JEW-xw-qDH" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="IOS" image="Untitled" id="2VT-xC-X9J"/>
+                    <tabBarItem key="tabBarItem" title="i资讯" image="Untitled" id="2VT-xC-X9J"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" barStyle="black" id="dRN-jt-MWx">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -417,11 +417,11 @@
             </objects>
             <point key="canvasLocation" x="904" y="982"/>
         </scene>
-        <!--Android-->
+        <!--A资讯-->
         <scene sceneID="pyV-vB-pZq">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="v0z-6L-MoK" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Android" image="Android" id="ngf-hN-o9k"/>
+                    <tabBarItem key="tabBarItem" title="A资讯" image="Android" id="ngf-hN-o9k"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" barStyle="black" id="8X1-4e-9sB">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -438,11 +438,11 @@
             </objects>
             <point key="canvasLocation" x="1385" y="941"/>
         </scene>
-        <!--今日-->
+        <!--今日资讯-->
         <scene sceneID="mwE-mQ-OW7">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="KmT-eW-x0u" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="今日" image="Today" id="k2l-Cd-yWV"/>
+                    <tabBarItem key="tabBarItem" title="今日资讯" image="Today" id="k2l-Cd-yWV"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" barStyle="blackTranslucent" id="T4V-IJ-XIB">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>

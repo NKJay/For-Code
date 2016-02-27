@@ -9,6 +9,7 @@
 import Foundation
 
 class NewsItem:NSObject,NSCoding {
+    
     var title = String()
     var author = String()
     var url = String()
@@ -17,12 +18,14 @@ class NewsItem:NSObject,NSCoding {
         super.init()
     }
     
+    //解包数据
     required init?(coder aDecoder: NSCoder) {
         self.title = aDecoder.decodeObjectForKey("title") as! String
         self.author = aDecoder.decodeObjectForKey("author") as! String
         self.url = aDecoder.decodeObjectForKey("url") as! String
     }
     
+    //打包数据
     func encodeWithCoder(aCoder: NSCoder) {
         aCoder.encodeObject(title, forKey: "title")
         aCoder.encodeObject(author, forKey: "author")

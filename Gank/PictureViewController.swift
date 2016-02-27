@@ -43,7 +43,6 @@ class PictureViewController: UICollectionViewController,UICollectionViewDelegate
                 self.imgArray.addObject(image!)
 
             }
-            print("")
             self.collectionView?.reloadData()
             }) { (nsurl:NSURLSessionDataTask?, error:NSError) -> Void in
                 
@@ -51,7 +50,6 @@ class PictureViewController: UICollectionViewController,UICollectionViewDelegate
     }
     
     override func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int{
-        print(imgArray.count)
         return imgArray.count
     }
     
@@ -61,7 +59,7 @@ class PictureViewController: UICollectionViewController,UICollectionViewDelegate
         
         let cellImage = self.imgArray[indexPath.item]
         
-        let imageView = UIImageView(image: cellImage as! UIImage)
+        let imageView = UIImageView(image: cellImage as? UIImage)
         
         imageView.frame = cell.bounds
         
