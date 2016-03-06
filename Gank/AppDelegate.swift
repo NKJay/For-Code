@@ -9,10 +9,6 @@
 import UIKit
 import CoreData
 
-let WINDOW_WIDTH = UIScreen.mainScreen().bounds.width
-let WINDOW_HEIGHT = UIScreen.mainScreen().bounds.height
-var Date = NSDate()
-var userdefault = NSUserDefaults.standardUserDefaults()
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 

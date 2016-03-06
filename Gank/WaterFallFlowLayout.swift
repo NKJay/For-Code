@@ -62,9 +62,18 @@ class WaterFallFlowLayout: UICollectionViewFlowLayout{
         let frame = CGRect(x: frame_X, y: top + edgeInsets.top, width: itemSize.width, height: itemSize.height)
         
         colArray.replaceObjectAtIndex(col, withObject: top + edgeInsets.top + itemSize.height)
+        
+        attributeDict.setObject(indexPath, forKey: NSStringFromCGRect(frame))
     }
     
-    override func layoutAttributesForElementsInRect(rect: CGRect) -> [UICollectionViewLayoutAttributes]? {
-        
-    }
+//    func indexPathsOfItem(rect:CGRect)->NSArray{
+//        let array = NSArray()
+//        for each in attributeDict{
+//            let cellRect = CGRectFromString(each as String)
+//        }
+//    }
+//    
+//    override func layoutAttributesForElementsInRect(rect: CGRect) -> [UICollectionViewLayoutAttributes]? {
+//        
+//    }
 }

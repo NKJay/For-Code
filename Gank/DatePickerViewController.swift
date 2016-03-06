@@ -52,7 +52,7 @@ class DatePickerViewController: UIViewController {
     }
     
     override func viewWillAppear(animated: Bool) {
-        datePicker.date = Date
+        datePicker.date = Util.date
     }
 
 

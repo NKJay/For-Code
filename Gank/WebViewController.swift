@@ -20,7 +20,7 @@ class WebViewController: UIViewController,WKNavigationDelegate {
     override func loadView() {
         super.loadView()
         
-        let frame = CGRect(x: 0, y:0, width: WINDOW_WIDTH, height: WINDOW_HEIGHT+64)
+        let frame = CGRect(x: 0, y:0, width: Util.WINDOW_WIDTH, height: Util.WINDOW_HEIGHT+64)
         
         self.view.backgroundColor = UIColor.whiteColor()
         
@@ -33,23 +33,21 @@ class WebViewController: UIViewController,WKNavigationDelegate {
         
         myWebView.loadRequest(NSURLRequest(URL: NSURL(string: url)!))
         
-        let openUrl = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Action, target: self, action: "openUrl")
+        let openUrl = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Action,
+            target: self, action: "openUrl")
         openUrl.title = "打开"
         self.navigationItem.rightBarButtonItem = openUrl
         
-        progressBar.frame = CGRect(origin: CGPoint(x: 0, y: 64), size: CGSize(width: WINDOW_WIDTH, height: 5))
+        progressBar.frame = CGRect(origin: CGPoint(x: 0, y: 64),
+            size: CGSize(width: Util.WINDOW_WIDTH, height: 5))
         progressBar.progress = 0
         progressBar.backgroundColor = UIColor.whiteColor()
-        progressBar.progressTintColor = UIColor(red: 250/255.0, green: 106/255.0, blue: 0, alpha: 1)
+        progressBar.progressTintColor = UIColor(red: 250/255.0, green: 106/255.0,
+            blue: 0, alpha: 1)
         self.view.addSubview(progressBar)
     }
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        // Do any additional setup after loading the view.
-        
-    }
-    
+ 
     override func viewWillAppear(animated: Bool) {
         
         UIView.animateWithDuration(0.3) { () -> Void in

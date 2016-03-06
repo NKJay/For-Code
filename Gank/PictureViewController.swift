@@ -8,27 +8,71 @@
 
 import UIKit
 
-class PictureViewController: UICollectionViewController,UICollectionViewDelegateFlowLayout {
+class PictureViewController: UICollectionViewController,UICollectionViewDelegateFlowLayout{
     
-    var URL = "http://gank.io/api/data/福利/10/1"
-    let imgArray = NSMutableArray()
+    var URL = "http://gank.io/api/data/福利/10/"
+    var imgArray = NSMutableArray()
+    let page = 2
+    var cell_X:[CGFloat] = [0,0,0]
+    var cell_Y:[CGFloat] = [2,2,2]
+    var cellOrigin = NSMutableArray()
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        getCell_X()
+        
         self.collectionView?.backgroundColor = UIColor.whiteColor()
         
         self.edgesForExtendedLayout = UIRectEdge.All
-        
+//        将url转换成utf-8
         URL = URL.stringByAddingPercentEscapesUsingEncoding(NSUTF8StringEncoding)!
         
-        loadImage()
+        requestImage()
+        
+        requestMoreImage()
 
     }
     
-    func loadImage(){
+    func requestImage(){
         
         let manager = AFHTTPSessionManager();
-        manager.GET(URL, parameters: nil, progress: nil, success: { (nsurl:NSURLSessionDataTask, resp:AnyObject?) -> Void in
+        
+        let firstRequest:String = URL + "1"
+        
+        manager.GET(firstRequest, parameters: nil, progress: nil, success: { (nsurl:NSURLSessionDataTask, resp:AnyObject?) -> Void in
+            
+            let results = resp?.objectForKey("results") as! NSArray
+            
+            let currentArray = NSMutableArray()
+            
+            for each in results{
+                
+                let imgUrl = NSURL(string: (each["url"]!)! as! String)
+                
+                let data = NSData(contentsOfURL: imgUrl!)
+                
+                let image = UIImage(data: data!)
+                
+                currentArray.addObject(image!)
+
+            }
+            
+            self.imgArray = currentArray
+            
+            self.collectionView?.reloadData()
+            }) { (nsurl:NSURLSessionDataTask?, error:NSError) -> Void in
+                
+        }
+    }
+    
+    func requestMoreImage(){
+        
+        let manager = AFHTTPSessionManager();
+        
+        let requestUrl = URL + String(page)
+        
+        manager.GET(requestUrl, parameters: nil, progress: nil, success: { (nsurl:NSURLSessionDataTask, resp:AnyObject?) -> Void in
             
             let results = resp?.objectForKey("results") as! NSArray
             
@@ -41,7 +85,7 @@ class PictureViewController: UICollectionViewController,UICollectionViewDelegate
                 let image = UIImage(data: data!)
                 
                 self.imgArray.addObject(image!)
-
+                
             }
             self.collectionView?.reloadData()
             }) { (nsurl:NSURLSessionDataTask?, error:NSError) -> Void in
@@ -63,26 +107,48 @@ class PictureViewController: UICollectionViewController,UICollectionViewDelegate
         
         imageView.frame = cell.bounds
         
+        if indexPath.row < cellOrigin.count{
+            let size = CGPointFromString(cellOrigin[indexPath.row] as! String)
+            
+            cell.frame.origin = CGPoint(x: size.x, y: size.y)
+        }else{
+        
+        let col = indexPath.row % 3
+        
+        cell.frame.origin = CGPoint(x: cell_X[col], y: cell_Y[col])
+        
+        cellOrigin.addObject(NSStringFromCGPoint(cell.frame.origin))
+        
+        cell_Y[col] = cell_Y[col] + cell.bounds.height + 5
+        }
+        
         cell.contentView.addSubview(imageView)
+        
         return cell
     }
     
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
+        
         let image = self.imgArray[indexPath.item]
         
-        let height = self.imgHeight(image.size.height, width: image.size.width)
+        let size = self.imgSize(image.size.height, width: image.size.width)
         
-        return CGSize(width: 100, height: height)
+        return CGSize(width: size.width, height: size.height)
     }
     
-    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAtIndex section: Int) -> UIEdgeInsets {
+    func imgSize(height:CGFloat,width:CGFloat)->CGSize{
         
-        let edgeinsets = UIEdgeInsets(top: 2, left: 2, bottom: 2, right: 2)
+        let newWidth = (Util.WINDOW_WIDTH - 20)/3
+        let newHeight = height/width*newWidth
         
-        return edgeinsets
+        return CGSize(width: newWidth, height: newHeight)
     }
     
-    func imgHeight(height:CGFloat,width:CGFloat)->CGFloat{
-        return height/width*100
+    func getCell_X(){
+        
+        cell_X[0] = 5
+        cell_X[1] = Util.WINDOW_WIDTH/3 + 5
+        cell_X[2] = Util.WINDOW_WIDTH/3*2 + 5
     }
+    
 }

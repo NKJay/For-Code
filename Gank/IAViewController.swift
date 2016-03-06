@@ -42,7 +42,7 @@ class IAViewController:UIViewController,UITableViewDataSource,UITableViewDelegat
         
         newsTableView.tag = 1
         
-        if let data = userdefault.objectForKey(self.entityName) as? NSData{
+        if let data = Util.userdefault.objectForKey(self.entityName) as? NSData{
             let localData = NSKeyedUnarchiver.unarchiveObjectWithData(data)
             self.dataSource = localData as! NSMutableArray
         }
@@ -74,8 +74,8 @@ class IAViewController:UIViewController,UITableViewDataSource,UITableViewDelegat
                 currentData.addObject(item)
                 
                 let localData = NSKeyedArchiver.archivedDataWithRootObject(currentData)
-                userdefault.setObject(localData, forKey: self.entityName)
-                userdefault.synchronize()
+                Util.userdefault.setObject(localData, forKey: self.entityName)
+                Util.userdefault.synchronize()
             }
             
             self.dataSource = currentData

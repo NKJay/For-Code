@@ -25,19 +25,19 @@ extension UIViewController{
         
         static func showLaunch(image:UIImage){
             
-            launchImage = UIImageView(frame:CGRectMake(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT))
+            launchImage = UIImageView(frame:CGRectMake(0, 0, Util.WINDOW_WIDTH, Util.WINDOW_HEIGHT))
             launchImage.image = image
             
-            launchTitle.frame.size = CGSize(width: WINDOW_WIDTH, height: 100)
+            launchTitle.frame.size = CGSize(width: Util.WINDOW_WIDTH, height: 100)
             launchTitle.font = UIFont(name: "Verdana-BoldItalic", size: 40)
             launchTitle.text = "For Code"
             launchTitle.textAlignment = NSTextAlignment.Center
-            launchTitle.center = CGPoint(x: WINDOW_WIDTH/2, y: WINDOW_HEIGHT/2-50)
+            launchTitle.center = CGPoint(x: Util.WINDOW_WIDTH/2, y: Util.WINDOW_HEIGHT/2-50)
             launchTitle.alpha = 0
             launchTitle.textColor = UIColor.whiteColor()
             
-            launchSmallTitle.frame.size = CGSize(width: WINDOW_WIDTH, height: 20)
-            launchSmallTitle.center = CGPoint(x: WINDOW_WIDTH/2, y: WINDOW_HEIGHT/2)
+            launchSmallTitle.frame.size = CGSize(width: Util.WINDOW_WIDTH, height: 20)
+            launchSmallTitle.center = CGPoint(x: Util.WINDOW_WIDTH/2, y: Util.WINDOW_HEIGHT/2)
             launchSmallTitle.textAlignment = NSTextAlignment.Center
             launchSmallTitle.textColor = UIColor.lightGrayColor()
             launchSmallTitle.font = UIFont.systemFontOfSize(15)
@@ -56,7 +56,8 @@ extension UIViewController{
             })
             
             UIView.animateWithDuration(2,animations:{
-                self.launchImage.frame = CGRectMake(-50,-50/9*16,WINDOW_WIDTH+100,WINDOW_HEIGHT+100/9*16)
+                self.launchImage.frame = CGRectMake(-50,-50/9*16,
+                    Util.WINDOW_WIDTH+100,Util.WINDOW_HEIGHT+100/9*16)
                 },completion:{
                     (Bool completion) in
                     if completion {

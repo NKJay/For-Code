@@ -27,6 +27,7 @@
 		C0AF3DD31C7FED0900E5734B /* PictureViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0AF3DD21C7FED0900E5734B /* PictureViewController.swift */; };
 		C0AF3DD51C80493500E5734B /* WaterFallFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0AF3DD41C80493500E5734B /* WaterFallFlowLayout.swift */; };
 		C0B5AA751C39FEA900AEB7CC /* LaunchScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0B5AA741C39FEA900AEB7CC /* LaunchScreen.swift */; };
+		C0BF44911C8C498200A75F8A /* Util.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0BF44901C8C498200A75F8A /* Util.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -76,6 +77,7 @@
 		C0AF3DD21C7FED0900E5734B /* PictureViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PictureViewController.swift; sourceTree = "<group>"; };
 		C0AF3DD41C80493500E5734B /* WaterFallFlowLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WaterFallFlowLayout.swift; sourceTree = "<group>"; };
 		C0B5AA741C39FEA900AEB7CC /* LaunchScreen.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LaunchScreen.swift; sourceTree = "<group>"; };
+		C0BF44901C8C498200A75F8A /* Util.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Util.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -126,6 +128,7 @@
 				147824A71C20F28B0026E1BE /* DatePickerViewController.swift */,
 				C0AF3DD21C7FED0900E5734B /* PictureViewController.swift */,
 				C0AF3DD41C80493500E5734B /* WaterFallFlowLayout.swift */,
+				C0BF44901C8C498200A75F8A /* Util.swift */,
 			);
 			name = ViewController;
 			sourceTree = "<group>";
@@ -404,6 +407,7 @@
 				149735C01C22587100F26D9C /* SwiftNotice.swift in Sources */,
 				14ECBADE1C1BF41200461BC5 /* IAViewController.swift in Sources */,
 				149735C31C2261CD00F26D9C /* Gank.xcdatamodeld in Sources */,
+				C0BF44911C8C498200A75F8A /* Util.swift in Sources */,
 				930779AD1C095F1A00AD773A /* NewsItem.swift in Sources */,
 				14BBDA9C1C1D986E0084FD35 /* TabViewController.swift in Sources */,
 				C0B5AA751C39FEA900AEB7CC /* LaunchScreen.swift in Sources */,

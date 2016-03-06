@@ -78,13 +78,14 @@ class TodayViewController: UIViewController,UITableViewDataSource,UITableViewDel
             self.data = resp!.objectForKey("results")! as! NSDictionary
             self.loadData()
             
-            userdefault.setObject(self.data, forKey: "TodayData")
-            userdefault.synchronize()
+            let cacheData = NSKeyedArchiver.archivedDataWithRootObject(self.data)
+            Util.userdefault.setObject(cacheData, forKey: "TodayData")
+            Util.userdefault.synchronize()
             
             }) { (nsurl:NSURLSessionDataTask?, error:NSError) -> Void in
                 
-                if userdefault.objectForKey("TodayData") != nil{
-                    self.data = userdefault.objectForKey("TodayData") as! NSDictionary
+                if Util.userdefault.objectForKey("TodayData") != nil{
+                    self.data = Util.userdefault.objectForKey("TodayData") as! NSDictionary
                     self.loadData()
                 }
                 
@@ -116,8 +117,8 @@ class TodayViewController: UIViewController,UITableViewDataSource,UITableViewDel
                 }
             }
             
-            userdefault.setObject(self.todayCategory, forKey: "category")
-            userdefault.synchronize()
+            Util.userdefault.setObject(self.todayCategory, forKey: "category")
+            Util.userdefault.synchronize()
             
             self.dataSource = currentData
             self.newsTableView.dataSource = self
@@ -158,13 +159,13 @@ class TodayViewController: UIViewController,UITableViewDataSource,UITableViewDel
         
         dataformator.dateFormat = "EEE"
         
-        var day = dataformator.stringFromDate(Date)
+        var day = dataformator.stringFromDate(Util.date)
         
         if changDate{
             
             dataformator.dateFormat = "yyyy/MM/dd"
             
-            let yesterday = Date.dateByAddingTimeInterval(-60 * 60 * 24 * i) as NSDate
+            let yesterday = Util.date.dateByAddingTimeInterval(-60 * 60 * 24 * i) as NSDate
             
             day = dataformator.stringFromDate(yesterday)
             
@@ -173,7 +174,7 @@ class TodayViewController: UIViewController,UITableViewDataSource,UITableViewDel
             
             dataformator.dateFormat = "yyyy/MM/dd"
             
-            day = dataformator.stringFromDate(Date)
+            day = dataformator.stringFromDate(Util.date)
             
         }
         return day
@@ -185,7 +186,7 @@ class TodayViewController: UIViewController,UITableViewDataSource,UITableViewDel
     func imageTap(){
         
         newimage.image = topImage.image
-        newimage.frame = CGRect(x: 0, y: 0, width: WINDOW_WIDTH, height: WINDOW_HEIGHT)
+        newimage.frame = CGRect(x: 0, y: 0, width: Util.WINDOW_WIDTH, height: Util.WINDOW_HEIGHT)
         newimage.contentMode = UIViewContentMode.ScaleAspectFit
         newimage.alpha = 0
         newimage.userInteractionEnabled = true
@@ -299,7 +300,8 @@ class TodayViewController: UIViewController,UITableViewDataSource,UITableViewDel
             
             topImage.contentMode = UIViewContentMode.ScaleAspectFill
             topImage.sd_setImageWithURL(NSURL(string: imgURL), completed: { (img:UIImage!, error:NSError!, cache:SDImageCacheType, nsurl:NSURL!) -> Void in
-                self.topImage.frame = CGRect(origin: CGPoint(x:0 , y: 0), size: CGSize(width: WINDOW_WIDTH, height:250))
+                self.topImage.frame = CGRect(origin: CGPoint(x:0 , y: 0),
+                    size: CGSize(width: Util.WINDOW_WIDTH, height:250))
                 
                 cell!.addSubview(self.topImage)
             })
