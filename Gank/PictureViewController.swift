@@ -17,11 +17,11 @@ class PictureViewController: UICollectionViewController,UICollectionViewDelegate
     var cell_Y:[CGFloat] = [2,2,2]
     var cellOrigin = NSMutableArray()
     
+    let wt = WaterFallFlowLayout()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        getCell_X()
-        
+
         self.collectionView?.backgroundColor = UIColor.whiteColor()
         
         self.edgesForExtendedLayout = UIRectEdge.All
@@ -30,7 +30,9 @@ class PictureViewController: UICollectionViewController,UICollectionViewDelegate
         
         requestImage()
         
-        requestMoreImage()
+//        requestMoreImage()
+        
+        self.view.addSubview(wt)
 
     }
     
@@ -59,8 +61,8 @@ class PictureViewController: UICollectionViewController,UICollectionViewDelegate
             }
             
             self.imgArray = currentArray
-            
-            self.collectionView?.reloadData()
+            self.wt.setDatasource(currentArray)
+            self.wt.reloadData()
             }) { (nsurl:NSURLSessionDataTask?, error:NSError) -> Void in
                 
         }
@@ -93,62 +95,47 @@ class PictureViewController: UICollectionViewController,UICollectionViewDelegate
         }
     }
     
-    override func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int{
-        return imgArray.count
-    }
-    
-    override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell{
-        
-        let cell = collectionView.dequeueReusableCellWithReuseIdentifier("collectioncell", forIndexPath: indexPath)
-        
-        let cellImage = self.imgArray[indexPath.item]
-        
-        let imageView = UIImageView(image: cellImage as? UIImage)
-        
-        imageView.frame = cell.bounds
-        
-        if indexPath.row < cellOrigin.count{
-            let size = CGPointFromString(cellOrigin[indexPath.row] as! String)
-            
-            cell.frame.origin = CGPoint(x: size.x, y: size.y)
-        }else{
-        
-        let col = indexPath.row % 3
-        
-        cell.frame.origin = CGPoint(x: cell_X[col], y: cell_Y[col])
-        
-        cellOrigin.addObject(NSStringFromCGPoint(cell.frame.origin))
-        
-        cell_Y[col] = cell_Y[col] + cell.bounds.height + 5
-        }
-        
-        cell.contentView.addSubview(imageView)
-        
-        return cell
-    }
-    
-    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
-        
-        let image = self.imgArray[indexPath.item]
-        
-        let size = self.imgSize(image.size.height, width: image.size.width)
-        
-        return CGSize(width: size.width, height: size.height)
-    }
-    
-    func imgSize(height:CGFloat,width:CGFloat)->CGSize{
-        
-        let newWidth = (Util.WINDOW_WIDTH - 20)/3
-        let newHeight = height/width*newWidth
-        
-        return CGSize(width: newWidth, height: newHeight)
-    }
-    
-    func getCell_X(){
-        
-        cell_X[0] = 5
-        cell_X[1] = Util.WINDOW_WIDTH/3 + 5
-        cell_X[2] = Util.WINDOW_WIDTH/3*2 + 5
-    }
+//    override func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int{
+//        return imgArray.count
+//    }
+//    
+//    override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell{
+//        
+//        let cell = collectionView.dequeueReusableCellWithReuseIdentifier("collectioncell", forIndexPath: indexPath)
+//        
+//        let cellImage = self.imgArray[indexPath.item]
+//        
+//        let imageView = UIImageView(image: cellImage as? UIImage)
+//        
+//        imageView.frame = cell.bounds
+//        
+//        if indexPath.row < cellOrigin.count{
+//            let size = CGPointFromString(cellOrigin[indexPath.row] as! String)
+//            
+//            cell.frame.origin = CGPoint(x: size.x, y: size.y)
+//        }else{
+//        
+//        let col = indexPath.row % 3
+//        
+//        cell.frame.origin = CGPoint(x: cell_X[col], y: cell_Y[col])
+//        
+//        cellOrigin.addObject(NSStringFromCGPoint(cell.frame.origin))
+//        
+//        cell_Y[col] = cell_Y[col] + cell.bounds.height + 5
+//        }
+//        
+//        cell.contentView.addSubview(imageView)
+//        
+//        return cell
+//    }
+//    
+//    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
+//        
+//        let image = self.imgArray[indexPath.item]
+//        
+////        let size = self.imgSize(image.size.height, width: image.size.width)
+//        
+//        return CGSize(width: size.width, height: size.height)
+//    }
     
 }

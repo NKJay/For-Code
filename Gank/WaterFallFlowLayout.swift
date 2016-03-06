@@ -8,72 +8,99 @@
 
 import UIKit
 
-class WaterFallFlowLayout: UICollectionViewFlowLayout{
+protocol WaterFallFlowLayoutDatasource{
+    func waterFallFlowLayoutnumberOfItems()->Int
+}
+
+class WaterFallFlowLayout: UIScrollView{
     
-    let colCount = 3
-    var cellCount = Int()
-    let colArray = NSMutableArray()
-    let attributeDict = NSMutableDictionary()
-    var delegate:UICollectionViewDelegateFlowLayout?
+    var WIDTH:CGFloat = 0
     
-    override func prepareLayout() {
-        super.prepareLayout()
+    var col:CGFloat = 3
+    
+    private var cell_X:[CGFloat] = [0,0,0]
+    
+    private var cell_Y:[CGFloat] = [2,2,2]
+    
+    private var cellOrigin = NSMutableArray()
+    
+    var dataSource = NSMutableArray()
+    
+    private var itemNumber = Int()
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
         
-        delegate = self.collectionView?.delegate as? UICollectionViewDelegateFlowLayout
+        getCell_X()
         
-        self.cellCount = (self.collectionView?.numberOfItemsInSection(0))!
-        if cellCount == 0{
-            return;
-        }
+        WIDTH = self.frame.width
         
-        let top = 0
-        
-        for(var i = 0;i < colCount; i++ ){
-            self.colArray.addObject(top)
-        }
-        
-        for(var i = 0;i < cellCount; i++ ){
-            let indexPath = NSIndexPath(forItem: i, inSection: 0)
-            self.layoutItemAtIndexPath(indexPath)
-        }
     }
     
-    func layoutItemAtIndexPath(indexPath:NSIndexPath){
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    func imgSize(height:CGFloat,width:CGFloat)->CGSize{
         
-        let itemSize  = delegate!.collectionView!(self.collectionView!, layout: self, sizeForItemAtIndexPath: indexPath) as CGSize
+        let newWidth = (WIDTH - 20)/col
+        let newHeight = height/width*newWidth
         
-        let edgeInsets = (self.delegate?.collectionView!(self.collectionView!, layout: self, insetForSectionAtIndex: indexPath.row))! as UIEdgeInsets
+        return CGSize(width: newWidth, height: newHeight)
+    }
+    
+    func getCell_X(){
         
-        var col = 0
-        var shortHeight = colArray[col] as! Float
-        for(var i = 0;i<colArray.count;i++){
+        cell_X[0] = 5
+        cell_X[1] = Util.WINDOW_WIDTH/3 + 5
+        cell_X[2] = Util.WINDOW_WIDTH/3*2 + 5
+    }
+    
+    func reloadData(){
+        layoutView()
+    }
+    
+    func setDatasource(datasource:NSMutableArray){
+        self.dataSource = datasource
+        layoutView()
+    }
+    
+    func layoutView(){
+        
+        for (var i = 0;i<dataSource.count;i++){
+
+            let cellImage = self.dataSource[i]
             
-            let height = colArray[i] as! Float
-            if( height < shortHeight){
-                shortHeight =  height
-                col = i
+            let imageView = UIImageView(image: cellImage as? UIImage)
+            
+            imageView.frame.size = sizeForItemAtIndexPath(i)
+            
+            if i < cellOrigin.count{
+                let size = CGPointFromString(cellOrigin[i] as! String)
+                
+                imageView.frame.origin = CGPoint(x: size.x, y: size.y)
+            }else{
+                
+                let col = i % 3
+                
+                imageView.frame.origin = CGPoint(x: cell_X[col], y: cell_Y[col])
+                
+                cellOrigin.addObject(NSStringFromCGPoint(imageView.frame.origin))
+                
+                cell_Y[col] = cell_Y[col] + imageView.frame.height + 5
             }
+            
+            self.addSubview(imageView)
         }
         
-        let top = colArray[col] as! CGFloat
-        
-        
-        let frame_X = edgeInsets.left + CGFloat(col) * (edgeInsets.left + itemSize.width) as CGFloat
-        let frame = CGRect(x: frame_X, y: top + edgeInsets.top, width: itemSize.width, height: itemSize.height)
-        
-        colArray.replaceObjectAtIndex(col, withObject: top + edgeInsets.top + itemSize.height)
-        
-        attributeDict.setObject(indexPath, forKey: NSStringFromCGRect(frame))
     }
     
-//    func indexPathsOfItem(rect:CGRect)->NSArray{
-//        let array = NSArray()
-//        for each in attributeDict{
-//            let cellRect = CGRectFromString(each as String)
-//        }
-//    }
-//    
-//    override func layoutAttributesForElementsInRect(rect: CGRect) -> [UICollectionViewLayoutAttributes]? {
-//        
-//    }
+    func sizeForItemAtIndexPath(indexPath: Int) -> CGSize {
+        
+        let image = dataSource[indexPath]
+        
+        let size = self.imgSize(image.size.height, width: image.size.width)
+        
+        return CGSize(width: size.width, height: size.height)
+    }
 }
