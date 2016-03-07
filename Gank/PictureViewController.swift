@@ -8,15 +8,15 @@
 
 import UIKit
 
-class PictureViewController: UICollectionViewController,UICollectionViewDelegateFlowLayout{
+class PictureViewController: UICollectionViewController,WaterFallFlowLayoutDelegate{
     
     var URL = "http://gank.io/api/data/福利/10/"
     var imgArray = NSMutableArray()
-    let page = 2
+    var page = 2
     var cell_X:[CGFloat] = [0,0,0]
     var cell_Y:[CGFloat] = [2,2,2]
     var cellOrigin = NSMutableArray()
-    
+
     let wt = WaterFallFlowLayout()
     
     override func viewDidLoad() {
@@ -24,13 +24,19 @@ class PictureViewController: UICollectionViewController,UICollectionViewDelegate
 
         self.collectionView?.backgroundColor = UIColor.whiteColor()
         
-        self.edgesForExtendedLayout = UIRectEdge.All
+        self.edgesForExtendedLayout = UIRectEdge.None
 //        将url转换成utf-8
         URL = URL.stringByAddingPercentEscapesUsingEncoding(NSUTF8StringEncoding)!
         
         requestImage()
         
-//        requestMoreImage()
+        requestMoreImage()
+        
+        wt.initWithFrameRect(self.view.frame)
+        
+        wt.delegate = self
+        
+        wt.dataSource = self.imgArray
         
         self.view.addSubview(wt)
 
@@ -61,8 +67,13 @@ class PictureViewController: UICollectionViewController,UICollectionViewDelegate
             }
             
             self.imgArray = currentArray
-            self.wt.setDatasource(currentArray)
+            
+            self.wt.dataSource = self.imgArray
+            
+            print(self.imgArray.count)
+            
             self.wt.reloadData()
+            
             }) { (nsurl:NSURLSessionDataTask?, error:NSError) -> Void in
                 
         }
@@ -89,16 +100,22 @@ class PictureViewController: UICollectionViewController,UICollectionViewDelegate
                 self.imgArray.addObject(image!)
                 
             }
-            self.collectionView?.reloadData()
+            self.wt.reloadData()
+            
+            self.page++
             }) { (nsurl:NSURLSessionDataTask?, error:NSError) -> Void in
                 
         }
     }
     
+    func waterFallFlowLayout(didselectImageView indexPath: NSIndexPath) {
+        print(indexPath.row)
+    }
+    
 //    override func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int{
 //        return imgArray.count
 //    }
-//    
+//
 //    override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell{
 //        
 //        let cell = collectionView.dequeueReusableCellWithReuseIdentifier("collectioncell", forIndexPath: indexPath)

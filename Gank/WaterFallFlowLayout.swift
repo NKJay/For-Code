@@ -8,15 +8,25 @@
 
 import UIKit
 
-protocol WaterFallFlowLayoutDatasource{
-    func waterFallFlowLayoutnumberOfItems()->Int
+@objc protocol WaterFallFlowLayoutDatasource{
+    
+    func waterFallFlowLayout(numberOfItemsInSection section:Int)->Int
+    
+    func waterFallFlowLayout(sizeofItemAtIndexPath indexPath:NSIndexPath)->CGSize
+    
+    optional func waterFallFlowLayout(numberOfColumnInSection section:Int)->Int
+}
+protocol WaterFallFlowLayoutDelegate{
+    
+    func waterFallFlowLayout(didselectImageView indexPath:NSIndexPath)
+    
 }
 
-class WaterFallFlowLayout: UIScrollView{
+class WaterFallFlowLayout: UIView{
     
-    var WIDTH:CGFloat = 0
+    var WIDTH:CGFloat?
     
-    var col:CGFloat = 3
+    var col:Int = 3
     
     private var cell_X:[CGFloat] = [0,0,0]
     
@@ -24,52 +34,50 @@ class WaterFallFlowLayout: UIScrollView{
     
     private var cellOrigin = NSMutableArray()
     
-    var dataSource = NSMutableArray()
+    private var scrollView = UIScrollView()
+    
+    var dataSource:NSMutableArray?
+    
+    var delegate:WaterFallFlowLayoutDelegate?
     
     private var itemNumber = Int()
     
-    override init(frame: CGRect) {
-        super.init(frame: frame)
+    func initWithFrameRect(frame:CGRect){
         
-        getCell_X()
+        self.frame = frame
+        
+        scrollView = UIScrollView(frame: frame)
+        scrollView.scrollEnabled = true
+        scrollView.bounces = true
         
         WIDTH = self.frame.width
         
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    func imgSize(height:CGFloat,width:CGFloat)->CGSize{
+        getCell_X()
         
-        let newWidth = (WIDTH - 20)/col
-        let newHeight = height/width*newWidth
-        
-        return CGSize(width: newWidth, height: newHeight)
+        self.addSubview(scrollView)
     }
-    
+
     func getCell_X(){
         
         cell_X[0] = 5
-        cell_X[1] = Util.WINDOW_WIDTH/3 + 5
-        cell_X[2] = Util.WINDOW_WIDTH/3*2 + 5
+        cell_X[1] = WIDTH!/3 + 5
+        cell_X[2] = WIDTH!/3*2 + 5
     }
     
     func reloadData(){
+ 
         layoutView()
     }
     
     func setDatasource(datasource:NSMutableArray){
         self.dataSource = datasource
-        layoutView()
     }
     
     func layoutView(){
         
-        for (var i = 0;i<dataSource.count;i++){
+        for (var i = 0;i<dataSource!.count;i++){
 
-            let cellImage = self.dataSource[i]
+            let cellImage = self.dataSource![i]
             
             let imageView = UIImageView(image: cellImage as? UIImage)
             
@@ -81,26 +89,62 @@ class WaterFallFlowLayout: UIScrollView{
                 imageView.frame.origin = CGPoint(x: size.x, y: size.y)
             }else{
                 
-                let col = i % 3
+                let currentCol = i % self.col
                 
-                imageView.frame.origin = CGPoint(x: cell_X[col], y: cell_Y[col])
+                imageView.frame.origin = CGPoint(x: cell_X[currentCol], y: cell_Y[currentCol])
                 
                 cellOrigin.addObject(NSStringFromCGPoint(imageView.frame.origin))
                 
-                cell_Y[col] = cell_Y[col] + imageView.frame.height + 5
+                cell_Y[currentCol] = cell_Y[currentCol] + imageView.frame.height + 5
             }
             
-            self.addSubview(imageView)
+            imageView.tag = i
+            
+            let touch = UITapGestureRecognizer(target: self, action: "didSelectImageView:")
+            
+            imageView.userInteractionEnabled = true
+            
+            imageView.addGestureRecognizer(touch)
+            
+            self.scrollView.addSubview(imageView)
         }
+        
+        let maxHeight = getViewHeight()
+        
+        self.scrollView.contentSize = CGSize(width: WIDTH!, height: maxHeight)
         
     }
     
+    func getViewHeight()->CGFloat{
+        
+        var maxHeight:CGFloat = 0
+        
+        for each in cell_Y{
+            
+            maxHeight = each > maxHeight ? each:maxHeight
+        }
+        
+        return maxHeight
+    }
+    
+    
     func sizeForItemAtIndexPath(indexPath: Int) -> CGSize {
         
-        let image = dataSource[indexPath]
+        let image = dataSource![indexPath]
         
-        let size = self.imgSize(image.size.height, width: image.size.width)
+        let newWidth = (WIDTH! - 20)/CGFloat(col)
         
-        return CGSize(width: size.width, height: size.height)
+        let newHeight = image.size.height/image.size.width*newWidth
+        
+        return CGSize(width: newWidth, height: newHeight)
+    }
+    
+    func didSelectImageView(tap:UIGestureRecognizer){
+        
+        let indexPath = NSIndexPath(forRow: tap.view!.tag, inSection: 0)
+        
+        print(tap.view?.frame.origin)
+        
+        delegate?.waterFallFlowLayout(didselectImageView: indexPath)
     }
 }

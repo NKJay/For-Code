@@ -76,11 +76,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Gank/PictureViewController.swift"
-            timestampString = "478963215.155168"
+            timestampString = "479042555.050198"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "51"
-            endingLineNumber = "51"
+            startingLineNumber = "57"
+            endingLineNumber = "57"
             landmarkName = "requestImage()"
             landmarkType = "5">
          </BreakpointContent>
@@ -92,13 +92,138 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Gank/WaterFallFlowLayout.swift"
-            timestampString = "478963215.155168"
+            timestampString = "479042371.0442"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "25"
+            endingLineNumber = "25"
+            landmarkName = "WaterFallFlowLayout"
+            landmarkType = "3">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Gank/PictureViewController.swift"
+            timestampString = "479042555.050198"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "102"
+            endingLineNumber = "102"
+            landmarkName = "requestMoreImage()"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Gank/WaterFallFlowLayout.swift"
+            timestampString = "479042371.0442"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "135"
+            endingLineNumber = "135"
+            landmarkName = "sizeForItemAtIndexPath(_:)"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Gank/WaterFallFlowLayout.swift"
+            timestampString = "479042437.318013"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "148"
+            endingLineNumber = "148"
+            landmarkName = "didSelectImageView(_:)"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Gank/PictureViewController.swift"
+            timestampString = "479041085.944666"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "11"
+            endingLineNumber = "11"
+            landmarkName = "PictureViewController"
+            landmarkType = "3">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Gank/WaterFallFlowLayout.swift"
+            timestampString = "479042371.0442"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "15"
-            endingLineNumber = "15"
-            landmarkName = "WaterFallFlowLayout"
-            landmarkType = "3">
+            endingLineNumber = "15">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "For_Code.WaterFallFlowLayout.__deallocating_deinit"
+                  moduleName = "For Code"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/Geetion/Documents/For-Code/Gank/WaterFallFlowLayout.swift"
+                  timestampString = "479041724.072132"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "0"
+                  endingLineNumber = "0"
+                  offsetFromSymbolStart = "12">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "For_Code.WaterFallFlowLayout.init (For_Code.WaterFallFlowLayout.Type)(frame : __C.CGRect) -&gt; For_Code.WaterFallFlowLayout"
+                  moduleName = "For Code"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/Geetion/Documents/For-Code/Gank/WaterFallFlowLayout.swift"
+                  timestampString = "479041724.072327"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "0"
+                  endingLineNumber = "0"
+                  offsetFromSymbolStart = "68">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "For_Code.WaterFallFlowLayout.init (For_Code.WaterFallFlowLayout.Type)(coder : __ObjC.NSCoder) -&gt; Swift.Optional&lt;For_Code.WaterFallFlowLayout&gt;"
+                  moduleName = "For Code"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/Geetion/Documents/For-Code/Gank/WaterFallFlowLayout.swift"
+                  timestampString = "479041724.072456"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "0"
+                  endingLineNumber = "0"
+                  offsetFromSymbolStart = "33">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>
