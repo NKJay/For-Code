@@ -8,7 +8,7 @@
 
 import UIKit
 
-class PictureViewController: UICollectionViewController,WaterFallFlowLayoutDelegate{
+class PictureViewController: UICollectionViewController,WaterFallFlowLayoutDelegate,WaterFallFlowLayoutDatasource{
     
     var URL = "http://gank.io/api/data/福利/10/"
     var imgArray = NSMutableArray()
@@ -35,8 +35,7 @@ class PictureViewController: UICollectionViewController,WaterFallFlowLayoutDeleg
         wt.initWithFrameRect(self.view.frame)
         
         wt.delegate = self
-        
-        wt.dataSource = self.imgArray
+        wt.dataSource = self
         
         self.view.addSubview(wt)
 
@@ -68,9 +67,7 @@ class PictureViewController: UICollectionViewController,WaterFallFlowLayoutDeleg
             
             self.imgArray = currentArray
             
-            self.wt.dataSource = self.imgArray
-            
-            print(self.imgArray.count)
+            print(self.imgArray)
             
             self.wt.reloadData()
             
@@ -110,6 +107,28 @@ class PictureViewController: UICollectionViewController,WaterFallFlowLayoutDeleg
     
     func waterFallFlowLayout(didselectImageView indexPath: NSIndexPath) {
         print(indexPath.row)
+    }
+    
+    func waterFallFlowLayout(numberOfItemsInSection section:Int)->Int{
+        return imgArray.count
+    }
+    
+    func waterFallFlowLayout(heightofItemAtIndexPath indexPath: NSIndexPath, itemWidth: CGFloat) -> CGFloat {
+        
+        let image = imgArray[indexPath.row]
+        
+        let newHeight = image.size.height/image.size.width * itemWidth
+        
+        return newHeight
+    }
+    
+    func waterFallFlowLayout(viewAtIndexPath view:UIView,indexPath:NSIndexPath)->UIView {
+        
+        let imageView = imgArray[indexPath.row]
+        
+        view.addSubview(imageView as! UIView)
+        
+        return view
     }
     
 //    override func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int{
