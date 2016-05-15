@@ -47,8 +47,6 @@ class IAViewController:UIViewController,UITableViewDataSource,UITableViewDelegat
             self.dataSource = localData as! NSMutableArray
         }
         
-        myTableView.delegate = self
-        myTableView.dataSource = self
         
         self.newsTableView.mj_header.beginRefreshing()
     }

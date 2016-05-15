@@ -13,38 +13,45 @@ class WebViewController: UIViewController,WKNavigationDelegate {
     
     var url = String()
     
-    var myWebView = WKWebView()
+    lazy var myWebView:WKWebView? = {
+        var wkWebView = WKWebView()
+        let frame = CGRect(x: 0, y:0, width: Util.WINDOW_WIDTH, height: Util.WINDOW_HEIGHT+64)
+        wkWebView = WKWebView(frame: frame)
+        wkWebView.alpha = 0
+        wkWebView.navigationDelegate = self
+        return wkWebView
+    }()
     
-    var progressBar = UIProgressView()
+    lazy var progressBar:UIProgressView? = {
+        var progress = UIProgressView()
+        progress.frame = CGRect(origin: CGPoint(x: 0, y: 64),
+                                   size: CGSize(width: Util.WINDOW_WIDTH, height: 5))
+        progress.progress = 0
+        progress.backgroundColor = UIColor.whiteColor()
+        progress.progressTintColor = UIColor(red: 250/255.0, green: 106/255.0,
+                                                blue: 0, alpha: 1)
+        return progress
+    }()
     
     override func loadView() {
         super.loadView()
         
-        let frame = CGRect(x: 0, y:0, width: Util.WINDOW_WIDTH, height: Util.WINDOW_HEIGHT+64)
-        
         self.view.backgroundColor = UIColor.whiteColor()
         
-        myWebView = WKWebView(frame: frame)
-        myWebView.alpha = 0
-        myWebView.navigationDelegate = self
-        self.view.addSubview(myWebView)
+
+        self.view.addSubview(myWebView!)
         
-        myWebView.addObserver(self, forKeyPath: "estimatedProgress", options: .New, context: nil)
+        myWebView!.addObserver(self, forKeyPath: "estimatedProgress", options: .New, context: nil)
         
-        myWebView.loadRequest(NSURLRequest(URL: NSURL(string: url)!))
+        myWebView!.loadRequest(NSURLRequest(URL: NSURL(string: url)!))
         
         let openUrl = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Action,
-            target: self, action: "openUrl")
+            target: self, action: #selector(WebViewController.openUrl))
         openUrl.title = "打开"
         self.navigationItem.rightBarButtonItem = openUrl
         
-        progressBar.frame = CGRect(origin: CGPoint(x: 0, y: 64),
-            size: CGSize(width: Util.WINDOW_WIDTH, height: 5))
-        progressBar.progress = 0
-        progressBar.backgroundColor = UIColor.whiteColor()
-        progressBar.progressTintColor = UIColor(red: 250/255.0, green: 106/255.0,
-            blue: 0, alpha: 1)
-        self.view.addSubview(progressBar)
+
+        self.view.addSubview(progressBar!)
     }
     
  
@@ -71,14 +78,14 @@ class WebViewController: UIViewController,WKNavigationDelegate {
     
     override func viewDidDisappear(animated: Bool) {
         
-        myWebView.removeObserver(self, forKeyPath: "estimatedProgress")
+        myWebView!.removeObserver(self, forKeyPath: "estimatedProgress")
         
-        progressBar.setProgress(0.0, animated: false)
+        progressBar!.setProgress(0.0, animated: false)
         
         NSURLCache.sharedURLCache().removeAllCachedResponses()
         
-        myWebView.alpha = 0
-        myWebView.removeFromSuperview()
+        myWebView!.alpha = 0
+        myWebView!.removeFromSuperview()
     }
     
     
@@ -87,16 +94,16 @@ class WebViewController: UIViewController,WKNavigationDelegate {
         
         if (keyPath == "estimatedProgress"){
             
-            if myWebView.estimatedProgress == 1{
+            if myWebView!.estimatedProgress == 1{
                 
-                progressBar.hidden = true
+                progressBar!.hidden = true
                 
                 UIView.animateWithDuration(0.5, animations: { () -> Void in
-                    self.myWebView.alpha = 1
+                    self.myWebView!.alpha = 1
                 })
             }
             
-            progressBar.setProgress(Float(myWebView.estimatedProgress), animated: true)
+            progressBar!.setProgress(Float(myWebView!.estimatedProgress), animated: true)
         }
     }
     

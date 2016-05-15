@@ -34,12 +34,12 @@ class TodayViewController: UIViewController,UITableViewDataSource,UITableViewDel
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.showLaunch(UIImage(named: "IMG_0123")!)
+        LaunchScreen.showLaunch(UIImage(named: "IMG_0123")!)
         
         requestData(getDate(false))
         
         topImage.userInteractionEnabled = true
-        topImage.addGestureRecognizer(UITapGestureRecognizer(target: self, action: "imageTap"))
+        topImage.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(TodayViewController.imageTap)))
         
         newsTableView.mj_header = MJRefreshNormalHeader(refreshingBlock: { () -> Void in
             self.requestData(self.getDate(false))
@@ -191,7 +191,7 @@ class TodayViewController: UIViewController,UITableViewDataSource,UITableViewDel
         newimage.alpha = 0
         newimage.userInteractionEnabled = true
         newimage.backgroundColor = UIColor.whiteColor()
-        newimage.addGestureRecognizer(UITapGestureRecognizer(target: self, action: "tapHide"))
+        newimage.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(TodayViewController.tapHide)))
         self.view.addSubview(newimage)
         
         UIView.animateWithDuration(1) { () -> Void in

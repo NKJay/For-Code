@@ -99,7 +99,7 @@ class PictureViewController: UICollectionViewController,WaterFallFlowLayoutDeleg
             }
             self.wt.reloadData()
             
-            self.page++
+            self.page += 1
             }) { (nsurl:NSURLSessionDataTask?, error:NSError) -> Void in
                 
         }
