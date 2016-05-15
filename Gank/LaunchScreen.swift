@@ -8,6 +8,7 @@
 
 import UIKit
 
+
 extension UIViewController{
     
     func showLaunch(image:UIImage){
@@ -59,14 +60,14 @@ extension UIViewController{
                 self.launchImage.frame = CGRectMake(-50,-50/9*16,
                     Util.WINDOW_WIDTH+100,Util.WINDOW_HEIGHT+100/9*16)
                 },completion:{
-                    (Bool completion) in
+                    (completion) in
                     if completion {
                         UIView.animateWithDuration(1,animations:{
                             self.launchImage.alpha = 0
                             self.launchTitle.alpha = 0
                             self.launchSmallTitle.alpha = 0
                             },completion:{
-                                (Bool completion) in
+                                (completion) in
                                 
                                 if completion {
                                     self.launchImage.removeFromSuperview()
@@ -76,7 +77,7 @@ extension UIViewController{
                         })
                     }
             })
-            NSTimer.scheduledTimerWithTimeInterval(3, target: self, selector: "hideLaunch", userInfo: nil, repeats: false)
+            NSTimer.scheduledTimerWithTimeInterval(3, target: self, selector: #selector(LaunchScreen.hideLaunch), userInfo: nil, repeats: false)
         }
         
         static func hideLaunch(){

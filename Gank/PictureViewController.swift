@@ -9,9 +9,9 @@
 import UIKit
 
 class PictureViewController: UICollectionViewController,WaterFallFlowLayoutDelegate,WaterFallFlowLayoutDatasource{
+
     
     var URL = "http://gank.io/api/data/福利/10/"
-    var imgArray = NSMutableArray()
     var page = 2
     var cell_X:[CGFloat] = [0,0,0]
     var cell_Y:[CGFloat] = [2,2,2]
@@ -99,7 +99,7 @@ class PictureViewController: UICollectionViewController,WaterFallFlowLayoutDeleg
             }
             self.wt.reloadData()
             
-            self.page++
+            self.page += 1
             }) { (nsurl:NSURLSessionDataTask?, error:NSError) -> Void in
                 
         }
@@ -130,48 +130,5 @@ class PictureViewController: UICollectionViewController,WaterFallFlowLayoutDeleg
         
         return view
     }
-    
-//    override func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int{
-//        return imgArray.count
-//    }
-//
-//    override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell{
-//        
-//        let cell = collectionView.dequeueReusableCellWithReuseIdentifier("collectioncell", forIndexPath: indexPath)
-//        
-//        let cellImage = self.imgArray[indexPath.item]
-//        
-//        let imageView = UIImageView(image: cellImage as? UIImage)
-//        
-//        imageView.frame = cell.bounds
-//        
-//        if indexPath.row < cellOrigin.count{
-//            let size = CGPointFromString(cellOrigin[indexPath.row] as! String)
-//            
-//            cell.frame.origin = CGPoint(x: size.x, y: size.y)
-//        }else{
-//        
-//        let col = indexPath.row % 3
-//        
-//        cell.frame.origin = CGPoint(x: cell_X[col], y: cell_Y[col])
-//        
-//        cellOrigin.addObject(NSStringFromCGPoint(cell.frame.origin))
-//        
-//        cell_Y[col] = cell_Y[col] + cell.bounds.height + 5
-//        }
-//        
-//        cell.contentView.addSubview(imageView)
-//        
-//        return cell
-//    }
-//    
-//    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
-//        
-//        let image = self.imgArray[indexPath.item]
-//        
-////        let size = self.imgSize(image.size.height, width: image.size.width)
-//        
-//        return CGSize(width: size.width, height: size.height)
-//    }
     
 }

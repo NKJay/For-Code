@@ -169,7 +169,7 @@ class TodayViewController: UIViewController,UITableViewDataSource,UITableViewDel
             
             day = dataformator.stringFromDate(yesterday)
             
-            i++
+            i += 1
         }else{
             
             dataformator.dateFormat = "yyyy/MM/dd"

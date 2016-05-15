@@ -70,7 +70,7 @@ class WaterFallFlowLayout: UIView{
     
     func getCellOrigin(){
         
-        for(var i = 0;i<col;i++ ){
+        for(var i = 0;i<col;i += 1 ){
             let newcell_X = self.WIDTH! / CGFloat(self.col) * CGFloat(i) + 5
             cell_X.append(newcell_X)
             
